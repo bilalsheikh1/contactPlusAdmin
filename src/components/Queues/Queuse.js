@@ -13,7 +13,7 @@ const layout = {
         span: 2,
     },
     wrapperCol: {
-        offset : 1,
+        offset : 2,
         span: 16,
     },
 };
@@ -251,7 +251,7 @@ const Outbound = () => {
                                     },
                                 ]}
                             >
-                                <Input size="large"  onChange = {(e) => {setQueueVar(e.target.value)}} />
+                                <Input size="large"  onChange = {(e) => {setSetQueueVar(e.target.value)}} />
                             </Form.Item>
 
                             <Form.Item
@@ -264,7 +264,7 @@ const Outbound = () => {
                                     },
                                 ]}
                             >
-                                <Input size="large"  onChange = {(e) => {setQueueVar(e.target.value)}} />
+                                <Input size="large"  onChange = {(e) => {setSetQueueentryVar(e.target.value)}} />
                             </Form.Item>
 
                             <Form.Item
