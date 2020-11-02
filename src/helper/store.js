@@ -9,6 +9,7 @@ import RoutesInbound from '../reducers/RoutesInbound';
 import IVR from '../reducers/IVR'
 import Queues from '../reducers/Queues'
 import Users from "../reducers/Users";
+import Extension from "../reducers/Extension";
 
 const rootReducer = combineReducers({
     user: profile,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
     IVR : IVR,
     Queues : Queues,
     Users : Users,
+    Extension : Extension,
 });
 
 const configureStore = () => {

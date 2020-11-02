@@ -14,7 +14,11 @@ function App() {
   return (
       <Router>
           {/*<Route path="/" component={Main} />*/}
-          <Route path="/" component={SideBar} />
+          {/*{*/}
+          {/*    localStorage.getItem("ACCESS_TOKEN") &&*/}
+                <Route path="/" component={Main}/>
+          {/*}*/}
+          {/*<Route path="/" component={SideBar}/>*/}
       </Router>
   );
 }

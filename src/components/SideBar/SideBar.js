@@ -22,6 +22,7 @@ import RoutesInbound from "../Routes/RoutesInbound"
 import RoutesOutbound from "../Routes/RoutesOutbound";
 import IVR from "../IVR/IVR"
 import Queues from '../Queues/Queuse'
+import Extension from "../extension/Extension";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -58,7 +59,7 @@ const SideBar = () => {
 
                     </Header>
 
-                    <Menu  defaultSelectedKeys={['1']}
+                    <Menu  defaultSelectedKeys={['0']}
                           theme={theme}
                           onClick={handleClick}
                           // defaultOpenKeys={['sub1']}
@@ -103,12 +104,16 @@ const SideBar = () => {
                             <Link to={"/Queues"}>Queues</Link>
                         </Menu.Item>
 
+                        <Menu.Item key="10" icon={<PieChartOutlined />} >
+                            <Link to={"/extension"}>Extension</Link>
+                        </Menu.Item>
+
                         <SubMenu key="sub3" icon={<UserOutlined />} title="Reports">
                             <Menu.Item key="10">CDR</Menu.Item>
                             <Menu.Item key="11">Login Report</Menu.Item>
                         </SubMenu>
 
-                        <Menu.Item key="1"  >
+                        <Menu.Item key=""  >
                             <CheckboBtn
                                 checked={theme === 'dark'}
                                 onChange={changeTheme}
@@ -120,19 +125,17 @@ const SideBar = () => {
                 </Sider>
 
                 <Switch>
-                    <Route exact path='/dashboard' component={Dashboard} />
-                    <Route path="/users" component={Users} />
-                    <Route path="/actionInbound" component={Inbound} />
-                    <Route path="/actionOutbound" component={Outbound} />
-                    <Route path="/actionBlended" component={Blended} />
-                    <Route path="/routesInbound" component={RoutesInbound} />
-                    <Route path="/routesOutbound" component={RoutesOutbound} />
-                    <Route path="/IVR" component={IVR} />
-                    <Route path="/Queues" component={Queues} />
-                    <Route path="/register" component={Register} />
-                    {/*<PrivateRoute path="/home" >*/}
-                    {/*    <Home />*/}
-                    {/*</PrivateRoute>*/}
+                    <PrivateRoute path='/dashboard' restricted={false}  exact component={Dashboard} />
+                    <PrivateRoute path="/users" restricted={true} component={Users} />
+                    <PrivateRoute path="/actionInbound" component={Inbound} />
+                    <PrivateRoute path="/actionOutbound" component={Outbound} />
+                    <PrivateRoute path="/actionBlended" component={Blended} />
+                    <PrivateRoute path="/routesInbound" component={RoutesInbound} />
+                    <PrivateRoute path="/routesOutbound" component={RoutesOutbound} />
+                    <PrivateRoute path="/IVR" component={IVR} />
+                    <PrivateRoute path="/Queues" component={Queues} />
+                    <PrivateRoute path="/extension" component={Extension} />
+                    <PrivateRoute path="/register" component={Register} />
                 </Switch>
             </Layout>
         </>

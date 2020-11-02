@@ -80,6 +80,7 @@ const Users = () => {
             console.log(users.Users)
             if(users.Users!=null && users.Users!="") {
                 dispatch(showData())
+                // setData([...data, {name , type , email , id }]);
                 // setData(data.push(users.Users.name , users.Users.email , users.Users.type , users.Users.id));
                 form.setFieldsValue({
                     name : setName(""),

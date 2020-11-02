@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {Breadcrumb, Button, Form, Input, Layout, Space, Table} from "antd";
-import {useDispatch} from "react-redux";
+import {Modal, Breadcrumb, Button, Form, Input, Layout, Select, Space, Table, Alert} from "antd";
+import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 import {CreateData, DeleteData, UpdateData} from "../../actions/Queues/Queuse";
+import {showData} from "../../actions/Queues/Queuse";
 
 
 
@@ -10,10 +11,10 @@ const { Column, ColumnGroup } = Table;
 const { Header, Content, Footer, Sider } = Layout;
 const layout = {
     labelCol: {
-        span: 2,
+        span: 4,
     },
     wrapperCol: {
-        offset : 2,
+        offset : 1,
         span: 16,
     },
 };
@@ -30,11 +31,11 @@ const validateMessages = {
 
 const Outbound = () => {
 
-    const [name , setName ] = useState("");
-    const [musicOnHold , setMusicOnHold ] =  useState("");
+    const[name , setName ] = useState("");
+    const[musicOnHold , setMusicOnHold ] =  useState("");
     const[announce , setAnnounce ] = useState("");
     const[context , setContext ] = useState("");
-    const[timeout , setTimeout ] = useState(0);
+    const[timeout , setTimeout ] = useState();
     const[ringInUse , setRingInUse ] = useState("");
     const[setInterfaceVar , setSetInterfaceVar ] = useState("");
     const[setQueueVar , setSetQueueVar ] = useState("");
@@ -60,44 +61,80 @@ const Outbound = () => {
     const[announce_Round_Seconds , setAnnounce_Round_Seconds ] = useState("");
     const[announce_HoldTime , setAnnounce_HoldTime ] = useState("");
     const[announce_Position , setAnnounce_Position ] = useState("");
-    const[announce_Position_Limit , setAnnounce_Position_Limit ] = useState(0);
+    const[announce_Position_Limit , setAnnounce_Position_Limit ] = useState();
     const[periodic_Announce , setPeriodic_announce ] = useState("");
     const[periodic_Announce_Frequency , setPeriodic_Announce_Frequency ] = useState("");
-    const[relative_Periodic_Announce , setRelative_Periodic_Announce ] = useState(0);
+    const[relative_Periodic_Announce , setRelative_Periodic_Announce ] = useState();
     const[random_Periodic_Announce, setRandom_Periodic_Announce ] = useState("");
-    const[retry , setRetry ] = useState(0);
-    const[wrapUpTime , setWrapUpTime ] = useState(0);
-    const[penaltyMembersLimit , setPenaltyMembersLimit ] = useState(0);
+    const[retry , setRetry ] = useState();
+    const[wrapUpTime , setWrapUpTime ] = useState();
+    const[penaltyMembersLimit , setPenaltyMembersLimit ] = useState();
     const[autofill , setAutofill ] = useState();
     const[monitor_Type , setMonitor_type ] = useState();
     const[autoPause , setAutoPause ] = useState();
     const[autoPauseDelay , setAutoPauseDelay ] = useState();
     const[autoPauseBusy , setAutoPauseBusy ] = useState();
     const[autoPauseUnavail , setAutoPauseUnavail ] = useState();
-    const[maxLen , setMaxLen ] = useState(0);
-    const[serviceLevel , setServiceLevel ] = useState(0);
+    const[maxLen , setMaxLen ] = useState();
+    const[serviceLevel , setServiceLevel ] = useState();
     const[strategy , setStrategy ] = useState();
     const[joinEmpty , setJoinEmpty ] = useState();
     const[leaveWhenEmpty , setLeaveWhenEmpty ] = useState();
     const[reportHoldTime , setReportHoldTime ] = useState();
-    const[memberDelay , setMemberDelay ] = useState(0);
-    const[weight , setWeight ] = useState(0);
+    const[memberDelay , setMemberDelay ] = useState();
+    const[weight , setWeight ] = useState();
     const[timeOutRestart , setTimeOutRestart ] = useState();
     const[defaultRule , setDefaultRule ] = useState();
     const[timeOutPriority , setTimeOutPriority ] = useState();
-
     const[btnName , setBtnName ] = useState("Submit");
     const [obj , setObj ] = useState([])
     const [data , setData] = useState([]);
+    // const [modelText , setModelText] = useState([]);
     const [form] = Form.useForm();
-
+    // const [visible , setVisible] = useState(false);
     const dispatch = useDispatch();
+    const queue = useSelector(state => state.Queues);
+    const [oldName , setOldName] = useState();
 
 
     useEffect(() => {
-        axios.get("https://reqres.in/api/users?page=2").then(response => {
-            setData(response.data.data)
-        })
+        if (queue.type === "showData")
+            setData(queue.Queues)
+        else if (queue.type === "update"){
+            if(queue.status == 1){
+                console.log(data.find( p => p.name == oldName && ( p.name = name, true )))
+                form.setFieldsValue({
+                    name : setName(""),
+                })
+                console.log(name);
+            }
+        }
+        else if (queue.type === "delete"){
+            if(queue.status == 1){
+                setData(data.filter(item => item.name !== name))
+                // console.log(data.filter(item =>item.name !== name));
+                console.log(data)
+            }
+        }
+        else if (queue.type === "createData"){
+            if(queue.Queues!=null && queue.Queues!="") {
+                // dispatch(showData())
+                setData([...data, {name}]);
+                // setData(data.push(queue.Queues.name))
+                // setData(data.push(users.Users.name , users.Users.email , users.Users.type , users.Users.id));
+                form.setFieldsValue({
+                    name : setName(""),
+                })
+            }
+        }
+    } ,[queue])
+
+    useEffect(() => {
+        console.log(data)
+    },[data])
+
+    useEffect(() => {
+        dispatch(showData())
     },[])
 
     const onFinish = (values) => {
@@ -106,20 +143,30 @@ const Outbound = () => {
     };
 
     const getDataByID = (record) => {
+        setName(record.name)
+        setOldName(record.name)
         // let records = dispatch(GetDataByID(record))
         // setFirstName(record.first_name)
         // setLastName(record.last_name)
         // setEmail(record.email)
-        // setBtnName("Update")
-        // form.setFieldsValue({
-        //     first_name : record.first_name,
-        //     last_name : record.last_name,
-        //     email : record.email,
-        // })
+        setBtnName("Update")
+        form.setFieldsValue({
+            name : record.name,
+        })
         // setObj({firstName : record.first_name , lastName : record.last_name , email : record.email , id : record.id })
     }
 
+    // const handleOk = () => {
+    //     setVisible(false)
+    // };
+
+    // const detail = (record) => {
+    //     setVisible(true)
+    //     setModelText("name " + record.name);
+    // }
+
     const deleteData = (record) => {
+        setName(record.name)
         dispatch(DeleteData(record))
     }
 
@@ -127,17 +174,24 @@ const Outbound = () => {
         if(btnName =="Submit")
         {
             // setObj({firstName : firstName , lastName : lastName , email : email  })
-            // dispatch(CreateData(obj))
+            let obj = {name : name , musiconhold : musicOnHold , announce : announce , context : context , timeout : timeout ,
+                ringinuse : ringInUse , setinterfacevar : setInterfaceVar , setqueuevar : setQueueVar , setqueueentryvar : setQueueentryVar ,
+                monitor_format : monitor_format , membermacro : memberMacro , membergosub : memberGoSub , queue_youarenext : queue_YouAreNext ,
+                queue_thereare : queue_ThereAre , queue_callswaiting : queue_CallsWaiting , queue_quantity1 : queue_Quantity1 , queue_quantity2 : queue_Quantity2 ,
+                queue_holdtime : queue_HoldTime , queue_minutes : queue_Minutes , queue_seconds : queue_Seconds , queue_Minute ,
+                queue_thankyou : queue_Thankyou , queue_callerannounce : queue_CallerAnnounce , queue_reporthold : queue_ReportHold , announce_frequency : announce_Frequency ,
+                announce_to_first_user : announce_To_First_User , min_announce_frequency : min_Announce_Frequency , announce_round_seconds : announce_Round_Seconds ,
+                announce_holdtime : announce_HoldTime , announce_position : announce_Position , announce_position_limit : announce_Position_Limit , periodic_announce : periodic_Announce ,
+                periodic_announce_frequency : periodic_Announce_Frequency , relative_periodic_announce : relative_Periodic_Announce , retry : retry , wrapuptime : wrapUpTime ,
+                penaltymemberslimit : penaltyMembersLimit , autofill : autofill , monitor_type : monitor_Type , autopause : monitor_Type , autopausedelay : autoPauseDelay ,
+                autopausebusy : autoPauseBusy , autopauseunavail : autoPauseUnavail , maxlen : maxLen , servicelevel : serviceLevel , strategy : strategy , joinempty : joinEmpty ,
+                leavewhenempty : leaveWhenEmpty , reportholdtime : reportHoldTime , memberdelay : memberDelay , weight : weight , timeoutrestart : timeOutRestart , defaultrule : defaultRule , timeoutpriority : timeOutPriority}
+            dispatch(CreateData(obj))
         }
         else
         {
+            let obj = {name : name , oldName : oldName};
             dispatch(UpdateData(obj))
-            setBtnName("Submit")
-            // form.setFieldsValue({
-            //     first_name : setFirstName(""),
-            //     last_name : setLastName(""),
-            //     email : setEmail(""),
-            // })
         }
     }
 
@@ -151,6 +205,34 @@ const Outbound = () => {
                         <Breadcrumb.Item>Queues</Breadcrumb.Item>
                         <Breadcrumb.Item>Queues</Breadcrumb.Item>
                     </Breadcrumb>
+                    {queue && queue.error && <Alert
+                        message={'Error'}
+                        description={queue.error}
+                        type={"error"}
+                        showIcon
+                        closable
+                    />}
+                    {queue && (queue.type == "createData") && <Alert
+                        message={'Success'}
+                        description={"Inserted"}
+                        type={"success"}
+                        showIcon
+                        closable
+                    />}
+                    {queue && (queue.type=="delete") && <Alert
+                        message={'Success'}
+                        description={"Deleted"}
+                        type={"success"}
+                        showIcon
+                        closable
+                    />}
+                    {queue && (queue.type=="update") && <Alert
+                        message={'Success'}
+                        description={"Updated"}
+                        type={"success"}
+                        showIcon
+                        closable
+                    />}
                     <div style={{ padding: 24, minHeight: 360 , background : '#fff' }}>
                         <Form {...layout} name="nest-messages" onFinish={onFinish} form={form} validateMessages={validateMessages}>
                             <Form.Item
@@ -181,7 +263,7 @@ const Outbound = () => {
                                 label="Announce"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -194,7 +276,7 @@ const Outbound = () => {
                                 label="Context"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -207,7 +289,7 @@ const Outbound = () => {
                                 label="TimeOut"
                                 rules={[
                                     {
-                                        type: 'text',
+                                        type : "number",
                                         required: false,
                                     },
                                 ]}
@@ -216,55 +298,108 @@ const Outbound = () => {
                             </Form.Item>
 
                             <Form.Item
-                                name = 'ringinuse'
-                                label="RingInUse"
-                                rules={[
-                                    {
-                                        type: 'text',
-                                        required: false,
-                                    },
-                                ]}
+                                name={"ringinuse"}
+                                label={"RingInUse"}
+                                rules={[{
+                                    required : false ,
+                                    message : "Please Select First"
+                                }]}
                             >
-                                <Input size="large"  onChange = {(e) => {setRingInUse(e.target.value)}} />
+                                <Select
+                                    showSearch
+                                    placeholder="Select a RingInUse"
+                                    optionFilterProp="children"
+                                    filterOption={(input, option) =>
+                                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                    onChange={(value) => {
+                                        setRingInUse(value);
+                                    }}
+                                >
+                                    <option>Select RingInUse</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </Select>
+
+                            </Form.Item>
+
+
+                            <Form.Item
+                                name={"setinterfacevar"}
+                                label={"setInterFaceVar"}
+                                rules={[{
+                                    required : false ,
+                                    message : "Please Select First"
+                                }]}
+                            >
+                                <Select
+                                    showSearch
+                                    placeholder="Select a setInterFaceVar"
+                                    optionFilterProp="children"
+                                    filterOption={(input, option) =>
+                                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                    onChange={(value) => {
+                                        setSetInterfaceVar(value);
+                                    }}
+                                >
+                                    <option>Select setInterFaceVar</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </Select>
+
                             </Form.Item>
 
                             <Form.Item
-                                name = 'setinterfacevar'
-                                label="setInterFaceVar"
-                                rules={[
-                                    {
-                                        type: 'text',
-                                        required: false,
-                                    },
-                                ]}
+                                name={"setqueuevar"}
+                                label={"SetQueueVar"}
+                                rules={[{
+                                    required : false ,
+                                    message : "Please Select First"
+                                }]}
                             >
-                                <Input size="large"  onChange = {(e) => {setSetInterfaceVar(e.target.value)}} />
+                                <Select
+                                    showSearch
+                                    placeholder="Select a SetQueueVar"
+                                    optionFilterProp="children"
+                                    filterOption={(input, option) =>
+                                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                    onChange={(value) => {
+                                        setSetQueueVar(value);
+                                    }}
+                                >
+                                    <option>Select SetQueueVar</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </Select>
+
                             </Form.Item>
 
                             <Form.Item
-                                name = 'setqueuevar'
-                                label="SetQueueVar"
-                                rules={[
-                                    {
-                                        type: 'text',
-                                        required: false,
-                                    },
-                                ]}
+                                name={"setqueueentryvar"}
+                                label={"SetQueueenTryVar"}
+                                rules={[{
+                                    required : false ,
+                                    message : "Please Select First"
+                                }]}
                             >
-                                <Input size="large"  onChange = {(e) => {setSetQueueVar(e.target.value)}} />
-                            </Form.Item>
+                                <Select
+                                    showSearch
+                                    placeholder="Select a SetQueueenTryVar"
+                                    optionFilterProp="children"
+                                    filterOption={(input, option) =>
+                                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                    onChange={(value) => {
+                                        setSetQueueentryVar(value);
+                                    }}
+                                >
+                                    <option>Select SetQueueenTryVar</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </Select>
 
-                            <Form.Item
-                                name = 'setqueueentryvar'
-                                label="SetQueueenTryVar"
-                                rules={[
-                                    {
-                                        type: 'text',
-                                        required: false,
-                                    },
-                                ]}
-                            >
-                                <Input size="large"  onChange = {(e) => {setSetQueueentryVar(e.target.value)}} />
                             </Form.Item>
 
                             <Form.Item
@@ -272,7 +407,7 @@ const Outbound = () => {
                                 label="MonitorFormat"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -285,7 +420,7 @@ const Outbound = () => {
                                 label="MemberMacro"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -298,7 +433,7 @@ const Outbound = () => {
                                 label="MemberGoSub"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -311,7 +446,7 @@ const Outbound = () => {
                                 label="QueueYouAreNext"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -324,7 +459,7 @@ const Outbound = () => {
                                 label="QueueThereAre"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -337,7 +472,7 @@ const Outbound = () => {
                                 label="QueueCallsWaiting"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -350,7 +485,7 @@ const Outbound = () => {
                                 label="QueueQuantity1"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -363,7 +498,7 @@ const Outbound = () => {
                                 label="QueueQuantity2"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -376,7 +511,7 @@ const Outbound = () => {
                                 label="QueueHoldTime"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -389,7 +524,7 @@ const Outbound = () => {
                                 label="QueueMinutes"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -402,7 +537,7 @@ const Outbound = () => {
                                 label="QueueMinute"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -415,7 +550,7 @@ const Outbound = () => {
                                 label="QueueSeconds"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -428,7 +563,7 @@ const Outbound = () => {
                                 label="QueueThankYou"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -441,7 +576,7 @@ const Outbound = () => {
                                 label="QueueCallerAnnounce"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -454,7 +589,7 @@ const Outbound = () => {
                                 label="QueueReportHold"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -467,7 +602,7 @@ const Outbound = () => {
                                 label="AnnounceFrequency"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -476,16 +611,29 @@ const Outbound = () => {
                             </Form.Item>
 
                             <Form.Item
-                                name = 'announce_to_first_user'
-                                label="AnnounceToFirstUser"
-                                rules={[
-                                    {
-                                        type: 'text',
-                                        required: false,
-                                    },
-                                ]}
+                                name={"announce_to_first_user"}
+                                label={"AnnounceToFirstUser"}
+                                rules={[{
+                                    required : false ,
+                                    message : "Please Select AnnounceToFirstUser"
+                                }]}
                             >
-                                <Input size="large"  onChange = {(e) => {setAnnounce_To_First_User(e.target.value)}} />
+                                <Select
+                                    showSearch
+                                    placeholder="Select a AnnounceToFirstUser"
+                                    optionFilterProp="children"
+                                    filterOption={(input, option) =>
+                                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                    onChange={(value) => {
+                                        setAnnounce_To_First_User(value);
+                                    }}
+                                >
+                                    <option>Select SetQueueVar</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </Select>
+
                             </Form.Item>
 
                             <Form.Item
@@ -493,7 +641,7 @@ const Outbound = () => {
                                 label="MinAnnounceFrequency"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -506,7 +654,7 @@ const Outbound = () => {
                                 label="AnnounceRoundSeconds"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -519,7 +667,7 @@ const Outbound = () => {
                                 label="AnnounceHoldTime"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -532,7 +680,7 @@ const Outbound = () => {
                                 label="AnnouncePosition"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -546,7 +694,7 @@ const Outbound = () => {
                                 label="AnnouncePositionLimit"
                                 rules={[
                                     {
-                                        type: 'text',
+                                        type : "number",
                                         required: false,
                                     },
                                 ]}
@@ -559,7 +707,7 @@ const Outbound = () => {
                                 label="PeriodicAnnounce"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -572,7 +720,7 @@ const Outbound = () => {
                                 label="PeriodicAnnounceFrequency"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -581,29 +729,55 @@ const Outbound = () => {
                             </Form.Item>
 
                             <Form.Item
-                                name = 'relative_periodic_announce'
-                                label="RelativePeriodicAnnounce"
-                                rules={[
-                                    {
-                                        type: 'text',
-                                        required: false,
-                                    },
-                                ]}
+                                name={"relative_periodic_announce"}
+                                label={"RelativePeriodicAnnounce"}
+                                rules={[{
+                                    required : false ,
+                                    message : "Please Select RelativePeriodicAnnounce"
+                                }]}
                             >
-                                <Input size="large"  onChange = {(e) => {setRelative_Periodic_Announce(e.target.value)}} />
+                                <Select
+                                    showSearch
+                                    placeholder="Select a RelativePeriodicAnnounce"
+                                    optionFilterProp="children"
+                                    filterOption={(input, option) =>
+                                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                    onChange={(value) => {
+                                        setRelative_Periodic_Announce(value);
+                                    }}
+                                >
+                                    <option>Select SetQueueVar</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </Select>
+
                             </Form.Item>
 
                             <Form.Item
-                                name = 'random_periodic_announce'
-                                label="RandomPeriodicAnnounce"
-                                rules={[
-                                    {
-                                        type: 'text',
-                                        required: false,
-                                    },
-                                ]}
+                                name={"random_periodic_announce"}
+                                label={"RandomPeriodicAnnounce"}
+                                rules={[{
+                                    required : false ,
+                                    message : "Please Select RandomPeriodicAnnounce"
+                                }]}
                             >
-                                <Input size="large"  onChange = {(e) => {setRandom_Periodic_Announce(e.target.value)}} />
+                                <Select
+                                    showSearch
+                                    placeholder="Select a RandomPeriodicAnnounce"
+                                    optionFilterProp="children"
+                                    filterOption={(input, option) =>
+                                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                    onChange={(value) => {
+                                        setRandom_Periodic_Announce(value);
+                                    }}
+                                >
+                                    <option>Select SetQueueVar</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </Select>
+
                             </Form.Item>
 
                             <Form.Item
@@ -611,7 +785,7 @@ const Outbound = () => {
                                 label="Retry"
                                 rules={[
                                     {
-                                        type: 'text',
+                                        type : "number",
                                         required: false,
                                     },
                                 ]}
@@ -624,7 +798,7 @@ const Outbound = () => {
                                 label="WrapupTime"
                                 rules={[
                                     {
-                                        type: 'text',
+                                        type : "number",
                                         required: false,
                                     },
                                 ]}
@@ -637,7 +811,7 @@ const Outbound = () => {
                                 label="PenaltyMembersLimit"
                                 rules={[
                                     {
-                                        type: 'text',
+                                        type : "number",
                                         required: false,
                                     },
                                 ]}
@@ -646,16 +820,29 @@ const Outbound = () => {
                             </Form.Item>
 
                             <Form.Item
-                                name = 'autofill'
-                                label="AutoFill"
-                                rules={[
-                                    {
-                                        type: 'text',
-                                        required: false,
-                                    },
-                                ]}
+                                name={"autofill"}
+                                label={"AutoFill"}
+                                rules={[{
+                                    required : false ,
+                                    message : "Please Select AutoFill"
+                                }]}
                             >
-                                <Input size="large"  onChange = {(e) => {setAutofill(e.target.value)}} />
+                                <Select
+                                    showSearch
+                                    placeholder="Select a AutoFill"
+                                    optionFilterProp="children"
+                                    filterOption={(input, option) =>
+                                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                    onChange={(value) => {
+                                        setAutofill(value);
+                                    }}
+                                >
+                                    <option>Select AutoFill</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </Select>
+
                             </Form.Item>
 
                             <Form.Item
@@ -663,7 +850,7 @@ const Outbound = () => {
                                 label="MonitorType"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -672,16 +859,29 @@ const Outbound = () => {
                             </Form.Item>
 
                             <Form.Item
-                                name = 'autopause'
-                                label="AutoPause"
-                                rules={[
-                                    {
-                                        type: 'text',
-                                        required: false,
-                                    },
-                                ]}
+                                name={"autopause"}
+                                label={"AutoPause"}
+                                rules={[{
+                                    required : false ,
+                                    message : "Please Select AutoFill"
+                                }]}
                             >
-                                <Input size="large"  onChange = {(e) => {setAutoPause(e.target.value)}} />
+                                <Select
+                                    showSearch
+                                    placeholder="Select a AutoPause"
+                                    optionFilterProp="children"
+                                    filterOption={(input, option) =>
+                                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                    onChange={(value) => {
+                                        setAutoPause(value);
+                                    }}
+                                >
+                                    <option>Select AutoPause</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </Select>
+
                             </Form.Item>
 
                             <Form.Item
@@ -689,7 +889,7 @@ const Outbound = () => {
                                 label="AutoPauseDelay"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -698,29 +898,55 @@ const Outbound = () => {
                             </Form.Item>
 
                             <Form.Item
-                                name = 'autopausebusy'
-                                label="AutoPauseBusy"
-                                rules={[
-                                    {
-                                        type: 'text',
-                                        required: false,
-                                    },
-                                ]}
+                                name={"autopausebusy"}
+                                label={"AutoPauseBusy"}
+                                rules={[{
+                                    required : false ,
+                                    message : "Please Select AutoFill"
+                                }]}
                             >
-                                <Input size="large"  onChange = {(e) => {setAutoPauseBusy(e.target.value)}} />
+                                <Select
+                                    showSearch
+                                    placeholder="Select a AutoPauseBusy"
+                                    optionFilterProp="children"
+                                    filterOption={(input, option) =>
+                                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                    onChange={(value) => {
+                                        setAutoPauseBusy(value);
+                                    }}
+                                >
+                                    <option>Select AutoPauseBusy</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </Select>
+
                             </Form.Item>
 
                             <Form.Item
-                                name = 'autopauseunavail'
-                                label="AutoPauseUnavail"
-                                rules={[
-                                    {
-                                        type: 'text',
-                                        required: false,
-                                    },
-                                ]}
+                                name={"autopauseunavail"}
+                                label={"AutoPauseUnavail"}
+                                rules={[{
+                                    required : false ,
+                                    message : "Please Select AutoPauseUnavail"
+                                }]}
                             >
-                                <Input size="large"  onChange = {(e) => {setAutoPauseUnavail(e.target.value)}} />
+                                <Select
+                                    showSearch
+                                    placeholder="Select a AutoPauseUnavail"
+                                    optionFilterProp="children"
+                                    filterOption={(input, option) =>
+                                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                    onChange={(value) => {
+                                        setAutoPauseUnavail(value);
+                                    }}
+                                >
+                                    <option>Select AutoPauseUnavail</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </Select>
+
                             </Form.Item>
 
                             <Form.Item
@@ -728,7 +954,7 @@ const Outbound = () => {
                                 label="Maxlen"
                                 rules={[
                                     {
-                                        type: 'text',
+                                        type : "number",
                                         required: false,
                                     },
                                 ]}
@@ -741,7 +967,7 @@ const Outbound = () => {
                                 label="ServiceLevel"
                                 rules={[
                                     {
-                                        type: 'text',
+                                        type : "number",
                                         required: false,
                                     },
                                 ]}
@@ -754,7 +980,7 @@ const Outbound = () => {
                                 label="Strategy"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -767,7 +993,7 @@ const Outbound = () => {
                                 label="JoinEmpty"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -780,7 +1006,7 @@ const Outbound = () => {
                                 label="LeaveWhenEmpty"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -789,16 +1015,29 @@ const Outbound = () => {
                             </Form.Item>
 
                             <Form.Item
-                                name = 'reportholdtime'
-                                label="reportholdtime"
-                                rules={[
-                                    {
-                                        type: 'text',
-                                        required: false,
-                                    },
-                                ]}
+                                name={"reportholdtime"}
+                                label={"reportholdtime"}
+                                rules={[{
+                                    required : false ,
+                                    message : "Please Select reportholdtime"
+                                }]}
                             >
-                                <Input size="large"  onChange = {(e) => {setReportHoldTime(e.target.value)}} />
+                                <Select
+                                    showSearch
+                                    placeholder="Select a reportholdtime"
+                                    optionFilterProp="children"
+                                    filterOption={(input, option) =>
+                                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                    onChange={(value) => {
+                                        setReportHoldTime(value);
+                                    }}
+                                >
+                                    <option>Select reportholdtime</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </Select>
+
                             </Form.Item>
 
                             <Form.Item
@@ -806,7 +1045,7 @@ const Outbound = () => {
                                 label="MemberDelay"
                                 rules={[
                                     {
-                                        type: 'text',
+                                        type : "number",
                                         required: false,
                                     },
                                 ]}
@@ -819,7 +1058,7 @@ const Outbound = () => {
                                 label="Weight"
                                 rules={[
                                     {
-                                        type: 'text',
+                                        type : "number",
                                         required: false,
                                     },
                                 ]}
@@ -828,16 +1067,29 @@ const Outbound = () => {
                             </Form.Item>
 
                             <Form.Item
-                                name = 'timeoutrestart'
-                                label="TimeOutRestart"
-                                rules={[
-                                    {
-                                        type: 'text',
-                                        required: false,
-                                    },
-                                ]}
+                                name={"timeoutrestart"}
+                                label={"TimeOutRestart"}
+                                rules={[{
+                                    required : false ,
+                                    message : "Please Select TimeOutRestart"
+                                }]}
                             >
-                                <Input size="large"  onChange = {(e) => {setTimeOutRestart(e.target.value)}} />
+                                <Select
+                                    showSearch
+                                    placeholder="Select a TimeOutRestart"
+                                    optionFilterProp="children"
+                                    filterOption={(input, option) =>
+                                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                    onChange={(value) => {
+                                        setTimeOutRestart(value);
+                                    }}
+                                >
+                                    <option>Select TimeOutRestart</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </Select>
+
                             </Form.Item>
 
                             <Form.Item
@@ -845,7 +1097,7 @@ const Outbound = () => {
                                 label="DefaultRule"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -858,7 +1110,7 @@ const Outbound = () => {
                                 label="TimeOutPriority"
                                 rules={[
                                     {
-                                        type: 'text',
+
                                         required: false,
                                     },
                                 ]}
@@ -879,20 +1131,14 @@ const Outbound = () => {
 
                         <Table dataSource={data} scroll={{ x: 1500, y: 300 }} >
 
-                            <ColumnGroup title="Name">
-                                <Column title="First Name" dataIndex="first_name" key="first_name" />
-                                <Column title="Last Name" dataIndex="last_name" key="last_name" />
-                            </ColumnGroup>
-
-                            <Column title="Email" dataIndex="email" key="email" />
-                            <Column title="ID" dataIndex="id" key="id" />
-
+                            <Column title="Name" dataIndex="name" key="name" />
                             <Column
                                 title="Action"
                                 key="action"
                                 render={(text, record) => (
                                     <Space size="middle">
-                                        <Button onClick={() => { getDataByID(record)}} >Update</Button>
+                                        {/*<Button onClick={() => {detail(record)}}>Detail</Button>*/}
+                                        <Button onClick={() => {getDataByID(record)}} >Update</Button>
                                         <Button onClick={() => {deleteData(record)}} >Delete</Button>
                                     </Space>
                                 )}
@@ -903,6 +1149,14 @@ const Outbound = () => {
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>Ant Design ©2020 Created By Bilal</Footer>
             </Layout>
+            {/*<Modal*/}
+            {/*    title="Detail Record"*/}
+            {/*    visible={visible}*/}
+            {/*    onOk={handleOk}*/}
+            {/*    onCancel={handleOk}*/}
+            {/*>*/}
+            {/*    <p>{modelText}</p>*/}
+            {/*</Modal>*/}
         </>
     )
 }

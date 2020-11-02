@@ -1,20 +1,15 @@
-import {Redirect, BrowserRouter as Route} from "react-router-dom";
+import {Redirect, Route} from "react-router-dom";
 import React  from 'react';
+import isLogin from "../auth";
 
-const PrivateRoute = ({childern , ...rest}) => {
+const PrivateRoute = ({ component : Component, ...rest }) => {
+    console.log(isLogin())
     return (
-      <Route
-          {...rest}
-          render ={({location}) =>
-              location.getItem("ACCESS_TOKEN") ? (childern) : (
-                  <Redirect
-                      to={{
-                          pathname: "/login",
-                          state: {from: location}
-                      }}
-                  />
-              )
-          }
+        <Route
+            {...rest}
+            render={ props =>
+            isLogin() ? <Component {...props} /> : <Redirect to="/login" />
+            }
         />
     );
 }

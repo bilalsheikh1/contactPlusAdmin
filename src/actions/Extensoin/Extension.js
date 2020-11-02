@@ -3,46 +3,12 @@ import * as axios from "axios";
 import React, {useState} from 'react';
 import apiClient from "../../axios/axios";
 
-
-// export const ActionCreator = {
-//     // logins
-// }
-
-// export  const GetDataByID =  (record) => (dispatch) => {
-//     console.log(dispatch(loading()).type);
-//     let token = "";
-//     console.log("GetData...");
-//     // console.log(record.id);
-//     // return function (dispatch , user) {
-//     const uri = "https://reqres.in/api/users/"+record.id;
-//     axios.post(uri).then(response => {
-//         // token = response.data.token;
-//         // if(token != "") {
-//         console.log("dispatched record is ")
-//         return dispatch(getData(record));
-//         // localStorage.setItem("ACCESS_TOKEN" , response.data.token);
-//         // }    `1
-//         // else
-//         //     dispatch(loginFail(user).status)
-//     })
-//
-//     function loading () {
-//         return {type : Types.LOADING }
-//     }
-//     function getData (record) {
-//         return {type : Types.GETDATABYID , payload : record , status : "true"}
-//     }
-//     function loginFail (user) {
-//         return {type : Types.LOGIN_FAILURE , payload : {user}, status : "false" }
-//     }
-// }
-
 export const showData = () => (dispatch) => {
     axios.defaults.withCredentials = true;
     apiClient.get('/sanctum/csrf-cookie').then(response => {
         if(response.status === 204 || response.status === 200)
         {
-            apiClient.get("/api/queue").then(response => {
+            apiClient.get("/api/extension").then(response => {
                 dispatch(showData(response.data))
                 console.log(response)
             })
@@ -58,7 +24,7 @@ export const UpdateData = (data) => (dispatch) => {
     apiClient.get('/sanctum/csrf-cookie').then(response => {
         if(response.status === 204 || response.status === 200)
         {
-            apiClient.put("/api/queue/"+data.oldName , { name : data.name}).then(response => {
+            apiClient.put("/api/extension/"+data.id , {context : data.context , exten : data.exten , priority : data.priority , app : data.app , appdata : data.appdata}).then(response => {
                 dispatch(updateData(response.data))
                 console.log(response)
             })
@@ -73,7 +39,7 @@ export const DeleteData = (data) => (dispatch) => {
     apiClient.get('/sanctum/csrf-cookie').then(response => {
         if(response.status === 204 || response.status === 200)
         {
-            apiClient.delete("/api/queue/"+data.name).then(response => {
+            apiClient.delete("/api/extension/"+data.id).then(response => {
                 console.log(response.data);
                 dispatch(deleteData(response.data))
             })
@@ -88,7 +54,7 @@ export const CreateData = (data) => (dispatch) => {
     console.log("create action...")
     apiClient.get('/sanctum/csrf-cookie').then(response => {
         if (response.status === 204 || response.status === 200) {
-            apiClient.post("/api/queue", {data: data}).then(response => {
+            apiClient.post("/api/extension", {context : data.context , exten : data.exten , priority : data.priority , app : data.app , appdata : data.appdata}).then(response => {
                 dispatch(createData(response.data))
             }).catch(error => {
                 dispatch(Error(error.response))

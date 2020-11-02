@@ -1,12 +1,12 @@
 import {Types} from "../constants/user.constants";
 
 const initState = {
-    Queues:  {
+    Extension:  {
         name : '',
         musicOnHold : '',
         announce : '',
         context : ''
-    // confirm_password : '',
+        // confirm_password : '',
     },
     formSubmitted : false ,
     error : '',
@@ -34,6 +34,7 @@ const reducer =  (state = initState , action) => {
                 type: "update",
             }
         case Types.CREATE :
+            console.log("created data is ")
             return {
                 ...state,
                 status: action.payload.status,
@@ -57,7 +58,7 @@ const reducer =  (state = initState , action) => {
         case Types.SHOWDATA :
             return {
                 ...state,
-                Queues: action.payload.data,
+                Extension: action.payload.data,
                 formSubmitted: false,
                 type: "showData"
             }

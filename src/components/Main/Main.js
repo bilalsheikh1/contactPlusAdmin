@@ -10,58 +10,49 @@ import Login from "../Login/Login";
 // import PrivateRoute from "../../Routes/PrivateRoute";
 import Home from "../Home/Home";
 import SideBar from "../SideBar/SideBar";
+import PrivateRoute from "../../Routes/PrivateRoute";
+import PublicRoute from "../../Routes/PublicRoute";
 
 
 
 const {Header} = Layout;
-
 function Main() {
+    let item = localStorage.getItem("loggedIn")
+    console.log("item is "+item)
     return (
-        <>
-            <Layout>
+                <>
+                    {(item== "" || item==null) &&
+                    <>
+                    <Layout>
+                        <Header>
+                            <div className="logo">
+                                <Image src="images/logo.png"/>
+                            </div>
 
-                <Header>
-                    <div className="logo"  >
-                        <Image src="images/logo.png"  />
-                    </div>
+                            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['100']}>
+                                <Menu.Item key="101">
+                                    <Link to="/login">Login</Link>
+                                </Menu.Item>
+                                <Menu.Item key="102">
+                                    <Link to="/register">Register</Link>
+                                </Menu.Item>
+                            </Menu>
+                        </Header>
 
-                    <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
-                        <Menu.Item key="1">
-                            <Link to="/login" >Login</Link>
-                        </Menu.Item>
-                        <Menu.Item key="2">
-                            <Link to="/register">Register</Link>
-                        </Menu.Item>
-                    </Menu>
-                </Header>
+                    </Layout>
 
-            </Layout>
-            <div>
-                <Switch>
-                    <Route exact path='/' component={Login} />
-                    <Route path="/login" component={Login} />
-                    <Route path="/register" component={Register} />
-
-                    {/*<PrivateRoute path="/home" >*/}
-                    {/*    <Redirect to='/dashboard' component={SideBar}/>*/}
-                    {/*</PrivateRoute>*/}
-                </Switch>
-            </div>
-        </>
+                        <Switch>
+                            <PublicRoute exact restricted={false} path='/' component={Login}/>
+                            <PublicRoute path="/login" restricted={false} component={Login}/>
+                            <PublicRoute path="/register" component={Register}/>
+                        </Switch>
+                     </>
+                    }
+                    {
+                        (item!="" && item!=null) && <SideBar />
+                    }
+                </>
     );
 }
-//
-// const PrivateRoute = ({component: Component, ...rest}) => {
-//     return (
-//
-//         // Show the component only when the user is logged in
-//         // Otherwise, redirect the user to /signin page
-//         <Route {...rest} render={props => (
-//             location.getItem("ACCESS_TOKEN") ?
-//                 <Component {...props} />
-//                 : <Redirect to="/signin" />
-//         )} />
-//     );
-// };
 
 export default Main;

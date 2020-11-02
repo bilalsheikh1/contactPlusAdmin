@@ -1,13 +1,14 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import  { withRouter, Route, Link ,Switch} from "react-router-dom";
 import {Menu, Form, Input, Button, Layout, Row, Col, Image, Breadcrumb} from "antd";
 import 'antd/dist/antd.css';
 import '../../App.css';
 import Register from "../Register/Register";
-import {useDispatch , connect } from "react-redux";
+import {useDispatch, connect, useSelector} from "react-redux";
 import userServices from '../../services/users.services'
 import {logins} from "../../actions/user.action";
 import { isPlainObject } from 'is-plain-object';
+import history from "../history/history";
 
 
 const {  Content , Footer } = Layout;
@@ -28,32 +29,24 @@ const tailLayout = {
     },
 };
 
-const Login = (props) =>{
+const Login = () =>{
 
     const dispatch = useDispatch();
     const [username , setUsername] = useState("");
     const [password , setPassword] = useState("");
 
-    const [data , setData] = useState();
+    const user = useSelector(state => state.user);
 
+    useEffect(() => {
+        if (user.type === "LoginSuccess") {
+            history.push('/dashboard')
+            window.location.reload(false);
+        }
 
-
-    // [user : {
-    //     username : "",
-    //         email : "",
-    //         password : "",
-    //         confirm_password: ""
-    // },
-    // validForm : false,
-    //     submitted : false]
+    } ,[user])
     const handleSubmit = () => {
-        // setData(username , password);
-        // if(username && password) {
-        //     let temp = [username , password];
-
-            let temp = { type : "LOGIN" , user : {username: username, password: password}};
-            dispatch(logins(temp));
-
+        let temp = { type : "LOGIN" , user : {username: username, password: password}};
+        dispatch(logins(temp));
     }
 
     // const [form] = Form.useForm();

@@ -14,25 +14,24 @@ export const logins =  ({user}) => (dispatch) => {
       console.log("Login...", user);
      axios.defaults.withCredentials = true;
       apiClient.get('/sanctum/csrf-cookie').then(response => {
-          console.log(response)
           apiClient.post('/login', {
               email: user.username,
               password: user.password
           }).then(response => {
               console.log(response)
-              // localStorage.setItem("loggedIn" , "true")
-          }).catch(error => console.log(error))
+              localStorage.setItem("loggedIn" , "true")
+              console.log(localStorage.getItem("loggedIn"));
+              dispatch(login(user))
+          }).catch(error => {
+              console.log(error)
+              dispatch(loginFail(user))
+          })
       })
 
-    function loading () {
-        return {type : Types.LOADING }
-    }
     function login (user) {
         return {type : Types.LOGIN , payload : {user} , status : "true"}
     }
     function loginFail (user) {
         return {type : Types.LOGIN_FAILURE , payload : {user}, status : "false" }
     }
-
-
 }

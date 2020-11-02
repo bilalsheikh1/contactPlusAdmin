@@ -3,11 +3,10 @@ import Main from "./components/Main/Main";
 import Dashboard from "./components/dashboard/dashboard";
 import SideBar from "./components/SideBar/SideBar";
 
-const auth = () => {
-    if(localStorage.getItem("ACCESS_TOKEN")!=null && localStorage.getItem("ACCESS_TOKEN")!="")
-        return (<SideBar />);
-    else
-        return (<Main />);
+const isLogin = () => {
+    if(localStorage.getItem("loggedIn")!=null && localStorage.getItem("loggedIn")!="")
+        return true;
+    return false;
 }
 
-export default auth
+export default isLogin
