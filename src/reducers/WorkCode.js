@@ -1,8 +1,8 @@
 import {Types} from "../constants/user.constants";
 
 const initState = {
-    systemSetting : {
-        theme : '',
+    WorkCode : {
+        name : '',
         id : ''
         // confirm_password : '',
     },
@@ -32,7 +32,7 @@ const reducer =  (state = initState , action) => {
         case Types.CREATE :
             return {
                 ...state,
-                status: action.payload,
+                WorkCode: action.payload,
                 formSubmitted: false ,
                 error: action.payload.error,
                 type: "createData"
@@ -53,9 +53,9 @@ const reducer =  (state = initState , action) => {
         case Types.SHOWDATA :
             return {
                 ...state,
-                systemSetting: action.payload.data[0],
+                WorkCode: action.payload.data,
                 formSubmitted: false,
-                type: "showTheme"
+                type: "showData"
             }
         case Types.ERROR :
             return {

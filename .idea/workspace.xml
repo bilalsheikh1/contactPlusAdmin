@@ -11,14 +11,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e3fd2a78-408d-48cf-8baa-22d3fc6890f5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/actions/Dashboard/Dashboard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/actions/PauseReason/PauseReason.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/actions/WorkCode/WorkCode.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/PauseReason/PauseReason.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/WorkCode/WorkCode.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reducers/PauseReason.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reducers/WorkCode.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes/PrivateRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/PrivateRoute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Main/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Main/Main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/SystemSetting/SystemSetting.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/SystemSetting/SystemSetting.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/Users/Users.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/Users/Users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/axios/axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/axios/axios.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Agent/Blended.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Agent/Blended.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Agent/Inbound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Agent/Inbound.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Agent/Outbound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Agent/Outbound.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/IVR/IVR.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/IVR/IVR.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Queues/Queuse.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Queues/Queuse.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Register/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Register/Register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Routes/RoutesInbound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Routes/RoutesInbound.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Routes/RoutesOutbound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Routes/RoutesOutbound.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/SideBar/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SideBar/SideBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/dashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SystemSetting/Logo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SystemSetting/Logo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/extension/Extension.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/extension/Extension.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/user/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user/users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/constants/user.constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/user.constants.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/helper/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helper/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducers/SystemSetting.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/SystemSetting.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducers/chnagePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/chnagePassword.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +65,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../ConfrenceAPI/ConDemoBranch/conferenceAPI" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../ConfrenceAdmin/demo branch/conferenceAdmin" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -98,7 +117,7 @@
       <workItem from="1603776362047" duration="16461000" />
       <workItem from="1603862606568" duration="12251000" />
       <workItem from="1603947989301" duration="10821000" />
-      <workItem from="1604295269722" duration="63028000" />
+      <workItem from="1604295269722" duration="86639000" />
     </task>
     <servers />
   </component>
@@ -126,10 +145,10 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="254" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1600.860@0.0.1600.860" timestamp="1603097311852" />
-    <state x="580" y="185" key="FileChooserDialogImpl" timestamp="1604482979646">
+    <state x="580" y="185" key="FileChooserDialogImpl" timestamp="1604576734092">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="580" y="185" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1604482979646" />
+    <state x="580" y="185" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1604576734092" />
     <state x="634" y="353" key="NewPhpFileDialog" timestamp="1603948388321">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -138,14 +157,18 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="406" y="40" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1600.860@0.0.1600.860" timestamp="1603950007750" />
-    <state x="456" y="195" width="672" height="677" key="run.anything.popup" timestamp="1604479010234">
+    <state x="507" y="163" width="585" height="534" key="find.popup" timestamp="1604556136750">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="456" y="195" width="672" height="677" key="run.anything.popup/0.0.1600.860@0.0.1600.860" timestamp="1604479010234" />
-    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup" timestamp="1604313485243">
+    <state x="507" y="163" width="585" height="534" key="find.popup/0.0.1600.860@0.0.1600.860" timestamp="1604556136750" />
+    <state x="456" y="195" width="672" height="677" key="run.anything.popup" timestamp="1604566818579">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup/0.0.1600.860@0.0.1600.860" timestamp="1604313485243" />
+    <state x="456" y="195" width="672" height="677" key="run.anything.popup/0.0.1600.860@0.0.1600.860" timestamp="1604566818579" />
+    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup" timestamp="1604562532127">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup/0.0.1600.860@0.0.1600.860" timestamp="1604562532127" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

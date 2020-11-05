@@ -1,8 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {Breadcrumb, Button, Form, Input, Layout, Space, Table} from "antd";
+import {Breadcrumb, Button, Form, Input, Layout, Menu, Space, Table} from "antd";
 import {useDispatch} from "react-redux";
 import axios from "axios";
 import {CreateData, DeleteData, UpdateData} from "../../actions/Routes/Outbound";
+import SubMenu from "antd/es/menu/SubMenu";
+import {Link} from "react-router-dom";
+import {userLogout} from "../../actions/logout/logout";
+import {UserOutlined} from "@ant-design/icons";
 
 
 const { Column, ColumnGroup } = Table;
@@ -26,6 +30,7 @@ const validateMessages = {
         range: '${label} must be between ${min} and ${max}',
     },
 };
+const rightStyle = {position: 'absolute', top: 0, right: 0}
 
 const RoutesOutbound = () => {
 
@@ -88,11 +93,22 @@ const RoutesOutbound = () => {
         }
     }
 
-
+    const logout = () => {
+        dispatch(userLogout())
+    }
     return (
         <>
             <Layout className="site-layout">
-                <Header className="site-layout-background" style={{ padding: 0 }} />
+                <Header  style={{ padding: 0 }} >
+                    <Menu selectable={false} mode='horizontal' style={rightStyle} theme={"dark"}>
+                        <SubMenu key="sub2" icon={<UserOutlined />} title="User">
+                            <Menu.Item key="20">
+                                <Link to={"/changePassword"}>Change Password</Link>
+                            </Menu.Item>
+                            <Menu.Item key="21" onClick={logout}>Logout</Menu.Item>
+                        </SubMenu>
+                    </Menu>
+                </Header>
                 <Content style={{ margin: '0 16px' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item>Routes</Breadcrumb.Item>

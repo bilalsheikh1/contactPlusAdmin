@@ -1,8 +1,8 @@
 import {Types} from "../constants/user.constants";
 
 const initState = {
-    systemSetting : {
-        theme : '',
+    PauseReason : {
+        name : '',
         id : ''
         // confirm_password : '',
     },
@@ -15,13 +15,7 @@ const initState = {
 
 const reducer =  (state = initState , action) => {
     switch (action.type){
-        // case Types.GETDATABYID :
-        //     return {
-        //         ...state,
-        //         RoutesOutbound: action.payload.RoutesOutbound,
-        //         status : action.status,
-        //         formSubmitted : false
-        //     }
+
         case Types.UPDATE :
             return {
                 ...state,
@@ -32,7 +26,7 @@ const reducer =  (state = initState , action) => {
         case Types.CREATE :
             return {
                 ...state,
-                status: action.payload,
+                PauseReason: action.payload,
                 formSubmitted: false ,
                 error: action.payload.error,
                 type: "createData"
@@ -53,9 +47,9 @@ const reducer =  (state = initState , action) => {
         case Types.SHOWDATA :
             return {
                 ...state,
-                systemSetting: action.payload.data[0],
+                PauseReason: action.payload.data,
                 formSubmitted: false,
-                type: "showTheme"
+                type: "showData"
             }
         case Types.ERROR :
             return {

@@ -23,12 +23,14 @@ import RoutesOutbound from "../Routes/RoutesOutbound";
 import IVR from "../IVR/IVR"
 import Queues from '../Queues/Queuse'
 import Extension from "../extension/Extension";
-import {changeThemes, showData} from '../../actions/SystemSetting/SystemSetting'
+import {changeThemes, showTheme} from '../../actions/SystemSetting/SystemSetting'
 import {Theme,themeUpdate} from "../../helper/GlobalThemeColor";
 import {useDispatch, useSelector} from "react-redux";
 import SystemSetting from "../../reducers/SystemSetting";
 import Logo from "../SystemSetting/Logo";
 import changePassword from "../changePassword/changePassword";
+import WorkCode from "../WorkCode/WorkCode";
+import PauseReason from "../PauseReason/PauseReason";
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -47,9 +49,10 @@ const SideBar = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(systemSetting.type === 'showData') {
-            setTheme(systemSetting.systemSetting.theme)
-            setThemeID(systemSetting.systemSetting.id)
+        console.log("first time")
+        if(systemSetting.type === 'showTheme') {
+            // setTheme(systemSetting.systemSetting.theme)
+            // setThemeID(systemSetting.systemSetting.id)
         }
         if(systemSetting.status ==1)
         {
@@ -59,7 +62,7 @@ const SideBar = () => {
     },[systemSetting])
 
     useEffect(() => {
-        dispatch(showData())
+        // dispatch(showTheme())
     },[])
 
     const onCollapsed= (collapseds ) => {
@@ -143,13 +146,21 @@ const SideBar = () => {
                             <Link to={"/extension"}>Extension</Link>
                         </Menu.Item>
 
+                        <Menu.Item key="11" icon={<PieChartOutlined />} >
+                            <Link to={"/workcode"}>WorkCode</Link>
+                        </Menu.Item>
+
+                        <Menu.Item key="11" icon={<PieChartOutlined />} >
+                            <Link to={"/pauseReason"}>Pause Reason</Link>
+                        </Menu.Item>
+
                         <SubMenu key="sub3" icon={<UserOutlined />} title="Reports">
-                            <Menu.Item key="10">CDR</Menu.Item>
-                            <Menu.Item key="11">Login Report</Menu.Item>
+                            <Menu.Item key="12">CDR</Menu.Item>
+                            <Menu.Item key="13">Login Report</Menu.Item>
                         </SubMenu>
 
                         <SubMenu key="sub4" icon={<PieChartOutlined />} title="System Setting">
-                            <Menu.Item key="12">
+                            <Menu.Item key="14">
                                 <CheckboBtn
                                     checked={theme}
                                     onChange={changeTheme}
@@ -157,7 +168,7 @@ const SideBar = () => {
                                     unCheckedChildren={(theme === 'dark') ? 'light' : 'dark'}
                                 />
                             </Menu.Item>
-                            <Menu.Item key="13">
+                            <Menu.Item key="15">
                                 <Link to={"logo"} >Change Logo</Link>
                             </Menu.Item>
                         </SubMenu>
@@ -182,6 +193,8 @@ const SideBar = () => {
                     <PrivateRoute path="/register" component={Register} />
                     <PrivateRoute path="/logo" component={Logo} />
                     <PrivateRoute path="/changePassword" component={changePassword} />
+                    <PrivateRoute path="/workcode" component={WorkCode} />
+                    <PrivateRoute path="/pauseReason" component={PauseReason} />
                 </Switch>
             </Layout>
         </>

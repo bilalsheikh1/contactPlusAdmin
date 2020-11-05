@@ -1,10 +1,14 @@
 import React, {useEffect, useState} from "react";
-import {Breadcrumb, Button, Form, Input, Layout, Select, Space, Table ,Alert } from "antd";
+import {Breadcrumb, Button, Form, Input, Layout, Select, Space, Table, Alert, Menu} from "antd";
 import {useDispatch,  useSelector} from "react-redux";
 import axios from "axios";
 import {CreateData, DeleteData, showData, UpdateData} from "../../actions/Users/Users";
 import apiClient from "../../axios/axios";
-
+import SubMenu from "antd/es/menu/SubMenu";
+import {UserOutlined} from "@ant-design/icons";
+import {Link} from "react-router-dom";
+import {userLogout} from "../../actions/logout/logout";
+import {showData as queueData} from '../../actions/Queues/Queuse'
 
 const { Column, ColumnGroup } = Table;
 const { Header, Content, Footer, Sider } = Layout;
@@ -34,13 +38,17 @@ const tailLayout = {
         span: 16 ,
     },
 };
+const rightStyle = {position: 'absolute', top: 0, right: 0}
 
 const Users = () => {
 
     const [id , setId] = useState();
     const [name , setName] = useState();
+    const [username , setUsername] = useState();
     const [email , setEmail] = useState();
     const [type , setType] = useState('');
+    const [queue , setQueue] = useState([]);
+    const [queueValue , setQueueValue] = useState([]);
     const [password , setPassword] = useState();
     const [confirmPassword , setConfirmPassword ] = useState();
     const [authUserName , setAuthUserName ] = useState();
@@ -52,6 +60,13 @@ const Users = () => {
 
     const dispatch = useDispatch();
     const users = useSelector(state => state.Users)
+    const queuesData = useSelector(state => state.Queues)
+
+    useEffect(() => {
+        console.log(queuesData)
+        if(queuesData.type === "showData")
+            setQueue(queuesData.Queues)
+    },[queuesData])
 
     useEffect(() => {
         if(users.type === "showData")
@@ -133,22 +148,42 @@ const Users = () => {
     const handleSubmitAction = () => {
         if(btnName =="Submit")
         {
-            let object = {name : name , email : email , type : type , authUserName : authUserName , authPassword : authPassword , password : password , confirmPassword : confirmPassword  };
+            let object = { username : username , name : name , email : email , type : type , authUserName : authUserName , authPassword : authPassword , password : password , confirmPassword : confirmPassword , queue : queueValue };
             setObj({name : name , email : email , type : type , password : password , confirmPassword : confirmPassword  })
             dispatch(CreateData(object))
         }
         else
         {
-            let object = {name : name , email : email , type : type , id : id };
+            let object = {username : username , name : name , email : email , type : type , id : id , queue : queueValue };
             dispatch(UpdateData(object))
             setBtnName("Submit")
         }
     }
+    const logout = () => {
+        dispatch(userLogout())
+    }
+
+    useEffect(() => {
+        if(type === "Inbound" || type === "Brended")
+        {
+            dispatch(queueData())
+        }
+    } , [type])
+
 
     return (
         <>
             <Layout className="site-layout">
-                <Header className="site-layout-background" style={{ padding: 0 }} />
+                <Header  style={{ padding: 0 }} >
+                    <Menu selectable={false} mode='horizontal' style={rightStyle} theme={"dark"}>
+                        <SubMenu key="sub2" icon={<UserOutlined />} title="User">
+                            <Menu.Item key="20">
+                                <Link to={"/changePassword"}>Change Password</Link>
+                            </Menu.Item>
+                            <Menu.Item key="21" onClick={logout}>Logout</Menu.Item>
+                        </SubMenu>
+                    </Menu>
+                </Header>
                 <Content style={{ margin: '0 16px' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item>User</Breadcrumb.Item>
@@ -172,12 +207,24 @@ const Users = () => {
                         <Form name={"register"}  {...layout} initialValues={{remember: true,}} form={form} >
                             <Form.Item
                                 name={"name"}
-                                label={"User Name"}
+                                label={"Name"}
                                 rules={[{
                                     required : true ,
                                     message : "Please Enter Name First"
                                 }]}
                                 onChange={(e) => {setName(e.target.value)}}
+                            >
+                                <Input />
+                            </Form.Item>
+
+                            <Form.Item
+                                name={"username"}
+                                label={"User Name"}
+                                rules={[{
+                                    required : true ,
+                                    message : "Please Enter Name First"
+                                }]}
+                                onChange={(e) => {setUsername(e.target.value)}}
                             >
                                 <Input />
                             </Form.Item>
@@ -256,6 +303,34 @@ const Users = () => {
                                     <Input.Password/>
                                 </Form.Item>
                             </>
+                            }
+                            {(type === 'Inbound') || (type === 'Brended') &&
+                            <Form.Item
+                                name={"queue"}
+                                label={"Queue"}
+                                rules={[{
+                                    required: true,
+                                    message: "Please Select Queue First"
+                                }]}
+                            >
+                                <Select
+                                    showSearch
+                                    placeholder="Select a Queue"
+                                    optionFilterProp="children"
+                                    filterOption={(input, option) =>
+                                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                    onChange={(value) => {
+                                        setQueueValue(value);
+                                    }}
+                                >
+                                    <option>Select Queue Type</option>
+                                    {queue.map( (i) => {
+                                        return [<option value={i.id}>{i.name}</option>]
+                                    } )}
+                                </Select>
+
+                            </Form.Item>
                             }
                             <Form.Item
                                 label="Password"

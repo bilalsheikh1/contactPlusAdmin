@@ -1,8 +1,12 @@
 import React, {useState} from "react";
-import {Alert, Breadcrumb, Button, Form, Input, Layout, Modal, Select, Space, Table, Upload} from "antd";
+import {Alert, Breadcrumb, Button, Form, Input, Layout, Menu, Modal, Select, Space, Table, Upload} from "antd";
 import { PlusOutlined } from '@ant-design/icons';
 import {useDispatch} from "react-redux";
 import {updateLogo} from "../../actions/logo/logo";
+import SubMenu from "antd/es/menu/SubMenu";
+import {Link} from "react-router-dom";
+import {userLogout} from "../../actions/logout/logout";
+import {UserOutlined} from "@ant-design/icons";
 
 
 const { Column, ColumnGroup } = Table;
@@ -41,6 +45,7 @@ function getBase64(file) {
         reader.onerror = error => reject(error);
     });
 }
+const rightStyle = {position: 'absolute', top: 0, right: 0}
 
 const Logo = () =>
 {
@@ -87,11 +92,22 @@ const Logo = () =>
             <div style={{ marginTop: 8 }}>Upload</div>
         </div>
     );
-
+    const logout = () => {
+        dispatch(userLogout())
+    }
     return (
         <>
             <Layout className="site-layout">
-                <Header className="site-layout-background" style={{ padding: 0 }} />
+                <Header  style={{ padding: 0 }} >
+                    <Menu selectable={false} mode='horizontal' style={rightStyle} theme={"dark"}>
+                        <SubMenu key="sub2" icon={<UserOutlined />} title="User">
+                            <Menu.Item key="20">
+                                <Link to={"/changePassword"}>Change Password</Link>
+                            </Menu.Item>
+                            <Menu.Item key="21" onClick={logout}>Logout</Menu.Item>
+                        </SubMenu>
+                    </Menu>
+                </Header>
                 <Content style={{ margin: '0 16px' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item>System Setting</Breadcrumb.Item>

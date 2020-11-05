@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {Breadcrumb, Layout, Table, Form, Button, InputNumber, Input, Space, Menu} from "antd";
+import {Breadcrumb, Layout, Table, Form, Button, InputNumber, Input, Space, Alert, Menu} from "antd";
 import axios from "axios";
-import {useDispatch} from "react-redux";
-import {CreateData, DeleteData, GetDataByID, UpdateData} from "../../actions/Routes/Inbound";
+import {useDispatch, useSelector} from "react-redux";
+import {CreateData, DeleteData, showData, UpdateData} from "../../actions/PauseReason/PauseReason";
+import {userLogout} from "../../actions/logout/logout";
 import SubMenu from "antd/es/menu/SubMenu";
 import {Link} from "react-router-dom";
-import {userLogout} from "../../actions/logout/logout";
 import {UserOutlined} from "@ant-design/icons";
-
 
 const { Column, ColumnGroup } = Table;
 const { Header, Content, Footer, Sider } = Layout;
@@ -32,24 +31,62 @@ const validateMessages = {
 };
 const rightStyle = {position: 'absolute', top: 0, right: 0}
 
-const RoutesInbound = () => {
+const PauseReason = () => {
 
-    const [firstName , setFirstName ] = useState("");
-    const [lastName , setLastName ] =  useState("");
-    const[email , setEmail ] = useState("");
-    const[password , setPassword ] = useState("");
-    const[btnName , setBtnName ] = useState("Submit");
+    const [name , setName ] =  useState();
+    const [id , setID ] = useState();
+    const [btnName , setBtnName ] = useState("Submit");
     const [obj , setObj ] = useState([])
     const [data , setData] = useState([]);
     const [form] = Form.useForm();
 
     const dispatch = useDispatch();
+    const pauseReason = useSelector(state => state.PauseReason);
 
     useEffect(() => {
-        axios.get("https://reqres.in/api/users?page=2").then(response => {
-            setData(response.data.data)
-        })
+        console.log(pauseReason.PauseReason)
+        if(pauseReason.type === "showData")
+            setData(pauseReason.PauseReason)
+
+        else if(pauseReason.type === "createData"){
+            if(pauseReason.PauseReason!="") {
+                dispatch(showData())
+                // setData({...data} , workCode.WorkCode)
+                // data.push(workCode.WorkCode)
+                form.setFieldsValue({
+                    name : setName(""),
+                })
+            }
+        }
+        else if (pauseReason.type === "update"){
+            if(pauseReason.status == 1){
+                console.log(name)
+                data.find( p => p.id == id && ( p.name = name, true )) ;
+                form.setFieldsValue({
+                    name : setName(""),
+                })
+                setBtnName("Submit")
+            }
+        }
+        else if (pauseReason.type === "delete"){
+            if(pauseReason.status == 1){
+                console.log("delete")
+                // let index = data.findIndex(x => x.id == id);
+                console.log(id)
+                setData(data.filter(item => item.id !== id))
+                console.log(data)
+            }
+        }
+    },[pauseReason])
+
+
+    useEffect(() => {
+        dispatch(showData())
     },[])
+
+    const logout = () => {
+        dispatch(userLogout())
+    }
 
     const onFinish = (values) => {
         console.log(values);
@@ -58,42 +95,36 @@ const RoutesInbound = () => {
 
     const getDataByID = (record) => {
         // let records = dispatch(GetDataByID(record))
-        setFirstName(record.first_name)
-        setLastName(record.last_name)
-        setEmail(record.email)
+        setName(record.name)
+        setID(record.id)
         setBtnName("Update")
         form.setFieldsValue({
-            first_name : record.first_name,
-            last_name : record.last_name,
-            email : record.email,
+            name : record.name,
         })
-        setObj({firstName : record.first_name , lastName : record.last_name , email : record.email , id : record.id })
+        setObj({name : record.name ,id : record.id })
     }
 
     const deleteData = (record) => {
+        setID(record.id)
         dispatch(DeleteData(record))
     }
 
     const handleSubmitAction = () => {
         if(btnName =="Submit")
         {
-            setObj({firstName : firstName , lastName : lastName , email : email  })
+            setObj({name : name })
+            let obj = {name : name };
+            console.log(name)
             dispatch(CreateData(obj))
         }
         else
         {
+            let obj = {name : name , id : id};
+            console.log(name)
             dispatch(UpdateData(obj))
-            setBtnName("Submit")
-            form.setFieldsValue({
-                first_name : setFirstName(""),
-                last_name : setLastName(""),
-                email : setEmail(""),
-            })
         }
     }
-    const logout = () => {
-        dispatch(userLogout())
-    }
+
     return (
         <>
             <Layout className="site-layout">
@@ -109,50 +140,43 @@ const RoutesInbound = () => {
                 </Header>
                 <Content style={{ margin: '0 16px' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
-                        <Breadcrumb.Item>Routes</Breadcrumb.Item>
-                        <Breadcrumb.Item>Inbound</Breadcrumb.Item>
+                        <Breadcrumb.Item>Admin</Breadcrumb.Item>
+                        <Breadcrumb.Item>Pause Reason</Breadcrumb.Item>
                     </Breadcrumb>
+                    {pauseReason && pauseReason.error && <Alert
+                        message={'Error'}
+                        description={pauseReason.error}
+                        type={"error"}
+                        showIcon
+                        closable
+                    />}
+                    {pauseReason && (pauseReason.type=="createData") && <Alert
+                        message={'Success'}
+                        description={"Inserted"}
+                        type={"success"}
+                        showIcon
+                        closable
+                    />}
+                    {pauseReason && (pauseReason.type=="update") && <Alert
+                        message={'Success'}
+                        description={"Updated"}
+                        type={"success"}
+                        showIcon
+                        closable
+                    />}
                     <div style={{ padding: 24, minHeight: 360 , background : '#fff' }}>
+
                         <Form {...layout} name="nest-messages" onFinish={onFinish} form={form} validateMessages={validateMessages}>
                             <Form.Item
-                                name='first_name'
-                                label="first_name"
+                                name='name'
+                                label="Name"
                                 rules={[
                                     {
                                         required: true,
                                     },
                                 ]}
                             >
-                                <Input size="large" onChange = {(e) => {setFirstName(e.target.value)}} />
-                            </Form.Item>
-                            <Form.Item
-                                name= 'last_name'
-                                label="last_name"
-                                rules={[
-                                    {
-                                        required: true,
-                                    },
-                                ]}
-                                initialValue={lastName}
-                            >
-                                <Input size="large" onChange = {(e) => {setLastName(e.target.value)}} />
-                            </Form.Item>
-
-                            <Form.Item
-                                name = 'email'
-                                label="Email"
-                                rules={[
-                                    {
-                                        type: 'email',
-                                        required: true,
-                                    },
-                                ]}
-                            >
-                                <Input size="large"  onChange = {(e) => {setEmail(e.target.value)}} />
-                            </Form.Item>
-
-                            <Form.Item name={['user', 'password']} label="password" initialValue={password}>
-                                <Input size="large" />
+                                <Input size="large" onChange = {(e) => {setName(e.target.value)}} />
                             </Form.Item>
 
                             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 3 }}>
@@ -164,14 +188,8 @@ const RoutesInbound = () => {
 
                         <Table dataSource={data} scroll={{ x: 1500, y: 300 }} >
 
-                            <ColumnGroup title="Name">
-                                <Column title="First Name" dataIndex="first_name" key="first_name" />
-                                <Column title="Last Name" dataIndex="last_name" key="last_name" />
-                            </ColumnGroup>
-
-                            <Column title="Email" dataIndex="email" key="email" />
                             <Column title="ID" dataIndex="id" key="id" />
-
+                            <Column title="Name" dataIndex="name" key="name" />
                             <Column
                                 title="Action"
                                 key="action"
@@ -192,4 +210,4 @@ const RoutesInbound = () => {
     );
 }
 
-export default RoutesInbound;
+export default PauseReason;

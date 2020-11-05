@@ -3,7 +3,7 @@ import * as axios from "axios";
 import React, {useState} from 'react';
 import apiClient from "../../axios/axios";
 
-export const showData = () => (dispatch) => {
+export const showTheme = () => (dispatch) => {
     axios.defaults.withCredentials = true;
     apiClient.get('/sanctum/csrf-cookie').then(response => {
         if(response.status === 204 || response.status === 200)

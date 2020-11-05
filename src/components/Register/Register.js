@@ -22,6 +22,7 @@ const tailLayout = {
 };
 
 const {Content , Footer} = Layout;
+
 const Register = () => {
     const dispatch = useDispatch();
 

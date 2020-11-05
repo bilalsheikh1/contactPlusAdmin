@@ -25,6 +25,7 @@ const reducer =  (state = initState , action) => {
                 formSubmitted: false,
                 type: "update",
             }
+
         case Types.ERROR :
             return {
                 ...state,

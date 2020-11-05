@@ -1,10 +1,14 @@
 
 import React, {useEffect, useState} from "react";
-import {Breadcrumb, Button, Form, Input, Layout, Select, Space, Table, Alert, InputNumber} from "antd";
+import {Breadcrumb, Button, Form, Input, Layout, Select, Space, Table, Alert, InputNumber, Menu} from "antd";
 import {useDispatch, connect, useSelector} from "react-redux";
 import axios from "axios";
 import {CreateData, DeleteData, showData, UpdateData} from "../../actions/Extensoin/Extension";
 import apiClient from "../../axios/axios";
+import {userLogout} from "../../actions/logout/logout";
+import SubMenu from "antd/es/menu/SubMenu";
+import {Link} from "react-router-dom";
+import {UserOutlined} from "@ant-design/icons";
 
 
 const { Column, ColumnGroup } = Table;
@@ -35,6 +39,7 @@ const tailLayout = {
         span: 16 ,
     },
 };
+const rightStyle = {position: 'absolute', top: 0, right: 0}
 
 const Extension = () => {
 
@@ -149,11 +154,23 @@ const Extension = () => {
             setBtnName("Submit")
         }
     }
+    const logout = () => {
+        dispatch(userLogout())
+    }
 
     return (
         <>
             <Layout className="site-layout">
-                <Header className="site-layout-background" style={{ padding: 0 }} />
+                <Header  style={{ padding: 0 }} >
+                    <Menu selectable={false} mode='horizontal' style={rightStyle} theme={"dark"}>
+                        <SubMenu key="sub2" icon={<UserOutlined />} title="User">
+                            <Menu.Item key="20">
+                                <Link to={"/changePassword"}>Change Password</Link>
+                            </Menu.Item>
+                            <Menu.Item key="21" onClick={logout}>Logout</Menu.Item>
+                        </SubMenu>
+                    </Menu>
+                </Header>
                 <Content style={{ margin: '0 16px' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item>User</Breadcrumb.Item>
