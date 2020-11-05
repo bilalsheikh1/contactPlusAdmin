@@ -18,7 +18,6 @@ import PublicRoute from "../../Routes/PublicRoute";
 const {Header} = Layout;
 function Main() {
     let item = localStorage.getItem("loggedIn")
-    console.log("item is "+item)
     return (
                 <>
                     {(item== "" || item==null) &&

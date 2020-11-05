@@ -12,20 +12,13 @@
   <component name="ChangeListManager">
     <list default="true" id="e3fd2a78-408d-48cf-8baa-22d3fc6890f5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Routes/PrivateRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/PrivateRoute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes/PublicRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/PublicRoute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/Queues/Queuse.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/Queues/Queuse.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/user.action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/user.action.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login/Login.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Main/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Main/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Queues/Queuse.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Queues/Queuse.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/SideBar/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SideBar/SideBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/dashboard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/user/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/user.constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/user.constants.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/helper/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helper/store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/LoginUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/LoginUser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/Queues.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/Queues.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,10 +46,13 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../admin - Copy" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../ConfrenceAPI/ConDemoBranch/conferenceAPI" />
     <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.standard" value="" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2020.2.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -102,7 +98,7 @@
       <workItem from="1603776362047" duration="16461000" />
       <workItem from="1603862606568" duration="12251000" />
       <workItem from="1603947989301" duration="10821000" />
-      <workItem from="1604295269722" duration="11299000" />
+      <workItem from="1604295269722" duration="63028000" />
     </task>
     <servers />
   </component>
@@ -122,14 +118,18 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="668" y="322" key="#ESLint" timestamp="1604397607504">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="668" y="322" key="#ESLint/0.0.1600.860@0.0.1600.860" timestamp="1604397607504" />
     <state x="254" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603097311852">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="254" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1600.860@0.0.1600.860" timestamp="1603097311852" />
-    <state x="580" y="185" key="FileChooserDialogImpl" timestamp="1604300004120">
+    <state x="580" y="185" key="FileChooserDialogImpl" timestamp="1604482979646">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="580" y="185" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1604300004120" />
+    <state x="580" y="185" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1604482979646" />
     <state x="634" y="353" key="NewPhpFileDialog" timestamp="1603948388321">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -138,14 +138,14 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="406" y="40" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1600.860@0.0.1600.860" timestamp="1603950007750" />
-    <state x="456" y="195" key="run.anything.popup" timestamp="1604295852292">
+    <state x="456" y="195" width="672" height="677" key="run.anything.popup" timestamp="1604479010234">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="456" y="195" key="run.anything.popup/0.0.1600.860@0.0.1600.860" timestamp="1604295852292" />
-    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup" timestamp="1602587707577">
+    <state x="456" y="195" width="672" height="677" key="run.anything.popup/0.0.1600.860@0.0.1600.860" timestamp="1604479010234" />
+    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup" timestamp="1604313485243">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup/0.0.1600.860@0.0.1600.860" timestamp="1602587707577" />
+    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup/0.0.1600.860@0.0.1600.860" timestamp="1604313485243" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

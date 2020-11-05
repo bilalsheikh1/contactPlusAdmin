@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Breadcrumb, Button, Form, Input, Layout, Select, Space, Table ,Alert } from "antd";
-import {useDispatch, connect, useSelector} from "react-redux";
+import {useDispatch,  useSelector} from "react-redux";
 import axios from "axios";
 import {CreateData, DeleteData, showData, UpdateData} from "../../actions/Users/Users";
 import apiClient from "../../axios/axios";

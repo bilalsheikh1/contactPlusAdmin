@@ -1,4 +1,4 @@
-import {Layout, Menu, Breadcrumb, Image ,Switch as CheckboBtn} from 'antd';
+import {Layout, Menu, Breadcrumb, Image, Switch as CheckboBtn, Form} from 'antd';
 import {
     DesktopOutlined,
     PieChartOutlined,
@@ -6,7 +6,7 @@ import {
     TeamOutlined,
     UserOutlined,
 } from '@ant-design/icons';
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import '../../App.css';
 import {Link, Route,Switch} from "react-router-dom";
 import Login from "../Login/Login";
@@ -23,15 +23,44 @@ import RoutesOutbound from "../Routes/RoutesOutbound";
 import IVR from "../IVR/IVR"
 import Queues from '../Queues/Queuse'
 import Extension from "../extension/Extension";
+import {changeThemes, showData} from '../../actions/SystemSetting/SystemSetting'
+import {Theme,themeUpdate} from "../../helper/GlobalThemeColor";
+import {useDispatch, useSelector} from "react-redux";
+import SystemSetting from "../../reducers/SystemSetting";
+import Logo from "../SystemSetting/Logo";
+import changePassword from "../changePassword/changePassword";
+
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
+const rightStyle = {position: 'absolute', top: 0, right: 0}
+
 
 const SideBar = () => {
 
     const [collapsed , setCollapsed] = useState(false);
-    const [theme , setTheme] = useState("dark");
     const [current , setCurrent] = useState(1);
+    const [theme , setTheme] = useState()
+    const [themeID , setThemeID] = useState()
+
+    const systemSetting = useSelector(state => state.SystemSetting);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if(systemSetting.type === 'showData') {
+            setTheme(systemSetting.systemSetting.theme)
+            setThemeID(systemSetting.systemSetting.id)
+        }
+        if(systemSetting.status ==1)
+        {
+            setTheme((theme === "dark") ? "light" : "dark")
+        }
+        // console.log(systemSetting.status)
+    },[systemSetting])
+
+    useEffect(() => {
+        dispatch(showData())
+    },[])
 
     const onCollapsed= (collapseds ) => {
         console.log(collapseds);
@@ -43,20 +72,26 @@ const SideBar = () => {
             setCurrent(e.key)
     };
 
-    const changeTheme = (value) => {
-        setTheme(value ? 'dark' : 'light')
-    };
+    const changeTheme = async (value) => {
+        // setTheme(value ? 'dark' : 'light')
+        // theme =await themeUpdate(value ? 'dark' : 'light');
+        console.log(value ? 'dark' : 'light')
+        let object = {id : themeID , theme : value ? 'dark' : 'light'}
+        dispatch(changeThemes(object))
+        // setTheme(await themeUpdate(value ? 'dark' : 'light'))
+        // console.log(theme)
 
+        // Theme(value ? 'dark' : 'light')
+    };
 
     return(
         <>
             <Layout>
-                <Sider collapsible collapsed={collapsed} onCollapse={onCollapsed} >
-                    <Header >
+                <Sider collapsible collapsed={collapsed} onCollapse={onCollapsed}>
+                    <Header>
                         <div className="logo" >
                             <Image src="images/logo.png"  />
                         </div>
-
                     </Header>
 
                     <Menu  defaultSelectedKeys={['0']}
@@ -113,13 +148,22 @@ const SideBar = () => {
                             <Menu.Item key="11">Login Report</Menu.Item>
                         </SubMenu>
 
+                        <SubMenu key="sub4" icon={<PieChartOutlined />} title="System Setting">
+                            <Menu.Item key="12">
+                                <CheckboBtn
+                                    checked={theme}
+                                    onChange={changeTheme}
+                                    checkedChildren={(theme === 'dark') ? 'dark' : 'light'}
+                                    unCheckedChildren={(theme === 'dark') ? 'light' : 'dark'}
+                                />
+                            </Menu.Item>
+                            <Menu.Item key="13">
+                                <Link to={"logo"} >Change Logo</Link>
+                            </Menu.Item>
+                        </SubMenu>
+
                         <Menu.Item key=""  >
-                            <CheckboBtn
-                                checked={theme === 'dark'}
-                                onChange={changeTheme}
-                                checkedChildren="Dark"
-                                unCheckedChildren="Light"
-                            />
+
                         </Menu.Item>
                     </Menu>
                 </Sider>
@@ -136,6 +180,8 @@ const SideBar = () => {
                     <PrivateRoute path="/Queues" component={Queues} />
                     <PrivateRoute path="/extension" component={Extension} />
                     <PrivateRoute path="/register" component={Register} />
+                    <PrivateRoute path="/logo" component={Logo} />
+                    <PrivateRoute path="/changePassword" component={changePassword} />
                 </Switch>
             </Layout>
         </>

@@ -10,6 +10,7 @@ import IVR from '../reducers/IVR'
 import Queues from '../reducers/Queues'
 import Users from "../reducers/Users";
 import Extension from "../reducers/Extension";
+import SystemSetting from '../reducers/SystemSetting'
 
 const rootReducer = combineReducers({
     user: profile,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
     Queues : Queues,
     Users : Users,
     Extension : Extension,
+    SystemSetting : SystemSetting,
 });
 
 const configureStore = () => {
