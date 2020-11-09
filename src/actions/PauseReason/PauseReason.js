@@ -2,13 +2,14 @@ import {Types} from "../../constants/user.constants";
 import * as axios from "axios";
 import React, {useState} from 'react';
 import apiClient from "../../axios/axios";
+import {PAUSEREASON} from "../APIConstant";
 
 export const UpdateData = (data) => (dispatch) => {
     axios.defaults.withCredentials = true;
     apiClient.get('/sanctum/csrf-cookie').then(response => {
         if(response.status === 204 || response.status === 200)
         {
-            apiClient.patch("/api/pauseReason/"+data.id, {name: data.name }).then(response => {
+            apiClient.patch("/api/"+PAUSEREASON+"/"+data.id, {name: data.name }).then(response => {
                 console.log(response.data.status);
                 dispatch(updateData(response.data))
             })
@@ -24,7 +25,7 @@ export const DeleteData = (data) => (dispatch) => {
     apiClient.get('/sanctum/csrf-cookie').then(response => {
         if(response.status === 204 || response.status === 200)
         {
-            apiClient.delete("/api/pauseReason/"+data.id).then(response => {
+            apiClient.delete("/api/"+PAUSEREASON+"/"+data.id).then(response => {
                 console.log(response.data);
                 dispatch(deleteData(response.data))
             })
@@ -42,7 +43,7 @@ export const CreateData = (data) => (dispatch) => {
         {
             console.log(data)
             console.log(data)
-            apiClient.post("/api/pauseReason", { name: data.name }).then(response => {
+            apiClient.post("/api/"+PAUSEREASON, { name: data.name }).then(response => {
                 console.log(response.data)
                 dispatch(createData(response.data));
             }).catch(error => {
@@ -65,7 +66,7 @@ export const showData = () => (dispatch) => {
     apiClient.get('/sanctum/csrf-cookie').then(response => {
         if(response.status === 204 || response.status === 200)
         {
-            apiClient.get("/api/pauseReason").then(response => {
+            apiClient.get("/api/"+PAUSEREASON).then(response => {
                 dispatch(showData(response.data))
                 console.log(response.data.data)
             })

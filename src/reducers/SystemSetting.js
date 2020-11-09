@@ -3,7 +3,14 @@ import {Types} from "../constants/user.constants";
 const initState = {
     systemSetting : {
         theme : '',
-        id : ''
+        id : '',
+        server_address : '',
+        wss_port : '',
+        manager_port : '',
+        username : '',
+        secret : '',
+        connection_timeout : '',
+        read_timeout : ''
         // confirm_password : '',
     },
     formSubmitted : false ,
@@ -15,13 +22,6 @@ const initState = {
 
 const reducer =  (state = initState , action) => {
     switch (action.type){
-        // case Types.GETDATABYID :
-        //     return {
-        //         ...state,
-        //         RoutesOutbound: action.payload.RoutesOutbound,
-        //         status : action.status,
-        //         formSubmitted : false
-        //     }
         case Types.UPDATE :
             return {
                 ...state,
@@ -32,7 +32,7 @@ const reducer =  (state = initState , action) => {
         case Types.CREATE :
             return {
                 ...state,
-                status: action.payload,
+                status: action.payload.status,
                 formSubmitted: false ,
                 error: action.payload.error,
                 type: "createData"
@@ -51,11 +51,12 @@ const reducer =  (state = initState , action) => {
                 formSubmitted: false,
             }
         case Types.SHOWDATA :
+            console.log(action.payload.data)
             return {
                 ...state,
-                systemSetting: action.payload.data[0],
+                systemSetting: action.payload.data,
                 formSubmitted: false,
-                type: "showTheme"
+                type: "showSetting"
             }
         case Types.ERROR :
             return {

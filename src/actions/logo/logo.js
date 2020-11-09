@@ -11,7 +11,7 @@ export const updateLogo = (data) => (dispatch) => {
             let formData = new FormData();
 
             formData.append("file", data);
-            apiClient.post("/api/systemSetting/1", {_method: 'patch', data:formData  }, {
+            apiClient.post("/api//1", {_method: 'patch', data:formData  }, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }}).then(response => {

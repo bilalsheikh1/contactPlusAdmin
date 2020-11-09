@@ -5,6 +5,13 @@ import {
     FileOutlined,
     TeamOutlined,
     UserOutlined,
+    SettingFilled,
+    UserSwitchOutlined,
+    UsergroupAddOutlined,
+    FormatPainterOutlined,
+    SolutionOutlined,
+    PauseCircleOutlined,
+    FileDoneOutlined,
 } from '@ant-design/icons';
 import React, {useEffect, useState} from "react";
 import '../../App.css';
@@ -27,10 +34,13 @@ import {changeThemes, showTheme} from '../../actions/SystemSetting/SystemSetting
 import {Theme,themeUpdate} from "../../helper/GlobalThemeColor";
 import {useDispatch, useSelector} from "react-redux";
 import SystemSetting from "../../reducers/SystemSetting";
-import Logo from "../SystemSetting/Logo";
+import System from "../SystemSetting/System";
 import changePassword from "../changePassword/changePassword";
 import WorkCode from "../WorkCode/WorkCode";
 import PauseReason from "../PauseReason/PauseReason";
+import {userLogout} from "../../actions/logout/logout";
+import Routes from "../../Routes";
+import PublicRoute from "../../Routes/PublicRoute";
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -45,8 +55,12 @@ const SideBar = () => {
     const [theme , setTheme] = useState()
     const [themeID , setThemeID] = useState()
 
-    const systemSetting = useSelector(state => state.SystemSetting);
+    const systemSetting = useSelector(state => state.systemSetting);
     const dispatch = useDispatch();
+
+    const logout = () => {
+        dispatch(userLogout())
+    }
 
     useEffect(() => {
         console.log("first time")
@@ -109,28 +123,28 @@ const SideBar = () => {
                             <Link to={"/dashboard"} >Dashboard</Link>
                         </Menu.Item>
 
-                        <Menu.Item key="2" icon={<PieChartOutlined />} >
+                        <Menu.Item key="2" icon={<UserOutlined />} >
                             <Link to={"/users"} >Users</Link>
                         </Menu.Item>
 
-                        <SubMenu key="sub1" icon={<UserOutlined />} title="Agents">
-                            <Menu.Item key="3">
-                                <Link to={"/actionInbound"}>Inbound</Link>
-                            </Menu.Item>
-                            <Menu.Item key="4">
-                                <Link to={"/actionOutbound"}>Outbound</Link>
-                            </Menu.Item>
-                            <Menu.Item key="5">
-                                <Link to={"/actionBlended"}>Blended</Link>
-                            </Menu.Item>
-                        </SubMenu>
+                        {/*<SubMenu key="sub1" icon={<UserOutlined />} title="Agents">*/}
+                        {/*    <Menu.Item key="3">*/}
+                        {/*        <Link to={"/actionInbound"}>Inbound</Link>*/}
+                        {/*    </Menu.Item>*/}
+                        {/*    <Menu.Item key="4">*/}
+                        {/*        <Link to={"/actionOutbound"}>Outbound</Link>*/}
+                        {/*    </Menu.Item>*/}
+                        {/*    <Menu.Item key="5">*/}
+                        {/*        <Link to={"/actionBlended"}>Blended</Link>*/}
+                        {/*    </Menu.Item>*/}
+                        {/*</SubMenu>*/}
 
-                        <SubMenu key="sub2" icon={<UserOutlined />} title="Routes">
+                        <SubMenu key="sub2" icon={<UserOutlined />} title="Comming Soon"> {/*Routes*/}
                             <Menu.Item key="6">
-                                <Link to={"/routesInbound"}>Inbound</Link>
+                                <Link to={"/routesInbound"}>Comming Soon</Link> {/*Inbound*/}
                             </Menu.Item>
                             <Menu.Item key="7">
-                                <Link to={"/routesOutbound"}>Outbound</Link>
+                                <Link to={"/routesOutbound"}>Comming Soon</Link> {/*Outbound*/}
                             </Menu.Item>
                         </SubMenu>
 
@@ -138,44 +152,37 @@ const SideBar = () => {
                             <Link to={"/IVR"}>IVR</Link>
                         </Menu.Item>
 
-                        <Menu.Item key="9" icon={<PieChartOutlined />} >
+                        <Menu.Item key="9" icon={<UsergroupAddOutlined />} >
                             <Link to={"/Queues"}>Queues</Link>
                         </Menu.Item>
 
-                        <Menu.Item key="10" icon={<PieChartOutlined />} >
+                        <Menu.Item key="10" icon={<FormatPainterOutlined />} >
                             <Link to={"/extension"}>Extension</Link>
                         </Menu.Item>
 
-                        <Menu.Item key="11" icon={<PieChartOutlined />} >
-                            <Link to={"/workcode"}>WorkCode</Link>
+                        <Menu.Item key="11" icon={<SolutionOutlined />} >
+                            <Link to={"/workcode"}>Work Code</Link>
                         </Menu.Item>
 
-                        <Menu.Item key="11" icon={<PieChartOutlined />} >
+                        <Menu.Item key="12" icon={<PauseCircleOutlined />} >
                             <Link to={"/pauseReason"}>Pause Reason</Link>
                         </Menu.Item>
 
-                        <SubMenu key="sub3" icon={<UserOutlined />} title="Reports">
-                            <Menu.Item key="12">CDR</Menu.Item>
-                            <Menu.Item key="13">Login Report</Menu.Item>
+                        <SubMenu key="sub3" icon={<FileDoneOutlined />} title="Reports">
+                            <Menu.Item key="13">CDR</Menu.Item>
+                            <Menu.Item key="14">Login Report</Menu.Item>
                         </SubMenu>
 
-                        <SubMenu key="sub4" icon={<PieChartOutlined />} title="System Setting">
-                            <Menu.Item key="14">
-                                <CheckboBtn
-                                    checked={theme}
-                                    onChange={changeTheme}
-                                    checkedChildren={(theme === 'dark') ? 'dark' : 'light'}
-                                    unCheckedChildren={(theme === 'dark') ? 'light' : 'dark'}
-                                />
-                            </Menu.Item>
-                            <Menu.Item key="15">
-                                <Link to={"logo"} >Change Logo</Link>
+                        <SubMenu key="sub4" icon={<SettingFilled />} title="System Setting">
+
+                            <Menu.Item key="16">
+                                <Link to={"setting"} >Settings</Link>
                             </Menu.Item>
                         </SubMenu>
 
-                        <Menu.Item key=""  >
+                        {/*<Menu.Item key=""  >*/}
 
-                        </Menu.Item>
+                        {/*</Menu.Item>*/}
                     </Menu>
                 </Sider>
 
@@ -191,7 +198,7 @@ const SideBar = () => {
                     <PrivateRoute path="/Queues" component={Queues} />
                     <PrivateRoute path="/extension" component={Extension} />
                     <PrivateRoute path="/register" component={Register} />
-                    <PrivateRoute path="/logo" component={Logo} />
+                    <PrivateRoute path="/setting" component={System} />
                     <PrivateRoute path="/changePassword" component={changePassword} />
                     <PrivateRoute path="/workcode" component={WorkCode} />
                     <PrivateRoute path="/pauseReason" component={PauseReason} />

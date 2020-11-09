@@ -1,10 +1,7 @@
 import {Types} from "../constants/user.constants";
 
 const initState = {
-    logout:  {
-       // status
-        // confirm_password : '',
-    },
+    loggedIn: localStorage.getItem("loggedIn")=== true ? true : false ,
     formSubmitted : false ,
     error : '',
     type : "",
@@ -15,7 +12,6 @@ const initState = {
 const reducer =  (state = initState , action) => {
     switch (action.type){
         case Types.LOGOUT :
-            console.log(action.payload)
             return {
                 ...state,
                 status: action.payload,

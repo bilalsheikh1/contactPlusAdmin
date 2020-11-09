@@ -154,6 +154,7 @@ const Extension = () => {
             setBtnName("Submit")
         }
     }
+
     const logout = () => {
         dispatch(userLogout())
     }

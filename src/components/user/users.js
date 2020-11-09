@@ -69,6 +69,7 @@ const Users = () => {
     },[queuesData])
 
     useEffect(() => {
+        console.log(users.Users)
         if(users.type === "showData")
             setData(users.Users)
 
@@ -102,6 +103,7 @@ const Users = () => {
                     type : setType(""),
                     email : setEmail(""),
                     password : setPassword(""),
+                    username : setUsername(""),
                     confirm_password : setConfirmPassword(""),
                 })
             }
@@ -149,6 +151,8 @@ const Users = () => {
         if(btnName =="Submit")
         {
             let object = { username : username , name : name , email : email , type : type , authUserName : authUserName , authPassword : authPassword , password : password , confirmPassword : confirmPassword , queue : queueValue };
+            console.log(authPassword)
+            console.log(queueValue)
             setObj({name : name , email : email , type : type , password : password , confirmPassword : confirmPassword  })
             dispatch(CreateData(object))
         }
@@ -164,7 +168,7 @@ const Users = () => {
     }
 
     useEffect(() => {
-        if(type === "Inbound" || type === "Brended")
+        if(type === "Inbound" || type === "Blended")
         {
             dispatch(queueData())
         }
@@ -264,7 +268,7 @@ const Users = () => {
                                     <option>Select User Type</option>
                                     <option value="Inbound">Inbound</option>
                                     <option value="Outbound">Outbound</option>
-                                    <option value="Brended">Brended</option>
+                                    <option value="Blended">Blended</option>
                                     <option value="Normal">Normal</option>
                                 </Select>
 
@@ -304,7 +308,7 @@ const Users = () => {
                                 </Form.Item>
                             </>
                             }
-                            {(type === 'Inbound') || (type === 'Brended') &&
+                            {(type === 'Inbound') || (type === 'Blended') &&
                             <Form.Item
                                 name={"queue"}
                                 label={"Queue"}
@@ -321,13 +325,12 @@ const Users = () => {
                                         option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                                     }
                                     onChange={(value) => {
+                                        console.log(value)
                                         setQueueValue(value);
                                     }}
                                 >
-                                    <option>Select Queue Type</option>
-                                    {queue.map( (i) => {
-                                        return [<option value={i.id}>{i.name}</option>]
-                                    } )}
+                                    <Select.Option value={null}>Select Queue Type</Select.Option>
+                                    {queue.map((i) => (<Select.Option key={i.name} value={i.id}>{i.name}</Select.Option>))}
                                 </Select>
 
                             </Form.Item>
@@ -374,8 +377,8 @@ const Users = () => {
                             <Column title="Email" dataIndex="email" key="email" />
                             <Column title="Type" dataIndex="type" key="type" />
                             <Column title="ID" dataIndex="id" key="id" />
-                            <Column title="authUserName" dataIndex="authUserName" key="authUserName" />
-                            <Column title="authPassowrd" dataIndex="authPassowrd" key="authPassowrd" />
+                            <Column title="authUserName" dataIndex="auth_username" key="auth_username" />
+                            <Column title="authPassowrd" dataIndex="auth_password" key="auth_password" />
 
                             <Column
                                 title="Action"

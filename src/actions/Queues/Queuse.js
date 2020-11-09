@@ -2,6 +2,7 @@ import {Types} from "../../constants/user.constants";
 import * as axios from "axios";
 import React, {useState} from 'react';
 import apiClient from "../../axios/axios";
+import {QUEUE} from "../APIConstant";
 
 
 // export const ActionCreator = {
@@ -42,7 +43,7 @@ export const showData = () => (dispatch) => {
     apiClient.get('/sanctum/csrf-cookie').then(response => {
         if(response.status === 204 || response.status === 200)
         {
-            apiClient.get("/api/queue").then(response => {
+            apiClient.get("/api/"+QUEUE).then(response => {
                 dispatch(showData(response.data))
                 console.log(response)
             })
@@ -58,7 +59,7 @@ export const UpdateData = (data) => (dispatch) => {
     apiClient.get('/sanctum/csrf-cookie').then(response => {
         if(response.status === 204 || response.status === 200)
         {
-            apiClient.put("/api/queue/"+data.oldName , { name : data.name}).then(response => {
+            apiClient.put("/api/"+QUEUE+"/"+data.oldName , { name : data.name}).then(response => {
                 dispatch(updateData(response.data))
                 console.log(response)
             })
@@ -73,7 +74,7 @@ export const DeleteData = (data) => (dispatch) => {
     apiClient.get('/sanctum/csrf-cookie').then(response => {
         if(response.status === 204 || response.status === 200)
         {
-            apiClient.delete("/api/queue/"+data.name).then(response => {
+            apiClient.delete("/api/"+QUEUE+"/"+data.name).then(response => {
                 console.log(response.data);
                 dispatch(deleteData(response.data))
             })
@@ -88,7 +89,7 @@ export const CreateData = (data) => (dispatch) => {
     console.log("create action...")
     apiClient.get('/sanctum/csrf-cookie').then(response => {
         if (response.status === 204 || response.status === 200) {
-            apiClient.post("/api/queue", {data: data}).then(response => {
+            apiClient.post("/api/"+QUEUE, {data: data}).then(response => {
                 dispatch(createData(response.data))
             }).catch(error => {
                 dispatch(Error(error.response))

@@ -6,6 +6,7 @@ import SubMenu from "antd/es/menu/SubMenu";
 import {useDispatch, useSelector} from "react-redux";
 import {userLogout} from '../../actions/logout/logout'
 import {showData} from "../../actions/SystemSetting/SystemSetting";
+import { createBrowserHistory } from 'history';
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -15,8 +16,9 @@ const Dashboard = () => {
 
     const [theme , setTheme] = useState("dark")
     const dispatch = useDispatch();
-    const userLogouts = useSelector(state => state.logout)
+    // const userLogouts = useSelector(state => state.logout)
     const themeUpdate = useSelector(state => state.SystemSetting)
+    const user = useSelector(state => state.loggedIn)
 
     // useEffect(() => {
     //     if(themeUpdate.type === 'showData') {
@@ -30,9 +32,13 @@ const Dashboard = () => {
     //     // console.log(systemSetting.status)
     // },[systemSetting])
 
-    useEffect(() => {
-        console.log({userLogouts})
-    }, [userLogouts])
+    const history =  createBrowserHistory();
+
+
+    // useEffect(() => {
+    //     if(user.loggedIn)
+    //         history.push("/");
+    // }, [user])
 
     const logout = () => {
         dispatch(userLogout())

@@ -13,6 +13,7 @@ import Extension from "../reducers/Extension";
 import SystemSetting from '../reducers/SystemSetting'
 import WorkCode from '../reducers/WorkCode'
 import PauseReason from '../reducers/PauseReason'
+import logout from '../reducers/logout'
 
 const rootReducer = combineReducers({
     user: profile,
@@ -24,9 +25,10 @@ const rootReducer = combineReducers({
     Queues : Queues,
     Users : Users,
     Extension : Extension,
-    SystemSetting : SystemSetting,
+    systemSetting : SystemSetting,
     WorkCode : WorkCode,
-    PauseReason : PauseReason
+    PauseReason : PauseReason,
+    logout : logout,
 });
 
 const configureStore = () => {

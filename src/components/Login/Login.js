@@ -107,11 +107,4 @@ const Login = () =>{
         </>
     );
 }
-
-const mapStateToProps = (data ) => {
-    return {
-        profile : data
-    }
-}
-
-export default connect(mapStateToProps)(withRouter(Login));
+export default Login

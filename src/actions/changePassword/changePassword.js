@@ -4,6 +4,7 @@ import axios from "axios";
 import React, {useState} from 'react';
 import {Redirect} from "react-router-dom";
 import apiClient from "../../axios/axios";
+import {UPDATEPASSWORD} from "../APIConstant";
 
 
 // export const ActionCreator = {
@@ -13,7 +14,7 @@ export const passwordChange =  (data) => (dispatch) => {
     axios.defaults.withCredentials = true;
     // console.log(data)
     apiClient.get('/sanctum/csrf-cookie').then(response => {
-        apiClient.post('/updatePassword', {
+        apiClient.post('/'+UPDATEPASSWORD, {
             current_password: data.current_password,
             password: data.password,
             password_confirmation: data.password_confirmation,

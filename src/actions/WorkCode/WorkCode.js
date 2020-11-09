@@ -2,14 +2,14 @@ import {Types} from "../../constants/user.constants";
 import * as axios from "axios";
 import React, {useState} from 'react';
 import apiClient from "../../axios/axios";
-
+import {WORKCODE} from "../APIConstant";
 
 export const UpdateData = (data) => (dispatch) => {
     axios.defaults.withCredentials = true;
     apiClient.get('/sanctum/csrf-cookie').then(response => {
         if(response.status === 204 || response.status === 200)
         {
-            apiClient.patch("/api/workcode/"+data.id, {name: data.name }).then(response => {
+            apiClient.patch("/api/"+WORKCODE+"/"+data.id, {name: data.name }).then(response => {
                 console.log(response.data.status);
                 dispatch(updateData(response.data))
             })
@@ -25,7 +25,8 @@ export const DeleteData = (data) => (dispatch) => {
     apiClient.get('/sanctum/csrf-cookie').then(response => {
         if(response.status === 204 || response.status === 200)
         {
-            apiClient.delete("/api/workcode/"+data.id).then(response => {
+            // eslint-disable-next-line no-undef
+            apiClient.delete("/api/"+WORKCODE+"/"+data.id).then(response => {
                 console.log(response.data);
                 dispatch(deleteData(response.data))
             })
@@ -42,7 +43,7 @@ export const CreateData = (data) => (dispatch) => {
         if(response.status === 204 || response.status === 200)
         {
             console.log(data)
-            apiClient.post("/api/workcode", { name: data.name }).then(response => {
+            apiClient.post("/api/"+WORKCODE, { name: data.name }).then(response => {
                 console.log(response.data)
                 dispatch(createData(response.data));
             }).catch(error => {
@@ -65,7 +66,7 @@ export const showData = () => (dispatch) => {
     apiClient.get('/sanctum/csrf-cookie').then(response => {
         if(response.status === 204 || response.status === 200)
         {
-            apiClient.get("/api/workcode").then(response => {
+            apiClient.get("/api/"+WORKCODE).then(response => {
                 dispatch(showData(response.data))
                 console.log(response.data.data)
             })
