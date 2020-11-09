@@ -15,30 +15,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e3fd2a78-408d-48cf-8baa-22d3fc6890f5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes/PrivateRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/PrivateRoute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes/PublicRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/PublicRoute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/Extensoin/Extension.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/Extensoin/Extension.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/PauseReason/PauseReason.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/PauseReason/PauseReason.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/Queues/Queuse.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/Queues/Queuse.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/SystemSetting/SystemSetting.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/SystemSetting/SystemSetting.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/Users/Users.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/Users/Users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/WorkCode/WorkCode.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/WorkCode/WorkCode.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/changePassword/changePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/changePassword/changePassword.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/logo/logo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/logo/logo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/logout/logout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/logout/logout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/user.action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/user.action.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/axios/axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/axios/axios.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Main/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Main/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SideBar/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SideBar/SideBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SystemSetting/Logo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SystemSetting/System.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/extension/Extension.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/extension/Extension.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/user/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user/users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/helper/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helper/store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/SystemSetting.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/SystemSetting.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/logout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/logout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SystemSetting/System.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SystemSetting/System.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +97,7 @@
       <workItem from="1603947989301" duration="10821000" />
       <workItem from="1604295269722" duration="95358000" />
       <workItem from="1604640888663" duration="15485000" />
-      <workItem from="1604898911643" duration="17346000" />
+      <workItem from="1604898911643" duration="17781000" />
     </task>
     <servers />
   </component>

@@ -138,6 +138,7 @@ const System = () =>
                     connection_timeout : setConnection_timeout(""),
                     read_timeout : setRead_timeout(""),
                 })
+                setBtnName("Submit")
             }
         }
 
@@ -161,13 +162,7 @@ const System = () =>
         setFileList(fileList);
     }
     const handleSubmitAction = () => {
-        if(btnName =="Submit")
-        {
-            let object = {server_address : server_address , wss_port : wss_port , manager_port : manager_port , username : username , secret : secret ,connection_timeout : connection_timeout , read_timeout : read_timeout};
-            // setObj({server_address : server_address , wss_port : wss_port , manager_port : manager_port , username : username , secret : secret ,connection_timeout : connection_timeout , read_timeout : read_timeout})
-            dispatch(createData(object))
-        }
-        else
+        if(btnName =="Update")
         {
             let object = {id : id , server_address : server_address , wss_port : wss_port , manager_port : manager_port , username : username , secret : secret ,connection_timeout : connection_timeout , read_timeout : read_timeout};
             dispatch(updateData(object))
@@ -410,13 +405,13 @@ const System = () =>
                                     unCheckedChildren={(theme === 'dark') ? 'dark' : 'light'}
                                 />
                             </Form.Item>
-
-                            <Form.Item {...tailLayout}>
-                                <Button type="primary" htmlType="submit" onClick={handleSubmitAction}>
-                                    {btnName}
-                                </Button>
-                            </Form.Item>
-
+                            {btnName == "Update" &&
+                                <Form.Item {...tailLayout}>
+                                    <Button type="primary" htmlType="submit" onClick={handleSubmitAction}>
+                                        Update
+                                    </Button>
+                                </Form.Item>
+                            }
                         </Form>
 
                         <Table dataSource={tableData} scroll={{ x: 1500, y: 300 }} >
