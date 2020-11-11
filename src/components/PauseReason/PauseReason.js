@@ -44,12 +44,13 @@ const PauseReason = () => {
     const pauseReason = useSelector(state => state.PauseReason);
 
     useEffect(() => {
-        console.log(pauseReason.PauseReason)
+        console.log(pauseReason)
         if(pauseReason.type === "showData")
             setData(pauseReason.PauseReason)
 
         else if(pauseReason.type === "createData"){
-            if(pauseReason.PauseReason!="") {
+            console.log(pauseReason)
+            if(pauseReason.status == 1) {
                 dispatch(showData())
                 // setData({...data} , workCode.WorkCode)
                 // data.push(workCode.WorkCode)
@@ -160,6 +161,13 @@ const PauseReason = () => {
                     {pauseReason && (pauseReason.type=="update") && <Alert
                         message={'Success'}
                         description={"Updated"}
+                        type={"success"}
+                        showIcon
+                        closable
+                    />}
+                    {pauseReason && (pauseReason.type=="delete") && <Alert
+                        message={'Success'}
+                        description={"Deleted"}
                         type={"success"}
                         showIcon
                         closable

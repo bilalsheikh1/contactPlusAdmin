@@ -139,7 +139,7 @@ const SideBar = () => {
                         {/*    </Menu.Item>*/}
                         {/*</SubMenu>*/}
 
-                        <SubMenu key="sub2" icon={<UserOutlined />} title="Comming Soon"> {/*Routes*/}
+                        <SubMenu key="sub2" icon={<UserOutlined />} title="Routes"> {/*Routes*/}
                             <Menu.Item key="6">
                                 <Link to={"/routesInbound"}>Comming Soon</Link> {/*Inbound*/}
                             </Menu.Item>

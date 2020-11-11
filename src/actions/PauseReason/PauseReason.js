@@ -41,8 +41,6 @@ export const CreateData = (data) => (dispatch) => {
     apiClient.get('/sanctum/csrf-cookie').then(response => {
         if(response.status === 204 || response.status === 200)
         {
-            console.log(data)
-            console.log(data)
             apiClient.post("/api/"+PAUSEREASON, { name: data.name }).then(response => {
                 console.log(response.data)
                 dispatch(createData(response.data));

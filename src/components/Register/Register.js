@@ -45,7 +45,6 @@ const Register = () => {
     return (
 
             <Layout>
-
                 <Content style={{ padding: '0 50px' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item>List</Breadcrumb.Item>

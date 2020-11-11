@@ -14,10 +14,10 @@ const { Column, ColumnGroup } = Table;
 const { Header, Content, Footer, Sider } = Layout;
 const layout = {
     labelCol: {
-        span: 2,
+        span: 3,
     },
     wrapperCol: {
-        offset : 1,
+        offset : 2,
         span: 16,
     },
 };
@@ -34,7 +34,7 @@ const validateMessages = {
 
 const tailLayout = {
     wrapperCol: {
-        offset: 3,
+        offset: 5,
         span: 16 ,
     },
 };
@@ -57,10 +57,11 @@ const Users = () => {
     const [obj , setObj ] = useState([])
     const [data , setData] = useState([]);
     const [form] = Form.useForm();
+    const [validate , setValidate] = useState(true);
 
     const dispatch = useDispatch();
     const users = useSelector(state => state.Users)
-    const queuesData = useSelector(state => state.Queues)
+    const queuesData = useSelector(state => state.Queues.Queues)
 
     useEffect(() => {
         console.log(queuesData)
@@ -111,11 +112,6 @@ const Users = () => {
     }, [users])
 
     useEffect(() => {
-        console.log(data)
-    },[data])
-
-
-    useEffect(() => {
         dispatch(showData())
     },[])
 
@@ -130,11 +126,13 @@ const Users = () => {
         // let records = dispatch(GetDataByID(record))
         setBtnName("Update")
         setName(record.name)
+        setUsername(record.username)
         setEmail(record.email)
         setType(record.type)
         setId(record.id)
         form.setFieldsValue({
             name : record.name,
+            username : record.username,
             email : record.email,
             type : record.type,
             id : record.id
@@ -159,6 +157,7 @@ const Users = () => {
         else
         {
             let object = {username : username , name : name , email : email , type : type , id : id , queue : queueValue };
+            setValidate(false)
             dispatch(UpdateData(object))
             setBtnName("Submit")
         }
@@ -207,6 +206,20 @@ const Users = () => {
                         showIcon
                         closable
                     />}
+                    {users && (users.type=="updata") && <Alert
+                        message={'Success'}
+                        description={"Updated"}
+                        type={"success"}
+                        showIcon
+                        closable
+                    />}
+                    {users && (users.type=="delete") && <Alert
+                        message={'Danger'}
+                        description={"Deleted"}
+                        type={"success"}
+                        showIcon
+                        closable
+                    />}
                     <div style={{ padding: 24, minHeight: 360 , background : '#fff' }}>
                         <Form name={"register"}  {...layout} initialValues={{remember: true,}} form={form} >
                             <Form.Item
@@ -235,7 +248,7 @@ const Users = () => {
 
                             <Form.Item
                                 name={"email"}
-                                label={"email"}
+                                label={"Email"}
                                 rules={[{
                                     required : true ,
                                     message : "Please Enter UserName First"
@@ -308,7 +321,34 @@ const Users = () => {
                                 </Form.Item>
                             </>
                             }
-                            {(type === 'Inbound') || (type === 'Blended') &&
+                            {(type === 'Inbound') &&
+                            <Form.Item
+                                name={"queue"}
+                                label={"Queue"}
+                                rules={[{
+                                    required: true,
+                                    message: "Please Select Queue First"
+                                }]}
+                            >
+                                <Select
+                                    showSearch
+                                    placeholder="Select a Queue"
+                                    optionFilterProp="children"
+                                    filterOption={(input, option) =>
+                                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                    onChange={(value) => {
+                                        console.log(value)
+                                        setQueueValue(value);
+                                    }}
+                                >
+                                    <Select.Option value={null}>Select Queue Type</Select.Option>
+                                    {queue.map((i) => (<Select.Option key={i.name} value={i.id}>{i.name}</Select.Option>))}
+                                </Select>
+
+                            </Form.Item>
+                            }
+                            {(type === 'Blended') &&
                             <Form.Item
                                 name={"queue"}
                                 label={"Queue"}
@@ -340,7 +380,7 @@ const Users = () => {
                                 name="password"
                                 rules={[
                                     {
-                                        required: true,
+                                        required: validate,
                                         message: 'Please input your password!',
                                     },
                                 ]}
@@ -354,7 +394,7 @@ const Users = () => {
                                 name="confirm_password"
                                 rules={[
                                     {
-                                        required: true,
+                                        required: validate,
                                         message: 'Please input your password!',
                                     },
                                 ]}

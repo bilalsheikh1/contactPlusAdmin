@@ -15,10 +15,10 @@ const { Column, ColumnGroup } = Table;
 const { Header, Content, Footer, Sider } = Layout;
 const layout = {
     labelCol: {
-        span: 2,
+        span: 3,
     },
     wrapperCol: {
-        offset : 1,
+        offset : 2,
         span: 16,
     },
 };
@@ -35,7 +35,7 @@ const validateMessages = {
 
 const tailLayout = {
     wrapperCol: {
-        offset: 3,
+        offset: 5,
         span: 16 ,
     },
 };
@@ -64,7 +64,7 @@ const Extension = () => {
         else if (extension.type === "update"){
             if(extension.status == 1){
                 console.log("updated")
-                data.find( p => p.id == id && ( p.context = context, true ) && ( p.exten = exten, true ) && ( p.priority = priority, true ) && ( p.app = app, true ) && ( p.appData = appData, true ) ) ;
+                data.find( p => p.id == id && ( p.context = context, true ) && ( p.exten = exten, true )&& ( p.priority = priority, true )&& ( p.app = app, true )&& ( p.appdata = appData, true )) ;
                 form.setFieldsValue({
                     context : setContext(""),
                     exten : setExten(""),
@@ -174,8 +174,8 @@ const Extension = () => {
                 </Header>
                 <Content style={{ margin: '0 16px' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
-                        <Breadcrumb.Item>User</Breadcrumb.Item>
-                        <Breadcrumb.Item>Users</Breadcrumb.Item>
+                        <Breadcrumb.Item>Admin</Breadcrumb.Item>
+                        <Breadcrumb.Item>Extension</Breadcrumb.Item>
                     </Breadcrumb>
                     {extension && extension.error && <Alert
                         message={'Error'}
@@ -234,7 +234,7 @@ const Extension = () => {
                                 }]}
                                 onChange={(e) => {setPriority(e.target.value)}}
                             >
-                                <InputNumber size="middle" min={1} max={100000} />
+                                <InputNumber size="middle" min={1} max={100000}   onChange={(e) => {setPriority(e)}}/>
                             </Form.Item>
                             <Form.Item
                                 label="App"

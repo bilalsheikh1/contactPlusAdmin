@@ -24,12 +24,14 @@ const reducer =  (state = initState , action) => {
                 type: "update",
             }
         case Types.CREATE :
+            console.log(action.payload)
             return {
                 ...state,
-                PauseReason: action.payload,
+                // PauseReason: action.payload,
                 formSubmitted: false ,
                 error: action.payload.error,
-                type: "createData"
+                type: "createData",
+                status: action.payload.status,
             }
         case Types.DELETE :
             return {
@@ -45,6 +47,7 @@ const reducer =  (state = initState , action) => {
                 formSubmitted: false,
             }
         case Types.SHOWDATA :
+            console.log(action.payload.data)
             return {
                 ...state,
                 PauseReason: action.payload.data,

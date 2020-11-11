@@ -15,7 +15,17 @@
   <component name="ChangeListManager">
     <list default="true" id="e3fd2a78-408d-48cf-8baa-22d3fc6890f5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/APIConstant.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/APIConstant.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/PauseReason/PauseReason.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/PauseReason/PauseReason.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/logo/logo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/logo/logo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PauseReason/PauseReason.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PauseReason/PauseReason.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Register/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Register/Register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SideBar/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SideBar/SideBar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/SystemSetting/System.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SystemSetting/System.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/extension/Extension.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/extension/Extension.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/user/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducers/PauseReason.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/PauseReason.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +107,8 @@
       <workItem from="1603947989301" duration="10821000" />
       <workItem from="1604295269722" duration="95358000" />
       <workItem from="1604640888663" duration="15485000" />
-      <workItem from="1604898911643" duration="17781000" />
+      <workItem from="1604898911643" duration="30373000" />
+      <workItem from="1605000635535" duration="5301000" />
     </task>
     <servers />
   </component>
@@ -125,10 +136,10 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="254" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1600.860@0.0.1600.860" timestamp="1603097311852" />
-    <state x="580" y="185" key="FileChooserDialogImpl" timestamp="1604640904832">
+    <state x="580" y="185" key="FileChooserDialogImpl" timestamp="1604984726363">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="580" y="185" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1604640904832" />
+    <state x="580" y="185" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1604984726363" />
     <state x="634" y="353" key="NewPhpFileDialog" timestamp="1603948388321">
       <screen x="0" y="0" width="1600" height="860" />
     </state>

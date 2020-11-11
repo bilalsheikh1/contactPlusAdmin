@@ -9,9 +9,9 @@ export const updateLogo = (data) => (dispatch) => {
         if(response.status === 204 || response.status === 200)
         {
             let formData = new FormData();
-
+            console.log(formData)
             formData.append("file", data);
-            apiClient.post("/api//1", {_method: 'patch', data:formData  }, {
+            apiClient.post("/api/system-setting/1", {_method : 'put', data:formData  }, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }}).then(response => {

@@ -9,7 +9,7 @@ import {
     Menu,
     Modal,
     Select,
-    Space,
+    Space, Spin,
     Switch as CheckboBtn,
     Table,
     Upload
@@ -21,7 +21,7 @@ import SubMenu from "antd/es/menu/SubMenu";
 import {Link, Redirect, Route} from "react-router-dom";
 import {userLogout} from "../../actions/logout/logout";
 import {UserOutlined} from "@ant-design/icons";
-// import {CreateData, DeleteData, UpdateData} from "../../actions/Extensoin/Extension";
+import '../../index.css';
 import {changeThemes, createData, ShowData, updateData} from "../../actions/SystemSetting/SystemSetting";
 import useHistory from "react-router-dom";
 import isLogin from "../../auth";
@@ -32,10 +32,10 @@ const { Column, ColumnGroup } = Table;
 const { Header, Content, Footer, Sider } = Layout;
 const layout = {
     labelCol: {
-        span: 2,
+        span: 4,
     },
     wrapperCol: {
-        offset : 1,
+        offset : 2,
         span: 16,
     },
 };
@@ -52,7 +52,7 @@ const validateMessages = {
 
 const tailLayout = {
     wrapperCol: {
-        offset: 3,
+        offset: 5,
         span: 16 ,
     },
 };
@@ -65,7 +65,6 @@ function getBase64(file) {
     });
 }
 const rightStyle = {position: 'absolute', top: 0, right: 0}
-
 const System = () =>
 {
     let [previewVisible , setPreviewVisible] = useState(false)
@@ -141,7 +140,6 @@ const System = () =>
                 setBtnName("Submit")
             }
         }
-
     }, [system])
 
 
@@ -221,6 +219,7 @@ const System = () =>
 
     return (
         <>
+
             <Layout className="site-layout">
                 <Header  style={{ padding: 0 }} >
                     <Menu selectable={false} mode='horizontal' style={rightStyle} theme={"dark"}>
@@ -229,10 +228,10 @@ const System = () =>
                                 <Link to={"/changePassword"}>Change Password</Link>
                             </Menu.Item>
                             <Menu.Item key="21" onClick={logout}>Logout</Menu.Item>
-
                         </SubMenu>
                     </Menu>
                 </Header>
+
                 <Content style={{ margin: '0 16px' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item>System Setting</Breadcrumb.Item>
@@ -286,7 +285,7 @@ const System = () =>
                             >
                                 <Input/>
                             </Form.Item>
-
+            
                             <Form.Item
                                 label="Manager Port"
                                 name="manager_port"
@@ -302,7 +301,7 @@ const System = () =>
                             >
                                 <Input/>
                             </Form.Item>
-
+            
                             <Form.Item
                                 label="User Name"
                                 name="username"
@@ -318,7 +317,7 @@ const System = () =>
                             >
                                 <Input/>
                             </Form.Item>
-
+            
                             <Form.Item
                                 label="Secret"
                                 name="secret"
@@ -334,7 +333,7 @@ const System = () =>
                             >
                                 <Input/>
                             </Form.Item>
-
+            
                             <Form.Item
                                 label="Connection Timeout"
                                 name="connection_timeout"
@@ -350,7 +349,7 @@ const System = () =>
                             >
                                 <Input/>
                             </Form.Item>
-
+                            <Space size="middle"></Space>
                             <Form.Item
                                 label="Read Timeout"
                                 name="read_timeout"
@@ -366,7 +365,7 @@ const System = () =>
                             >
                                 <Input/>
                             </Form.Item>
-
+            
                             <Form.Item
                                 name={"logo"}
                                 label={"Logo"}
@@ -394,7 +393,7 @@ const System = () =>
                                     <img alt="example" style={{ width: '100%' }} src={previewImage} />
                                 </Modal>
                             </Form.Item>
-
+            
                             <Form.Item
                                 label={"Theme"}
                             >
@@ -413,9 +412,9 @@ const System = () =>
                                 </Form.Item>
                             }
                         </Form>
-
+            
                         <Table dataSource={tableData} scroll={{ x: 1500, y: 300 }} >
-
+            
                             <Column title="ServerAddress" dataIndex="server_address" key="server_address" />
                             <Column title="WSSPort" dataIndex="wss_port" key="wss_port" />
                             <Column title="ManagerPort" dataIndex="manager_port" key="manager_port" />
@@ -430,12 +429,13 @@ const System = () =>
                                 render={(text, record) => (
                                     <Space size="middle">
                                         <Button onClick={() => { getDataByID(record)}} >Update</Button>
-                                        <Button onClick={() => {deleteData(record)}} >Delete</Button>
+                                        {/*<Button onClick={() => {deleteData(record)}} >Delete</Button>*/}
                                     </Space>
                                 )}
                             />
                         </Table>
-
+            
+            
                     </div>
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>Ant Design ©2020 Created By Bilal</Footer>
@@ -443,4 +443,5 @@ const System = () =>
         </>
     )
 }
+
 export default System
