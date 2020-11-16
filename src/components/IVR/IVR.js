@@ -1,195 +1,262 @@
 import React, {useEffect, useState} from "react";
-import {Breadcrumb, Layout, Table, Form, Button, InputNumber, Input, Space, Menu} from "antd";
-import axios from "axios";
-import {useDispatch} from "react-redux";
-import {CreateData, DeleteData, GetDataByID, UpdateData} from "../../actions/IVR/IVR";
-import {UserOutlined} from "@ant-design/icons";
-import {userLogout} from "../../actions/logout/logout";
-import SubMenu from "antd/es/menu/SubMenu";
-import {Link} from "react-router-dom";
+import { FlowChartWithState } from "@mrblenny/react-flow-chart";
+import {Alert, Breadcrumb, Button, Form, Input, Layout, Select, Table ,Upload, message} from "antd";
+import { InboxOutlined  ,UploadOutlined} from '@ant-design/icons';
+import { Handle } from 'react-flow-renderer';
 
-const { Column, ColumnGroup } = Table;
-const { Header, Content, Footer, Sider } = Layout;
+import ReactFlow, {
+    removeElements,
+    addEdge,
+    MiniMap,
+    Controls,
+    Background,
+} from 'react-flow-renderer';
+
+// import initialElements from './initial-elements';
+
 const layout = {
     labelCol: {
-        span: 2,
+        span: 3,
     },
     wrapperCol: {
-        offset : 1,
+        offset : 2,
         span: 16,
     },
 };
-const validateMessages = {
-    required: '${label} is required!',
-    types: {
-        email: '${label} is not validate email!',
-        number: '${label} is not a validate number!',
-    },
-    number: {
-        range: '${label} must be between ${min} and ${max}',
+const tailLayout = {
+    wrapperCol: {
+        offset: 5,
+        span: 16 ,
     },
 };
-const rightStyle = {position: 'absolute', top: 0, right: 0}
 
+const { Dragger } = Upload;
+const props = {
+    name: 'file',
+    multiple: false,
+    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+    beforeUpload: file => {
+        console.log(file.type)
+        if (file.type !== 'audio/mpeg') {
+            message.error(`${file.name} is not a mp3 file`);
+        }
+        return file.type === 'audio/mpeg';
+    },
+    onChange(info) {
+        const { status } = info.file;
+        if (status !== 'uploading') {
+            console.log(info.file, info.fileList);
+        }
+        if (status === 'done') {
+            message.success(`${info.file.name} file uploaded successfully.`);
+        } else if (status === 'error') {
+            message.error(`${info.file.name} file upload failed.`);
+        }
+    },
+};
+const customNodeStyles = {
+    background: '#9CA8B3',
+    color: '#FFF',
+    padding: 10,
+};
+
+const { Column, ColumnGroup } = Table;
+const { Header, Content, Footer, Sider } = Layout;
 const IVR = () => {
-
-    const [firstName , setFirstName ] = useState("");
-    const [lastName , setLastName ] =  useState("");
-    const[email , setEmail ] = useState("");
-    const[password , setPassword ] = useState("");
-    const[btnName , setBtnName ] = useState("Submit");
-    const [obj , setObj ] = useState([])
-    const [data , setData] = useState([]);
+    // const [label , setLabel] = useState("");
+    const [type , setType] = useState();
+    const [edgeLabel , setEdgeLabel] = useState();
     const [form] = Form.useForm();
 
-    const dispatch = useDispatch();
+    const [elements, setElements] = useState([{
+        id: '1',
+        type: 'input',
+        data: {
+            label: (
+                <>
+                    <strong>Start</strong>
+                </>
+            ),
+        },
+        position: { x: 250, y: 0 },
+        },
+    ]);
 
-    useEffect(() => {
-        axios.get("https://reqres.in/api/users?page=2").then(response => {
-            setData(response.data.data)
-        })
-    },[])
+    const onElementsRemove = (elementsToRemove) =>
+        setElements((els) => removeElements(elementsToRemove, els));
 
-    const onFinish = (values) => {
-        console.log(values);
-        handleSubmitAction()
+    const onConnect = (params) =>
+    {
+        let edge = {id : "e"+params.source+"-"+params.target , sourceHandle : params.sourceHandle, source : params.source , target : params.target , label : edgeLabel}
+        console.log(params)
+        console.log(edge)
+        setElements((els) => addEdge(edge, els));
+    }
+    // const [node , setNode] = useState( {node: nodeID, type: name , position : { x : 10 , y : 10} })
+
+    const onLoad = (reactFlowInstance) => {
+        console.log('flow loaded:', reactFlowInstance);
+        reactFlowInstance.fitView();
+    }
+
+
+    const CustomNodeComponent = ({ data }) => {
+        return (
+            <div style={customNodeStyles}>
+                <Handle type="target" position="left" style={{ borderRadius: 0 }} />
+                <div>{data.text}</div>
+                <Handle
+                    type="source"
+                    position="right"
+                    id="a"
+                    style={{ top: '30%', borderRadius: 0 }}
+                />
+                <Handle
+                    type="source"
+                    position="right"
+                    id="b"
+                    style={{ top: '70%', borderRadius: 0 }}
+                />
+            </div>
+        );
+    };
+    const nodeTypes = {
+        special: CustomNodeComponent,
     };
 
-    const getDataByID = (record) => {
-        // let records = dispatch(GetDataByID(record))
-        setFirstName(record.first_name)
-        setLastName(record.last_name)
-        setEmail(record.email)
-        setBtnName("Update")
-        form.setFieldsValue({
-            first_name : record.first_name,
-            last_name : record.last_name,
-            email : record.email,
-        })
-        setObj({firstName : record.first_name , lastName : record.last_name , email : record.email , id : record.id })
-    }
 
-    const deleteData = (record) => {
-        dispatch(DeleteData(record))
-    }
-
-    const handleSubmitAction = () => {
-        if(btnName =="Submit")
-        {
-            setObj({firstName : firstName , lastName : lastName , email : email  })
-            dispatch(CreateData(obj))
-        }
-        else
-        {
-            dispatch(UpdateData(obj))
-            setBtnName("Submit")
+    const submit = () => {
+        let id = elements.length;
+        id++;
+        console.log(id)
+        if(type !="" && type != null) {
+            let node = [...elements, {
+                id: "" + id,
+                type: 'special',
+                data: {
+                    text: (
+                        <>
+                            <strong>{type}</strong>
+                        </>
+                    ),
+                },
+                position: {x: 150, y: 50},
+            }]
+            setElements(node)
             form.setFieldsValue({
-                first_name : setFirstName(""),
-                last_name : setLastName(""),
-                email : setEmail(""),
+                type: setType(""),
             })
         }
     }
-    const logout = () => {
-        dispatch(userLogout())
-    }
 
-    return (
+    // useEffect(() => {
+    //
+    // },[node])
+    const onNodeDragStop = (event, node) => console.log('drag stop', node);
+    const onElementClick = (event, element) => console.log('click', element);
+
+
+    return(
         <>
-            <Layout className="site-layout">
-                <Header  style={{ padding: 0 }} >
-                    <Menu selectable={false} mode='horizontal' style={rightStyle} theme={"dark"}>
-                        <SubMenu key="sub2" icon={<UserOutlined />} title="User">
-                            <Menu.Item key="20">
-                                <Link to={"/changePassword"}>Change Password</Link>
-                            </Menu.Item>
-                            <Menu.Item key="21" onClick={logout}>Logout</Menu.Item>
-                        </SubMenu>
-                    </Menu>
-                </Header>
-                <Content style={{ margin: '0 16px' }}>
-                    <Breadcrumb style={{ margin: '16px 0' }}>
-                        <Breadcrumb.Item>IVR</Breadcrumb.Item>
-                        <Breadcrumb.Item>IVR</Breadcrumb.Item>
-                    </Breadcrumb>
-                    <div style={{ padding: 24, minHeight: 360 , background : '#fff' }}>
-                        <Form {...layout} name="nest-messages" onFinish={onFinish} form={form} validateMessages={validateMessages}>
-                            <Form.Item
-                                name='first_name'
-                                label="first_name"
-                                rules={[
-                                    {
-                                        required: true,
-                                    },
-                                ]}
-                            >
-                                <Input size="large" onChange = {(e) => {setFirstName(e.target.value)}} />
-                            </Form.Item>
-                            <Form.Item
-                                name= 'last_name'
-                                label="last_name"
-                                rules={[
-                                    {
-                                        required: true,
-                                    },
-                                ]}
-                                initialValue={lastName}
-                            >
-                                <Input size="large" onChange = {(e) => {setLastName(e.target.value)}} />
-                            </Form.Item>
+            <Content style={{ margin: '0 16px' }}>
+                <Breadcrumb style={{ margin: '16px 0' }}>
+                    <Breadcrumb.Item>Admin</Breadcrumb.Item>
+                    <Breadcrumb.Item>IVR</Breadcrumb.Item>
+                </Breadcrumb>
+                <Form name={"register"}  {...layout} initialValues={{remember: true,}} form={form}  >
 
-                            <Form.Item
-                                name = 'email'
-                                label="Email"
-                                rules={[
-                                    {
-                                        type: 'email',
-                                        required: true,
-                                    },
-                                ]}
-                            >
-                                <Input size="large"  onChange = {(e) => {setEmail(e.target.value)}} />
-                            </Form.Item>
+                    <Form.Item
+                        name={"type"}
+                        label={"Type"}
+                        rules={[{
+                            required : true ,
+                            message : "Please Select Type"
+                        }]}
+                    >
+                        <Select
+                            showSearch
+                            placeholder="Select a Type"
+                            optionFilterProp="children"
+                            filterOption={(input, option) =>
+                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                            }
+                            onChange={(value) => {
+                                setType(value);
+                            }}
+                        >
+                            <option>Select Type</option>
+                            <option value="Answer">Answer</option>
+                            <option value="Stream File">Stream File</option>
+                            <option value="Get Data">Get Data</option>
+                            <option value="HangUp">HangUp</option>
+                            <option value="No Operation">No Operation</option>
+                        </Select>
 
-                            <Form.Item name={['user', 'password']} label="password" initialValue={password}>
-                                <Input size="large" />
-                            </Form.Item>
+                    </Form.Item>
+                    <Form.Item
+                        name={"edgeLabel"}
+                        label={"Edge Label"}
+                        rules={[{
+                            required : true ,
+                            message : "Please Enter Edge Label First"
+                        }]}
+                        onChange={(e) => {setEdgeLabel(e.target.value)}}
+                    >
+                        <Input />
+                    </Form.Item>
 
-                            <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 3 }}>
-                                <Button type="primary" htmlType="submit" name="Submit" >
-                                    {btnName}
-                                </Button>
-                            </Form.Item>
-                        </Form>
+                    <Form.Item
+                        label={"Upload File"}
+                    >
+                        <Upload {...props}>
+                            <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                        </Upload>,
+                    </Form.Item>
+                    <Form.Item {...tailLayout}>
+                        <Button type="primary" htmlType="submit" onClick={submit}>
+                            Submit
+                        </Button>
+                    </Form.Item>
 
-                        <Table dataSource={data} scroll={{ x: 1500, y: 300 }} >
+                </Form>
+                <div style={{ padding: 24, minHeight: 360 , background : '#fff' }}>
 
-                            <ColumnGroup title="Name">
-                                <Column title="First Name" dataIndex="first_name" key="first_name" />
-                                <Column title="Last Name" dataIndex="last_name" key="last_name" />
-                            </ColumnGroup>
+                    <div style={{ height: 500 }}>
+                        <ReactFlow
+                            elements={elements}
+                            onElementsRemove={onElementsRemove}
+                            onConnect={onConnect}
+                            onLoad={onLoad}
+                            snapToGrid={true}
+                            snapGrid={[20, 20]}
+                            nodeTypes={nodeTypes}
+                            defaultZoom={1.5}
+                            // onNodeDragStop={onNodeDragStop}
+                            // onElementClick={onElementClick}
 
-                            <Column title="Email" dataIndex="email" key="email" />
-                            <Column title="ID" dataIndex="id" key="id" />
-
-                            <Column
-                                title="Action"
-                                key="action"
-                                render={(text, record) => (
-                                    <Space size="middle">
-                                        <Button onClick={() => { getDataByID(record)}} >Update</Button>
-                                        <Button onClick={() => {deleteData(record)}} >Delete</Button>
-                                    </Space>
-                                )}
+                        >
+                            <MiniMap
+                                nodeStrokeColor={(n) => {
+                                    if (n.style?.background) return n.style.background;
+                                    if (n.type === 'input') return '#0041d0';
+                                    if (n.type === 'output') return '#ff0072';
+                                    if (n.type === 'default') return '#1a192b';
+                                    return '#eee';
+                                }}
+                                nodeColor={(n) => {
+                                    if (n.style?.background) return n.style.background;
+                                    return '#fff';
+                                }}
+                                nodeBorderRadius={2}
                             />
-                        </Table>
-
+                            <Controls />
+                            <Background color="#aaa" gap={16} />
+                        </ReactFlow>
                     </div>
-                </Content>
-                <Footer style={{ textAlign: 'center' }}>Ant Design ©2020 Created By Bilal</Footer>
-            </Layout>
+              </div>
+            </Content>
         </>
-    );
+    )
 }
 
-export default IVR;
+export default IVR

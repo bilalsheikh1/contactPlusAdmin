@@ -12,7 +12,8 @@ const initState = {
     error : '',
     type : "",
     loading : "",
-    status : ''
+    status : '',
+    isLogin: false
 }
 
 const reducer =  (state = initState , action) => {

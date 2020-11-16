@@ -3,15 +3,40 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
+    "@mrblenny/react-flow-chart": "0.0.14",
+    "@babel/core": "^7.1.2",
+    "@storybook/addon-centered": "^5.3.18",
+    "@storybook/addon-options": "5.3.18",
+    "@storybook/addon-viewport": "5.3.18",
+    "@storybook/react": "5.3.18",
+    "@types/lodash": "^4.14.118",
+    "@types/node": "10.12.0",
+    "@types/pathfinding": "0.0.4",
+    "@types/react": "^16.8.8",
+    "@types/react-dom": "^16.8.4",
+    "@types/styled-components": "^4.1.19",
+    "@types/uuid": "^3.4.4",
+    "@types/webpack": "4.4.17",
+    "babel-loader": "^8.0.4",
+    "lodash": "^4.17.15",
+    "np": "^3.0.4",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-json-view": "^1.19.1",
+    "styled-components": "^5.1.0",
+    "ts-loader": "^5.2.2",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.11.0",
+    "tslint-config-standard": "^8.0.1",
+    "tslint-react": "^3.6.0",
+    "typescript": "^3.4.1",
+    "webpack": "^4.21.0",
+    "webpack-cli": "^3.1.2",
     "antd": "^4.6.6",
     "axios": "^0.20.0",
     "axios-auth-refresh": "^3.0.0",
     "is-plain-object": "^5.0.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react-flow-renderer": "^7.1.2",
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
@@ -19,6 +44,8 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
+    "start:storybook": "start-storybook -p 6006 -c config/storybook",
+    "build:storybook": "build-storybook -c config/storybook -o docs",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -38,5 +65,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@storybook/react": "^6.0.28"
   }
 }

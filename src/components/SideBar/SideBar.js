@@ -45,7 +45,7 @@ import PublicRoute from "../../Routes/PublicRoute";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
-const rightStyle = {position: 'absolute', top: 0, right: 0}
+const rightStyle = {position: 'absolute', top: 0, right: 10}
 
 
 const SideBar = () => {
@@ -75,9 +75,9 @@ const SideBar = () => {
         // console.log(systemSetting.status)
     },[systemSetting])
 
-    useEffect(() => {
-        // dispatch(showTheme())
-    },[])
+    // useEffect(() => {
+    //     // dispatch(showTheme())
+    // },[])
 
     const onCollapsed= (collapseds ) => {
         console.log(collapseds);
@@ -104,20 +104,29 @@ const SideBar = () => {
     return(
         <>
             <Layout>
-                <Sider collapsible collapsed={collapsed} onCollapse={onCollapsed}>
-                    <Header>
-                        <div className="logo" >
-                            <Image src="images/logo.png"  />
-                        </div>
-                    </Header>
+                <Header theme="light" >
+                    <div className="logo" >
+                        <Image src="images/logo.png"  />
+                    </div>
+                    <Menu selectable={false} mode='horizontal' style={rightStyle} theme={"dark"}>
+                        <SubMenu key="sub2" icon={<UserOutlined />} title="User" >
+                            <Menu.Item key="20" style={{marginRight : "12px"}}>
+                                <Link to={"/changePassword"}>Change Password</Link>
+                            </Menu.Item>
+                            <Menu.Item key="21" onClick={logout}>Logout</Menu.Item>
+                        </SubMenu>
+                    </Menu>
+                </Header>
+                <Layout>
+                <Sider collapsible collapsed={collapsed} onCollapse={onCollapsed} width={200} >
 
                     <Menu  defaultSelectedKeys={['0']}
                           theme={theme}
                           onClick={handleClick}
-                          // defaultOpenKeys={['sub1']}
+                          defaultOpenKeys={['sub1']}
                           selectedKeys={[current]}
                           mode="inline"
-                           style={{minHeight: '1000px'}}
+                          style={{ height: '100%', borderRight: 0 }}
                     >
                         <Menu.Item key="1" icon={<PieChartOutlined/>} >
                             <Link to={"/dashboard"} >Dashboard</Link>
@@ -203,6 +212,7 @@ const SideBar = () => {
                     <PrivateRoute path="/workcode" component={WorkCode} />
                     <PrivateRoute path="/pauseReason" component={PauseReason} />
                 </Switch>
+              </Layout>
             </Layout>
         </>
     );
