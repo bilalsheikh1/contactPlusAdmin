@@ -13,15 +13,6 @@ const initState = {
 
 const reducer =  (state = initState , action) => {
     switch (action.type){
-        // case Types.GETDATABYID :
-        //     return {
-        //         ...state,
-        //         RoutesInbound
-        //         : action.payload.RoutesInbound
-        //         ,
-        //         status : action.status,
-        //         formSubmitted : false
-        //     }
         case Types.UPDATE :
             return {
                 ...state,

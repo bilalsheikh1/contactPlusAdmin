@@ -15,8 +15,25 @@
   <component name="ChangeListManager">
     <list default="true" id="e3fd2a78-408d-48cf-8baa-22d3fc6890f5" name="Default Changelist" comment="/">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/PrivateRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/PrivateRoute.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes/PublicRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/PublicRoute.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/user.action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/user.action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Agent/Blended.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Agent/Blended.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Agent/Inbound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Agent/Inbound.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Agent/Outbound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Agent/Outbound.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/IVR/IVR.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/IVR/IVR.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PauseReason/PauseReason.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PauseReason/PauseReason.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Queues/Queuse.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Queues/Queuse.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Routes/RoutesInbound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Routes/RoutesInbound.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Routes/RoutesOutbound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Routes/RoutesOutbound.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SystemSetting/System.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SystemSetting/System.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/WorkCode/WorkCode.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/WorkCode/WorkCode.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/changePassword/changePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/changePassword/changePassword.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/dashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/extension/Extension.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/extension/Extension.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/user/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducers/RoutesInbound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/RoutesInbound.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +120,7 @@
       <workItem from="1605000635535" duration="7360000" />
       <workItem from="1605079335930" duration="13870000" />
       <workItem from="1605160170209" duration="24237000" />
-      <workItem from="1605506018280" duration="36185000" />
+      <workItem from="1605506018280" duration="44518000" />
     </task>
     <task id="LOCAL-00001" summary="/">
       <created>1605076234484</created>
@@ -119,7 +136,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605525521817</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="/">
+      <created>1605608173946</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1605608173946</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -162,10 +186,10 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="301" y="75" key="SettingsEditor/0.0.1600.860@0.0.1600.860" timestamp="1605178161570" />
-    <state x="392" y="163" key="Vcs.Push.Dialog.v2" timestamp="1605525522399">
+    <state x="392" y="163" key="Vcs.Push.Dialog.v2" timestamp="1605608174697">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="392" y="163" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1605525522399" />
+    <state x="392" y="163" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1605608174697" />
     <state x="406" y="40" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1603950007750">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -212,6 +236,12 @@
           <line>20</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/components/IVR/IVRDetail.js</url>
+          <line>3</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

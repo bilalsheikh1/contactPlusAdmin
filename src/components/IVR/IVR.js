@@ -12,6 +12,18 @@ import ReactFlow, {
     Controls,
     Background,
 } from 'react-flow-renderer';
+import {
+    answer,
+    GetData, GetOption, HangUp,
+    SayAlpha,
+    SayDate,
+    SayDateTime,
+    SayDigits,
+    SayNumber,
+    SayPhonetic,
+    SayTime, SetVar,
+    StreamFile, WaitForDigit
+} from "./IVRDetail";
 
 // import initialElements from './initial-elements';
 
@@ -76,24 +88,25 @@ const IVR = () => {
     const [maxDigits , setMaxDigits] = useState()
     const [date , setDate] = useState()
     const [number , setNumber] = useState()
-    const [numNumber , setNumNumber] = useState()
-    const [digitsEscapeDigits , setDigitsEscapeDigits] = useState()
-    const [dateEscapeDigits , setDateEscapeDigits] = useState()
-    const [numberEscapeDigits , setNumberEscapeDigits] = useState()
-    const [phoneticsEscapeDigits , setPhoneticsEscapeDigits] = useState()
-    const [aplhaEscapeDigits , setAplhaEscapeDigits] = useState()
-    const [optionEscapeDigits , setOptionEscapeDigits] = useState() 
-    const [timeEscapeDigits , setTimeEscapeDigits] = useState()
-    const [digitTimeOut , setDigitTimeOut] = useState()
-    const [optionTimeOut , setOptionTimeOut] = useState()
-    const [dateTimeEscapeDigits , setDateTimeEscapeDigits] = useState()
+    // const [numNumber , setNumNumber] = useState()
+    const [escapeDigits , setEscapeDigits] = useState()
+    // const [digitsEscapeDigits , setDigitsEscapeDigits] = useState()
+    // const [dateEscapeDigits , setDateEscapeDigits] = useState()
+    // const [numberEscapeDigits , setNumberEscapeDigits] = useState()
+    // const [phoneticsEscapeDigits , setPhoneticsEscapeDigits] = useState()
+    // const [aplhaEscapeDigits , setAplhaEscapeDigits] = useState()
+    // const [optionEscapeDigits , setOptionEscapeDigits] = useState()
+    // const [timeEscapeDigits , setTimeEscapeDigits] = useState()
+    // const [digitTimeOut , setDigitTimeOut] = useState()
+    // const [optionTimeOut , setOptionTimeOut] = useState()
+    // const [dateTimeEscapeDigits , setDateTimeEscapeDigits] = useState()
     const [time , setTime] = useState()
     const [varName , setVarName] = useState()
     const [varValue , setVarValue] = useState()
     const [phonetics , setPhonetics] = useState()
     const [channelName , setChannelName] = useState()
-    const [aplhaNumber , setAplhaNumber] = useState()
-    const [edge , setEdge] = useState()
+    // const [aplhaNumber , setAplhaNumber] = useState()
+    // const [edge , setEdge] = useState()
     const [obj , setObj] = useState()
     const [form] = Form.useForm();
 
@@ -123,14 +136,14 @@ const IVR = () => {
         console.log(edge)
         // setElements((els) => addEdge(edge, els));
         let elementData = setElements((els) => addEdge(edge, els));
-        let object = {type : type , edgeLabel : edgeLabel , totalNumOfOutput : totalNumOfOutput , timeOut : timeOut , maxDigits : maxDigits ,
-            date : date , number : number , numNumber : numNumber , digitsEscapeDigits :digitsEscapeDigits , dateEscapeDigits : dateEscapeDigits,
-            numberEscapeDigits : numberEscapeDigits , phoneticsEscapeDigits : phoneticsEscapeDigits ,aplhaEscapeDigits : aplhaEscapeDigits ,
-            optionEscapeDigits: optionEscapeDigits , timeEscapeDigits : timeEscapeDigits , digitTimeOut : digitTimeOut , optionTimeOut: optionTimeOut ,
-            dateTimeEscapeDigits : dateTimeEscapeDigits , time :time , varName : varName , varValue : varValue , phonetics : phonetics , channelName :channelName ,
-            aplhaNumber : aplhaNumber , element : elements
-        }
-        console.log(object)
+        // let object = {type : type , edgeLabel : edgeLabel , totalNumOfOutput : totalNumOfOutput , timeOut : timeOut , maxDigits : maxDigits ,
+        //     date : date , number : number , numNumber : numNumber , digitsEscapeDigits :digitsEscapeDigits , dateEscapeDigits : dateEscapeDigits,
+        //     numberEscapeDigits : numberEscapeDigits , phoneticsEscapeDigits : phoneticsEscapeDigits ,aplhaEscapeDigits : aplhaEscapeDigits ,
+        //     optionEscapeDigits: optionEscapeDigits , timeEscapeDigits : timeEscapeDigits , digitTimeOut : digitTimeOut , optionTimeOut: optionTimeOut ,
+        //     dateTimeEscapeDigits : dateTimeEscapeDigits , time :time , varName : varName , varValue : varValue , phonetics : phonetics , channelName :channelName ,
+        //     aplhaNumber : aplhaNumber , element : elements
+        // }
+        console.log(elements)
     }
     // const [node , setNode] = useState( {node: nodeID, type: name , position : { x : 10 , y : 10} })
 
@@ -156,18 +169,6 @@ const IVR = () => {
                 <Handle type="target" position="left" style={{ borderRadius: 0 }} />
                 <div>{data.text}</div>
                 {totalNumOfOutput}
-                {/*<Handle*/}
-                {/*    type="source"*/}
-                {/*    position="right"*/}
-                {/*    id="a"*/}
-                {/*    style={{ top: '30%', borderRadius: 0 }}*/}
-                {/*/>*/}
-                {/*<Handle*/}
-                {/*    type="source"*/}
-                {/*    position="right"*/}
-                {/*    id="b"*/}
-                {/*    style={{ top: '70%', borderRadius: 0 }}*/}
-                {/*/>*/}
             </div>
         );
     };
@@ -182,25 +183,70 @@ const IVR = () => {
         id++;
         console.log(id)
         if(type !="" && type != null) {
-            let node = [...elements, {
-                id: "" + id,
-                type: 'special',
-                data: {
-                    text: (
-                        <>
-                            <strong>{type}</strong>
-                        </>
-                    ),
-                },
-                position: {x: 150, y: 50},
-            }]
-            setElements(node)
+            if (type == "Answer") {
+                setElements([...elements, answer()])
+            }
+            else if(type == "Stream File")
+            {
+                setElements([...elements, StreamFile("")])
+            }
+            else if(type == "Get Data")
+            {
+                setElements([...elements, GetData(timeOut ,maxDigits )])
+            }
+            else if(type == "Say Alpha")
+            {
+                setElements([...elements, SayAlpha(number ,escapeDigits )])
+            }
+            else if(type == "Say Date")
+            {
+                setElements([...elements, SayDate(timeOut ,maxDigits )])
+            }
+            else if(type == "Say DateTime")
+            {
+                setElements([...elements, SayDateTime(time ,escapeDigits )])
+            }
+            else if(type == "Say Digits")
+            {
+                setElements([...elements, SayDigits(number ,escapeDigits )])
+            }
+            else if(type == "Say Number")
+            {
+                setElements([...elements, SayNumber(number ,escapeDigits )])
+            }
+            else if(type == "Say Phonetic")
+            {
+                setElements([...elements, SayPhonetic(phonetics ,escapeDigits )])
+            }
+            else if(type == "Say Time")
+            {
+                setElements([...elements, SayTime(time ,escapeDigits )])
+            }
+            else if(type == "Get Option")
+            {
+                setElements([...elements, GetOption(timeOut ,escapeDigits )])
+            }
+            else if(type == "Set Var")
+            {
+                setElements([...elements, SetVar(varName ,varValue )])
+            }
+            else if(type == "Wait For Digit")
+            {
+                setElements([...elements, WaitForDigit(timeOut ,channelName )])
+            }
+            else if(type == "HangUp")
+            {
+                setElements([...elements, HangUp(channelName )])
+            }
+
             form.setFieldsValue({
                 type: setType(""),
             })
         }
-
     }
+
+
+
 
     // useEffect(() => {
     //
@@ -309,7 +355,7 @@ const IVR = () => {
                                 setDate(e.target.value)
                             }}
                         >
-                            <DatePicker onChange={(date, dateString) => console.log(date, dateString)}  />
+                            <DatePicker onChange={(date, dateString) =>setDate(date)}  />
                         </Form.Item>
 
                         <Form.Item
@@ -322,49 +368,13 @@ const IVR = () => {
                                 },
                             ]}
                             onChange={(e) => {
-                                setDateEscapeDigits(e.target.value)
+                                setEscapeDigits(e.target.value)
                             }}
                         >
                             <Input />
                         </Form.Item>
                     </>
                     }
-
-                    {/*{ (type === 'Say Date') && (type != '') &&*/}
-                    {/*<>*/}
-                    {/*    <Form.Item*/}
-                    {/*        label="Date"*/}
-                    {/*        name="date"*/}
-                    {/*        rules={[*/}
-                    {/*            {*/}
-                    {/*                required: true,*/}
-                    {/*                message: 'Please input your Date!',*/}
-                    {/*            },*/}
-                    {/*        ]}*/}
-                    {/*        onChange={(e) => {*/}
-                    {/*            setDate(e.target.value)*/}
-                    {/*        }}*/}
-                    {/*    >*/}
-                    {/*        <DatePicker onChange={(date, dateString) => console.log(date, dateString)}  />*/}
-                    {/*    </Form.Item>*/}
-                    
-                    {/*    <Form.Item*/}
-                    {/*        label="Escape Digits"*/}
-                    {/*        name="escape_digits"*/}
-                    {/*        rules={[*/}
-                    {/*            {*/}
-                    {/*                required: true,*/}
-                    {/*                message: 'Please input your Escape Digits!',*/}
-                    {/*            },*/}
-                    {/*        ]}*/}
-                    {/*        onChange={(e) => {*/}
-                    {/*            setDateEscapeDigits(e.target.value)*/}
-                    {/*        }}*/}
-                    {/*    >*/}
-                    {/*        <Input />*/}
-                    {/*    </Form.Item>*/}
-                    {/*</>*/}
-                    {/*}*/}
 
                     { (type === 'Say Alpha') && (type != '') &&
                     <>
@@ -378,7 +388,7 @@ const IVR = () => {
                                 },
                             ]}
                             onChange={(e) => {
-                                setAplhaNumber(e.target.value)
+                                setNumber(e.target.value)
                             }}
                         >
                             <Input />
@@ -394,7 +404,7 @@ const IVR = () => {
                                 },
                             ]}
                             onChange={(e) => {
-                                setAplhaEscapeDigits(e.target.value)
+                                setEscapeDigits(e.target.value)
                             }}
                         >
                             <Input />
@@ -416,7 +426,7 @@ const IVR = () => {
                                 setTime(e.target.value)
                             }}
                         >
-                            <TimePicker use12Hours onChange={(time, timeString) => console.log(time, timeString)} />
+                            <TimePicker use12Hours onChange={(time, timeString) => setTime(time)} />
 
                         </Form.Item>
 
@@ -430,7 +440,7 @@ const IVR = () => {
                                 },
                             ]}
                             onChange={(e) => {
-                                setDateTimeEscapeDigits(e.target.value)
+                                setEscapeDigits(e.target.value)
                             }}
                         >
                             <Input />
@@ -449,7 +459,7 @@ const IVR = () => {
                                 },
                             ]}
                             onChange={(e) => {
-                                setOptionTimeOut(e.target.value)
+                                setTimeOut(e.target.value)
                             }}
                         >
                             <Input />
@@ -465,7 +475,7 @@ const IVR = () => {
                                 },
                             ]}
                             onChange={(e) => {
-                                setOptionEscapeDigits(e.target.value)
+                                setEscapeDigits(e.target.value)
                             }}
                         >
                             <Input />
@@ -501,7 +511,7 @@ const IVR = () => {
                                 },
                             ]}
                             onChange={(e) => {
-                                setDigitsEscapeDigits(e.target.value)
+                                setEscapeDigits(e.target.value)
                             }}
                         >
                             <Input />
@@ -521,7 +531,7 @@ const IVR = () => {
                                 },
                             ]}
                             onChange={(e) => {
-                                setNumNumber(e.target.value)
+                                setNumber(e.target.value)
                             }}
                         >
                             <Input />
@@ -537,7 +547,7 @@ const IVR = () => {
                                 },
                             ]}
                             onChange={(e) => {
-                                setNumberEscapeDigits(e.target.value)
+                                setEscapeDigits(e.target.value)
                             }}
                         >
                             <Input />
@@ -573,7 +583,7 @@ const IVR = () => {
                                 },
                             ]}
                             onChange={(e) => {
-                                setPhoneticsEscapeDigits(e.target.value)
+                                setEscapeDigits(e.target.value)
                             }}
                         >
                             <Input />
@@ -593,10 +603,10 @@ const IVR = () => {
                                 },
                             ]}
                             onChange={(e) => {
-                                setPhonetics(e.target.value)
+                                setTime(e.target.value)
                             }}
                         >
-                            <TimePicker onChange={(time, timeString) => console.log(time, timeString)} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />,
+                            <TimePicker onChange={(time, timeString) => setTime(time)} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />,
                         </Form.Item>
 
                         <Form.Item
@@ -609,7 +619,7 @@ const IVR = () => {
                                 },
                             ]}
                             onChange={(e) => {
-                                setTimeEscapeDigits(e.target.value)
+                                setEscapeDigits(e.target.value)
                             }}
                         >
                             <Input />
@@ -666,7 +676,7 @@ const IVR = () => {
                                 },
                             ]}
                             onChange={(e) => {
-                                setDigitTimeOut(e.target.value)
+                                setTimeOut(e.target.value)
                             }}
                         >
                             <Input />
@@ -692,31 +702,6 @@ const IVR = () => {
                         </Form.Item>
                     </>
                     }
-
-
-
-                    {/*{ (type === 'Say Digits')  &&*/}
-                    {/*<>*/}
-                    {/*    <Form.Item*/}
-                    {/*        label="Escape Digits"*/}
-                    {/*        name="escape_digits"*/}
-                    {/*        rules={[*/}
-                    {/*            {*/}
-                    {/*                required: true,*/}
-                    {/*                message: 'Please input your Escape Digits!',*/}
-                    {/*            },*/}
-                    {/*        ]}*/}
-                    {/*        onChange={(e) => {*/}
-                    {/*            setEscapeDigits(e.target.value)*/}
-                    {/*        }}*/}
-                    {/*    >*/}
-                    {/*        <Input />*/}
-                    {/*    </Form.Item>*/}
-                    {/*</>*/}
-                    {/*}*/}
-
-
-
 
 
 

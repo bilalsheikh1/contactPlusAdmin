@@ -57,16 +57,6 @@ const changePassword = () => {
     return (
 
         <Layout>
-            <Header  style={{ padding: 0 }} >
-                <Menu selectable={false} mode='horizontal' style={rightStyle} theme={"dark"}>
-                    <SubMenu key="sub2" icon={<UserOutlined />} title="User">
-                        <Menu.Item key="20">
-                            <Link to={"/changePassword"}>Change Password</Link>
-                        </Menu.Item>
-                        <Menu.Item key="21" onClick={logout}>Logout</Menu.Item>
-                    </SubMenu>
-                </Menu>
-            </Header>
             <Content style={{ padding: '0 50px' }}>
                 <Breadcrumb style={{ margin: '16px 0' }}>
                     <Breadcrumb.Item>Admin</Breadcrumb.Item>

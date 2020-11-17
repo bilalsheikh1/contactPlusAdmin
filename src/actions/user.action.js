@@ -22,6 +22,7 @@ export const logins =  ({user}) => (dispatch) => {
               localStorage.setItem("loggedIn" , true)
               console.log(localStorage.getItem("loggedIn"));
               dispatch(login(user))
+              // console.log()
           }).catch(error => {
               console.log(error)
               dispatch(loginFail(user))
@@ -32,6 +33,7 @@ export const logins =  ({user}) => (dispatch) => {
         return {type : Types.LOGIN , payload : {user} , status : "true"}
     }
     function loginFail (user) {
+          console.log("fail")
         return {type : Types.LOGIN_FAILURE , payload : {user}, status : "false" }
     }
 }

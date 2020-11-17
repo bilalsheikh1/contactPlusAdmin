@@ -97,16 +97,7 @@ const Blended = () => {
     return (
         <>
             <Layout className="site-layout">
-                <Header  style={{ padding: 0 }} >
-                    <Menu selectable={false} mode='horizontal' style={rightStyle} theme={"dark"}>
-                        <SubMenu key="sub2" icon={<UserOutlined />} title="User">
-                            <Menu.Item key="20">
-                                <Link to={"/changePassword"}>Change Password</Link>
-                            </Menu.Item>
-                            <Menu.Item key="21" onClick={logout}>Logout</Menu.Item>
-                        </SubMenu>
-                    </Menu>
-                </Header>
+
                 <Content style={{ margin: '0 16px' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item>Agent</Breadcrumb.Item>

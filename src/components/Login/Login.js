@@ -29,8 +29,8 @@ const tailLayout = {
     },
 };
 
-const Login = () =>{
-
+const Login = () =>
+{
     const dispatch = useDispatch();
     const [username , setUsername] = useState("");
     const [password , setPassword] = useState("");
@@ -42,13 +42,12 @@ const Login = () =>{
             history.push('/dashboard')
             window.location.reload(false);
         }
-
     } ,[user])
+
     const handleSubmit = () => {
         let temp = { type : "LOGIN" , user : {username: username, password: password}};
         dispatch(logins(temp));
     }
-
 
     return(
         <>
@@ -58,17 +57,18 @@ const Login = () =>{
                         <Breadcrumb.Item>List</Breadcrumb.Item>
                         <Breadcrumb.Item>Login</Breadcrumb.Item>
                     </Breadcrumb>
+
+                    {user.type === "LoginFail" &&
                     <Alert
-                        message="Login Erorr"
+                        message="Login Fail"
                         description="Username and password are incorrect."
                         type="error"
                         showIcon
                         closable
                     />
+                    }
+
                     <div className="site-layout-content">
-
-
-
                         <Form name={"login"}  {...layout} initialValues={{remember: true,}}>
                             <Form.Item
                                 name={"username"}
