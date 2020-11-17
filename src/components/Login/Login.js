@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import  { withRouter, Route, Link ,Switch} from "react-router-dom";
-import {Menu, Form, Input, Button, Layout, Row, Col, Image, Breadcrumb} from "antd";
+import {Menu, Form, Input, Button, Layout, Row, Col, Image, Breadcrumb, Alert} from "antd";
 import 'antd/dist/antd.css';
 import '../../App.css';
 import Register from "../Register/Register";
@@ -49,9 +49,6 @@ const Login = () =>{
         dispatch(logins(temp));
     }
 
-    // const [form] = Form.useForm();
-
-    // console.log(this.state);
 
     return(
         <>
@@ -61,7 +58,17 @@ const Login = () =>{
                         <Breadcrumb.Item>List</Breadcrumb.Item>
                         <Breadcrumb.Item>Login</Breadcrumb.Item>
                     </Breadcrumb>
+                    <Alert
+                        message="Login Erorr"
+                        description="Username and password are incorrect."
+                        type="error"
+                        showIcon
+                        closable
+                    />
                     <div className="site-layout-content">
+
+
+
                         <Form name={"login"}  {...layout} initialValues={{remember: true,}}>
                             <Form.Item
                                 name={"username"}
@@ -94,9 +101,7 @@ const Login = () =>{
                                     Login
                                 </Button>
                             </Form.Item>
-
                         </Form>
-
                     </div>
                 </Content>
 
