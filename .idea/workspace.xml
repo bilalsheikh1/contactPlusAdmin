@@ -15,25 +15,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e3fd2a78-408d-48cf-8baa-22d3fc6890f5" name="Default Changelist" comment="/">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes/PrivateRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/PrivateRoute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes/PublicRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes/PublicRoute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/user.action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/user.action.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Agent/Blended.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Agent/Blended.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Agent/Inbound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Agent/Inbound.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Agent/Outbound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Agent/Outbound.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/IVR/IVR.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/IVR/IVR.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PauseReason/PauseReason.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PauseReason/PauseReason.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Queues/Queuse.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Queues/Queuse.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Routes/RoutesInbound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Routes/RoutesInbound.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Routes/RoutesOutbound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Routes/RoutesOutbound.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SystemSetting/System.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SystemSetting/System.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/WorkCode/WorkCode.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/WorkCode/WorkCode.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/changePassword/changePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/changePassword/changePassword.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/extension/Extension.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/extension/Extension.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/user/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user/users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/RoutesInbound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/RoutesInbound.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +43,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../contact plus Backend API/contactPlus" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../xampp/htdocs/Counpon" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -120,7 +102,8 @@
       <workItem from="1605000635535" duration="7360000" />
       <workItem from="1605079335930" duration="13870000" />
       <workItem from="1605160170209" duration="24237000" />
-      <workItem from="1605506018280" duration="44518000" />
+      <workItem from="1605506018280" duration="55630000" />
+      <workItem from="1605688110185" duration="3549000" />
     </task>
     <task id="LOCAL-00001" summary="/">
       <created>1605076234484</created>
@@ -143,7 +126,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605608173946</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="/">
+      <created>1605616823638</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1605616823638</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -174,10 +164,10 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="254" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1600.860@0.0.1600.860" timestamp="1603097311852" />
-    <state x="580" y="185" key="FileChooserDialogImpl" timestamp="1605587998074">
+    <state x="580" y="185" key="FileChooserDialogImpl" timestamp="1605620689464">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="580" y="185" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1605587998074" />
+    <state x="580" y="185" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1605620689464" />
     <state x="634" y="353" key="NewPhpFileDialog" timestamp="1603948388321">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -186,10 +176,10 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="301" y="75" key="SettingsEditor/0.0.1600.860@0.0.1600.860" timestamp="1605178161570" />
-    <state x="392" y="163" key="Vcs.Push.Dialog.v2" timestamp="1605608174697">
+    <state x="392" y="163" key="Vcs.Push.Dialog.v2" timestamp="1605616824338">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="392" y="163" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1605608174697" />
+    <state x="392" y="163" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1605616824338" />
     <state x="406" y="40" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1603950007750">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -210,10 +200,10 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="456" y="195" width="672" height="677" key="run.anything.popup/0.0.1600.860@0.0.1600.860" timestamp="1605177930475" />
-    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup" timestamp="1605599576764">
+    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup" timestamp="1605677859435">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup/0.0.1600.860@0.0.1600.860" timestamp="1605599576764" />
+    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup/0.0.1600.860@0.0.1600.860" timestamp="1605677859435" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -234,13 +224,11 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/node_modules/react-flow-renderer/dist/container/ReactFlow/index.d.ts</url>
           <line>20</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/components/IVR/IVRDetail.js</url>
           <line>3</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>

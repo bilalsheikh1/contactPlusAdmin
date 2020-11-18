@@ -81,7 +81,8 @@ const IVR = () => {
     // let totalNumOfOutput = []
     // const [label , setLabel] = useState("");
     const [type , setType] = useState();
-    const [edgeLabel , setEdgeLabel] = useState();
+    const [edgeLabel , setEdgeLabel] = useState([]);
+    const [edgeLabelCounter , setEdgeLabelCounter] = useState([]);
     // const [numOfOutput , setNumOfOutput] = useState(0);
     const [totalNumOfOutput , setTotalNumOfOutput] = useState([]);
     const [timeOut , setTimeOut] = useState()
@@ -110,8 +111,6 @@ const IVR = () => {
     const [obj , setObj] = useState()
     const [form] = Form.useForm();
 
-
-
     const [elements, setElements] = useState([{
         id: '1',
         type: 'input',
@@ -134,16 +133,8 @@ const IVR = () => {
         let edge = {id : "e"+params.source+"-"+params.target , sourceHandle : params.sourceHandle, source : params.source , target : params.target , label : edgeLabel}
         console.log(params)
         console.log(edge)
-        // setElements((els) => addEdge(edge, els));
-        let elementData = setElements((els) => addEdge(edge, els));
-        // let object = {type : type , edgeLabel : edgeLabel , totalNumOfOutput : totalNumOfOutput , timeOut : timeOut , maxDigits : maxDigits ,
-        //     date : date , number : number , numNumber : numNumber , digitsEscapeDigits :digitsEscapeDigits , dateEscapeDigits : dateEscapeDigits,
-        //     numberEscapeDigits : numberEscapeDigits , phoneticsEscapeDigits : phoneticsEscapeDigits ,aplhaEscapeDigits : aplhaEscapeDigits ,
-        //     optionEscapeDigits: optionEscapeDigits , timeEscapeDigits : timeEscapeDigits , digitTimeOut : digitTimeOut , optionTimeOut: optionTimeOut ,
-        //     dateTimeEscapeDigits : dateTimeEscapeDigits , time :time , varName : varName , varValue : varValue , phonetics : phonetics , channelName :channelName ,
-        //     aplhaNumber : aplhaNumber , element : elements
-        // }
-        console.log(elements)
+        setElements((els) => addEdge(edge, els));
+
     }
     // const [node , setNode] = useState( {node: nodeID, type: name , position : { x : 10 , y : 10} })
 
@@ -151,7 +142,22 @@ const IVR = () => {
         console.log('flow loaded:', reactFlowInstance);
         reactFlowInstance.fitView();
     }
+    const handleOnChange = ({ index, ...newHours }) => {
+        // update array item
+        const edge = edgeLabel.map((item, i) => {
+            const newData = i === index ? newHours : {};
 
+            return {
+                ...item,
+                ...newData
+            };
+        });
+
+        // update item in opening_hours => state
+        setEdgeLabel({ edge });
+        console.log(edge)
+    };
+    let edgeLabel1 = []
     const numOfOutputNode = () =>
     {
         var j=5;
@@ -159,7 +165,22 @@ const IVR = () => {
             var k = j+"%"
             totalNumOfOutput.push(<Handle type="source" position="bottom" id={i} key={i} style={{ left: ''+k , borderRadius: 0 }} />)
             j +=20;
+            edgeLabel1.push(<Form.Item
+                name={"edgeLabel"}
+                label={"Edge Label "+(i+1)}
+                key = {i+i}
+                rules={[{
+                    required : true ,
+                    message : "Please Enter Edge Label First"
+                }]}
+                onChange={handleOnChange}
+            >
+                <Input />
+            </Form.Item>)
+
         }
+        setEdgeLabelCounter(edgeLabel1)
+        edgeLabel1 = [];
     }
 
     const CustomNodeComponent = ({ data }) => {
@@ -176,7 +197,10 @@ const IVR = () => {
         special: CustomNodeComponent,
     };
 
-
+    const saveFlow = () =>
+    {
+        console.log(elements);
+    }
 
     const submit = () => {
         let id = elements.length;
@@ -704,19 +728,6 @@ const IVR = () => {
                     }
 
 
-
-                    <Form.Item
-                        name={"edgeLabel"}
-                        label={"Edge Label"}
-                        rules={[{
-                            required : true ,
-                            message : "Please Enter Edge Label First"
-                        }]}
-                        onChange={(e) => {setEdgeLabel(e.target.value)}}
-                    >
-                        <Input />
-                    </Form.Item>
-
                     <Form.Item
                         name={"num_of_output"}
                         label={"Number Of Output"}
@@ -748,16 +759,24 @@ const IVR = () => {
 
                     </Form.Item>
 
+                        {edgeLabelCounter}
+
                     <Form.Item
                         label={"Upload File"}
                     >
                         <Upload {...props}>
                             <Button icon={<UploadOutlined />}>Click to Upload</Button>
-                        </Upload>,
+                        </Upload>
                     </Form.Item>
                     <Form.Item {...tailLayout}>
                         <Button type="primary" htmlType="submit" onClick={submit}>
                             Submit
+                        </Button>
+                    </Form.Item>
+
+                    <Form.Item {...tailLayout}>
+                        <Button type="primary" htmlType="submit" onClick={saveFlow}>
+                            Save Flow
                         </Button>
                     </Form.Item>
 
