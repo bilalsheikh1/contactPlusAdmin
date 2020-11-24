@@ -30,7 +30,7 @@ const rootReducer = combineReducers({
     WorkCode : WorkCode,
     PauseReason : PauseReason,
     logout : logout,
-    IVRInbound : IVRInbound
+    // IVRInbound : IVRInbound
 });
 
 const configureStore = () => {

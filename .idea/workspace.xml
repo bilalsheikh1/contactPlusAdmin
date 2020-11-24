@@ -15,14 +15,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e3fd2a78-408d-48cf-8baa-22d3fc6890f5" name="Default Changelist" comment="/">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/APIConstant.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/APIConstant.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/IVR/IVR.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/IVR/IVR.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/WorkCode/WorkCode.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/WorkCode/WorkCode.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/IVR/IVR.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/IVR/IVR.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SideBar/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SideBar/SideBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/constants/user.constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/user.constants.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/helper/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helper/store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/IVR.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/IVR.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +105,7 @@
       <workItem from="1605506018280" duration="55630000" />
       <workItem from="1605688110185" duration="7865000" />
       <workItem from="1605764722445" duration="36578000" />
-      <workItem from="1606108035645" duration="41605000" />
+      <workItem from="1606108035645" duration="41959000" />
     </task>
     <task id="LOCAL-00001" summary="/">
       <created>1605076234484</created>
@@ -149,7 +142,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605705948109</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="/">
+      <created>1606223566424</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1606223566424</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -192,10 +192,10 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="301" y="75" key="SettingsEditor/0.0.1600.860@0.0.1600.860" timestamp="1605178161570" />
-    <state x="392" y="163" key="Vcs.Push.Dialog.v2" timestamp="1605705948484">
+    <state x="392" y="163" key="Vcs.Push.Dialog.v2" timestamp="1606223568392">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="392" y="163" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1605705948484" />
+    <state x="392" y="163" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1606223568392" />
     <state x="406" y="40" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1605775307478">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
