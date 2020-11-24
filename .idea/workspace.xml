@@ -15,7 +15,14 @@
   <component name="ChangeListManager">
     <list default="true" id="e3fd2a78-408d-48cf-8baa-22d3fc6890f5" name="Default Changelist" comment="/">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/APIConstant.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/APIConstant.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/IVR/IVR.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/IVR/IVR.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/WorkCode/WorkCode.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/WorkCode/WorkCode.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/IVR/IVR.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/IVR/IVR.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SideBar/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SideBar/SideBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/user.constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/user.constants.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/helper/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helper/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducers/IVR.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/IVR.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +110,9 @@
       <workItem from="1605079335930" duration="13870000" />
       <workItem from="1605160170209" duration="24237000" />
       <workItem from="1605506018280" duration="55630000" />
-      <workItem from="1605688110185" duration="3549000" />
+      <workItem from="1605688110185" duration="7865000" />
+      <workItem from="1605764722445" duration="36578000" />
+      <workItem from="1606108035645" duration="41605000" />
     </task>
     <task id="LOCAL-00001" summary="/">
       <created>1605076234484</created>
@@ -133,7 +142,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605616823638</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="/">
+      <created>1605705948109</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1605705948109</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -160,14 +176,14 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="668" y="322" key="#ESLint/0.0.1600.860@0.0.1600.860" timestamp="1604648898644" />
-    <state x="254" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603097311852">
+    <state x="254" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1605788130216">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="254" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1600.860@0.0.1600.860" timestamp="1603097311852" />
-    <state x="580" y="185" key="FileChooserDialogImpl" timestamp="1605620689464">
+    <state x="254" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1600.860@0.0.1600.860" timestamp="1605788130216" />
+    <state x="580" y="185" key="FileChooserDialogImpl" timestamp="1606146086098">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="580" y="185" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1605620689464" />
+    <state x="580" y="185" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1606146086098" />
     <state x="634" y="353" key="NewPhpFileDialog" timestamp="1603948388321">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -176,14 +192,14 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="301" y="75" key="SettingsEditor/0.0.1600.860@0.0.1600.860" timestamp="1605178161570" />
-    <state x="392" y="163" key="Vcs.Push.Dialog.v2" timestamp="1605616824338">
+    <state x="392" y="163" key="Vcs.Push.Dialog.v2" timestamp="1605705948484">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="392" y="163" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1605616824338" />
-    <state x="406" y="40" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1603950007750">
+    <state x="392" y="163" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1605705948484" />
+    <state x="406" y="40" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1605775307478">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="406" y="40" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1600.860@0.0.1600.860" timestamp="1603950007750" />
+    <state x="406" y="40" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1600.860@0.0.1600.860" timestamp="1605775307478" />
     <state x="92" y="92" width="1416" height="676" key="dock-window-1" timestamp="1604921201128">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -196,14 +212,14 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="507" y="163" width="585" height="534" key="find.popup/0.0.1600.860@0.0.1600.860" timestamp="1604556136750" />
-    <state x="456" y="195" width="672" height="677" key="run.anything.popup" timestamp="1605177930475">
+    <state x="456" y="195" width="672" height="677" key="run.anything.popup" timestamp="1606219046124">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="456" y="195" width="672" height="677" key="run.anything.popup/0.0.1600.860@0.0.1600.860" timestamp="1605177930475" />
-    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup" timestamp="1605677859435">
+    <state x="456" y="195" width="672" height="677" key="run.anything.popup/0.0.1600.860@0.0.1600.860" timestamp="1606219046124" />
+    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup" timestamp="1606134472910">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup/0.0.1600.860@0.0.1600.860" timestamp="1605677859435" />
+    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup/0.0.1600.860@0.0.1600.860" timestamp="1606134472910" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -230,6 +246,17 @@
           <url>file://$PROJECT_DIR$/src/components/IVR/IVRDetail.js</url>
           <line>3</line>
           <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/components/IVR/IVR.js</url>
+          <line>358</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/actions/PauseReason/PauseReason.js</url>
+          <line>31</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

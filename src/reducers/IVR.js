@@ -2,26 +2,15 @@ import {Types} from "../constants/user.constants";
 
 const initState = {
     IVR: {
-        first_name : '',
-        last_name : '',
-        email : '',
-        // confirm_password : '',
-        status : ''
+        name : "",
+        script : ""
     },
-    formSubmitted : false
+    formSubmitted : false,
+    status : 0
 }
 
 const reducer =  (state = initState , action) => {
     switch (action.type){
-        // case Types.GETDATABYID :
-        //     return {
-        //         ...state,
-        //         RoutesInbound
-        //         : action.payload.RoutesInbound
-        //         ,
-        //         status : action.status,
-        //         formSubmitted : false
-        //     }
         case Types.UPDATE :
             return {
                 ...state,
@@ -29,10 +18,12 @@ const reducer =  (state = initState , action) => {
                 formSubmitted: false
             }
         case Types.CREATE :
+            console.log(action.payload)
             return {
                 ...state,
-                RoutesInbound: action.payload.data,
-                formSubmitted: false
+                IVR: action.payload.status,
+                formSubmitted: false,
+                status: action.payload.status
             }
         case Types.DELETE :
             return {
@@ -46,19 +37,6 @@ const reducer =  (state = initState , action) => {
                 profile: action.payload+"loadding",
                 formSubmitted: false,
             }
-        // case Types.REGISTER :
-        //     return {
-        //         ...state,
-        //         profile: action.payload.user,
-        //         formSubmitted : false,
-        //     }
-        // case Types.LOGIN_FAILURE :
-        //     return {
-        //         ...state,
-        //         profile: action.payload.user,
-        //         status : action.status,
-        //         formSubmitted : false,
-        //     }
         default :
             return state;
     }

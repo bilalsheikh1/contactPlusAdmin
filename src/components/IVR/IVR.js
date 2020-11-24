@@ -1,10 +1,21 @@
 import React, {useEffect, useState} from "react";
 import { FlowChartWithState } from "@mrblenny/react-flow-chart";
-import {Alert, Breadcrumb , DatePicker, Button, Form, Input, Layout, Select, Table ,Upload, message ,TimePicker} from "antd";
+import { ExclamationCircleOutlined } from '@ant-design/icons';
+import {
+    Alert,
+    Breadcrumb,
+    Button,
+    Form,
+    Input,
+    Layout,
+    Select,
+    Table,
+    Modal,
+} from "antd";
 import { InboxOutlined  ,UploadOutlined} from '@ant-design/icons';
 import { Handle } from 'react-flow-renderer';
 import moment from 'moment';
-
+import Modals from "./Modal";
 import ReactFlow, {
     removeElements,
     addEdge,
@@ -12,20 +23,23 @@ import ReactFlow, {
     Controls,
     Background,
 } from 'react-flow-renderer';
-import {
-    answer,
-    GetData, GetOption, HangUp,
-    SayAlpha,
-    SayDate,
-    SayDateTime,
-    SayDigits,
-    SayNumber,
-    SayPhonetic,
-    SayTime, SetVar,
-    StreamFile, WaitForDigit
-} from "./IVRDetail";
-
-// import initialElements from './initial-elements';
+import {answer, StreamFile} from "./IVRDetail";
+import GetData from "./GetData";
+import GetSay from "./SayData";
+import SayAlpha from "./SayAlpha";
+import SayDate from "./SayDate";
+import SayDateTime from "./SayDateTime";
+import SayDigits from "./SayDigits";
+import SayNumber from "./SayNumber";
+import SayPhonetic from "./SayPhonetic";
+import SayTime from "./SayTime";
+import GetOption from "./GetOptions";
+import SetVar from "./SetVar";
+import WaitForDigit from "./WaitForDigit";
+import HangUp from "./HangUp";
+import {useDispatch, useSelector} from "react-redux";
+import {SaveIVR} from "../../actions/IVR/IVR";
+import apiClient from "../../axios/axios";
 
 const layout = {
     labelCol: {
@@ -43,169 +57,139 @@ const tailLayout = {
     },
 };
 
-const { Dragger } = Upload;
-const props = {
-    name: 'file',
-    multiple: false,
-    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-    beforeUpload: file => {
-        console.log(file.type)
-        if (file.type !== 'audio/mpeg') {
-            message.error(`${file.name} is not a mp3 file`);
-        }
-        return file.type === 'audio/mpeg';
-    },
-    onChange(info) {
-        const { status } = info.file;
-        if (status !== 'uploading') {
-            console.log(info.file, info.fileList);
-        }
-        if (status === 'done') {
-            message.success(`${info.file.name} file uploaded successfully.`);
-        } else if (status === 'error') {
-            message.error(`${info.file.name} file upload failed.`);
-        }
-    },
-};
-const customNodeStyles = {
-    background: '#9CA8B3',
-    color: '#FFF',
-    padding: 10,
-};
-
 const { Column, ColumnGroup } = Table;
 const { Header, Content, Footer, Sider } = Layout;
 const IVR = () => {
 
-    let numOfOutput = 0;
-    // let totalNumOfOutput = []
-    // const [label , setLabel] = useState("");
+    const dispatch = useDispatch();
+    const [value1 , setValue1] = useState()
+    const [value2 , setValue2] = useState()
+    const [value3 , setValue3] = useState()
     const [type , setType] = useState();
-    const [edgeLabel , setEdgeLabel] = useState([]);
-    const [edgeLabelCounter , setEdgeLabelCounter] = useState([]);
-    // const [numOfOutput , setNumOfOutput] = useState(0);
-    const [totalNumOfOutput , setTotalNumOfOutput] = useState([]);
-    const [timeOut , setTimeOut] = useState()
-    const [maxDigits , setMaxDigits] = useState()
-    const [date , setDate] = useState()
-    const [number , setNumber] = useState()
-    // const [numNumber , setNumNumber] = useState()
-    const [escapeDigits , setEscapeDigits] = useState()
-    // const [digitsEscapeDigits , setDigitsEscapeDigits] = useState()
-    // const [dateEscapeDigits , setDateEscapeDigits] = useState()
-    // const [numberEscapeDigits , setNumberEscapeDigits] = useState()
-    // const [phoneticsEscapeDigits , setPhoneticsEscapeDigits] = useState()
-    // const [aplhaEscapeDigits , setAplhaEscapeDigits] = useState()
-    // const [optionEscapeDigits , setOptionEscapeDigits] = useState()
-    // const [timeEscapeDigits , setTimeEscapeDigits] = useState()
-    // const [digitTimeOut , setDigitTimeOut] = useState()
-    // const [optionTimeOut , setOptionTimeOut] = useState()
-    // const [dateTimeEscapeDigits , setDateTimeEscapeDigits] = useState()
-    const [time , setTime] = useState()
-    const [varName , setVarName] = useState()
-    const [varValue , setVarValue] = useState()
-    const [phonetics , setPhonetics] = useState()
-    const [channelName , setChannelName] = useState()
-    // const [aplhaNumber , setAplhaNumber] = useState()
-    // const [edge , setEdge] = useState()
-    const [obj , setObj] = useState()
+    const [file , setFile] = useState();
+    const [edgeLabel , setEdgeLabel] = useState();
+    const [totalNumOfOutputs , setTotalNumOfOutputs] = useState([]);
     const [form] = Form.useForm();
-
-    const [elements, setElements] = useState([{
+    const [visible , setvisible] = useState()
+    const [dataStatus , setDataStatus] = useState(false)
+    const IVRData = useSelector(state => state.IVR)
+    const initElement = [{
         id: '1',
         type: 'input',
         data: {
-            label: (
-                <>
-                    <strong>Start</strong>
-                </>
-            ),
+            label: 'Start'
         },
         position: { x: 250, y: 0 },
-        },
-    ]);
+    }]
+    const [elements, setElements] = useState(initElement);
 
     const onElementsRemove = (elementsToRemove) =>
         setElements((els) => removeElements(elementsToRemove, els));
 
     const onConnect = (params) =>
     {
-        let edge = {id : "e"+params.source+"-"+params.target , sourceHandle : params.sourceHandle, source : params.source , target : params.target , label : edgeLabel}
-        console.log(params)
-        console.log(edge)
-        setElements((els) => addEdge(edge, els));
+        let label = "";
+        if(params.source === "1")
+            setElements((els) => addEdge({...params , label:label}, els));
+        else {
+            Modal.confirm({
+                centered: true,
+                title: 'Add Edge Label',
+                content: (
+                    <Form.Item onChange={(e) => label = e.target.value} name="Label" label="Edge label" required>
+                        <Input/>
+                    </Form.Item>
+                ),
+                onOk() {
+                    setElements((els) => addEdge({...params, label: label}, els));
+                },
+                onCancel() {
 
+                }
+            })
+        }
     }
-    // const [node , setNode] = useState( {node: nodeID, type: name , position : { x : 10 , y : 10} })
 
     const onLoad = (reactFlowInstance) => {
         console.log('flow loaded:', reactFlowInstance);
         reactFlowInstance.fitView();
     }
-    const handleOnChange = ({ index, ...newHours }) => {
-        // update array item
-        const edge = edgeLabel.map((item, i) => {
-            const newData = i === index ? newHours : {};
 
-            return {
-                ...item,
-                ...newData
-            };
-        });
-
-        // update item in opening_hours => state
-        setEdgeLabel({ edge });
-        console.log(edge)
-    };
-    let edgeLabel1 = []
-    const numOfOutputNode = () =>
+    useEffect(() =>
     {
-        var j=5;
-        for(var i =0 ; i<numOfOutput; i++){
-            var k = j+"%"
-            totalNumOfOutput.push(<Handle type="source" position="bottom" id={i} key={i} style={{ left: ''+k , borderRadius: 0 }} />)
-            j +=20;
-            edgeLabel1.push(<Form.Item
-                name={"edgeLabel"}
-                label={"Edge Label "+(i+1)}
-                key = {i+i}
-                rules={[{
-                    required : true ,
-                    message : "Please Enter Edge Label First"
-                }]}
-                onChange={handleOnChange}
-            >
-                <Input />
-            </Form.Item>)
-
+        console.log(IVRData)
+        if(IVRData.status == 1 ) {
+            console.log("ok")
         }
-        setEdgeLabelCounter(edgeLabel1)
-        edgeLabel1 = [];
-    }
+
+    }, [IVRData])
+
+
+    const customNodeStyles = {
+        background: '#fff',
+        borderColor: '#0041d0',
+        borderRadius: '3px',
+        padding: '10px',
+        width: '150px',
+        color: '#222',
+        textAlign: 'center',
+        borderWidth: '1px',
+        borderStyle: 'solid'
+    };
 
     const CustomNodeComponent = ({ data }) => {
-        return (
 
+          return (
             <div style={customNodeStyles}>
-                <Handle type="target" position="left" style={{ borderRadius: 0 }} />
-                <div>{data.text}</div>
-                {totalNumOfOutput}
+                <Handle type="target" position="top" style={{ borderRadius: 0 }} />
+                <center>
+                    <div>{data.text}</div>
+                    <small>{data.file}</small>
+                </center>
+                {data.totalNumOfOutputs}
             </div>
         );
     };
+
     const nodeTypes = {
         special: CustomNodeComponent,
     };
 
     const saveFlow = () =>
     {
-        console.log(elements);
+        let name  ="";
+        Modal.confirm({
+            centered: true,
+            title: 'Add Edge Label',
+            content: (
+                <Form.Item onChange={(e) => name=e.target.value} name="name" label="IVR Name" required>
+                    <Input />
+                </Form.Item>
+            ),
+            onOk() {
+                dispatch(SaveIVR(name , elements))
+                console.log(elements)
+                setDataStatus(false)
+            },
+            onCancel() {
+                setDataStatus(true)
+            }
+        })
     }
 
-    const submit = () => {
-        let id = elements.length;
-        id++;
-        console.log(id)
+    const open = () =>
+    {
+        setvisible(true)
+    }
+
+    const close = () =>
+    {
+        setvisible(false)
+    }
+
+    const submit = () =>
+    {
+        let filtered = elements.reverse().filter(((value, index) => value.position))
         if(type !="" && type != null) {
             if (type == "Answer") {
                 setElements([...elements, answer()])
@@ -216,68 +200,67 @@ const IVR = () => {
             }
             else if(type == "Get Data")
             {
-                setElements([...elements, GetData(timeOut ,maxDigits )])
+                setElements([...elements, GetData(value1 ,value2, totalNumOfOutputs,file , filtered[0].position.y + 100)])
             }
+            // else if(type == "Get Say")
+            // {
+            //     setElements([...elements, GetSay(value1 ,value2, totalNumOfOutputs, filtered[0].position.y + 100)])
+            // }
             else if(type == "Say Alpha")
             {
-                setElements([...elements, SayAlpha(number ,escapeDigits )])
+                setElements([...elements, SayAlpha(value1 ,value2 ,totalNumOfOutputs, filtered[0].position.y + 100)])
             }
             else if(type == "Say Date")
             {
-                setElements([...elements, SayDate(timeOut ,maxDigits )])
+                setElements([...elements, SayDate(value1 ,value2 ,totalNumOfOutputs, filtered[0].position.y + 100)])
             }
             else if(type == "Say DateTime")
             {
-                setElements([...elements, SayDateTime(time ,escapeDigits )])
+                setElements([...elements, SayDateTime(value1 ,value2 ,totalNumOfOutputs, filtered[0].position.y + 100)])
             }
             else if(type == "Say Digits")
             {
-                setElements([...elements, SayDigits(number ,escapeDigits )])
+                setElements([...elements, SayDigits(value1 ,value2 ,totalNumOfOutputs, filtered[0].position.y + 100)])
             }
             else if(type == "Say Number")
             {
-                setElements([...elements, SayNumber(number ,escapeDigits )])
+                setElements([...elements, SayNumber(value1 ,value2 ,totalNumOfOutputs, filtered[0].position.y + 100)])
             }
             else if(type == "Say Phonetic")
             {
-                setElements([...elements, SayPhonetic(phonetics ,escapeDigits )])
+                setElements([...elements, SayPhonetic(value1 ,value2 ,totalNumOfOutputs, filtered[0].position.y + 100)])
             }
             else if(type == "Say Time")
             {
-                setElements([...elements, SayTime(time ,escapeDigits )])
+                setElements([...elements, SayTime(value1 ,value2 ,totalNumOfOutputs, filtered[0].position.y + 100)])
             }
             else if(type == "Get Option")
             {
-                setElements([...elements, GetOption(timeOut ,escapeDigits )])
+                setElements([...elements, GetOption(value1 ,value2 ,totalNumOfOutputs,file, filtered[0].position.y + 100)])
             }
             else if(type == "Set Var")
             {
-                setElements([...elements, SetVar(varName ,varValue )])
+                setElements([...elements, SetVar(value1 ,value2 ,totalNumOfOutputs, filtered[0].position.y + 100)])
             }
             else if(type == "Wait For Digit")
             {
-                setElements([...elements, WaitForDigit(timeOut ,channelName )])
+                setElements([...elements, WaitForDigit(value1 ,value2 ,totalNumOfOutputs, filtered[0].position.y + 100)])
             }
             else if(type == "HangUp")
             {
-                setElements([...elements, HangUp(channelName )])
+                setElements([...elements, HangUp(value1 ,totalNumOfOutputs, filtered[0].position.y + 100)])
             }
 
             form.setFieldsValue({
                 type: setType(""),
             })
+
+            setvisible(false)
         }
     }
 
-
-
-
-    // useEffect(() => {
-    //
-    // },[node])
     const onNodeDragStop = (event, node) => console.log('drag stop', node);
     const onElementClick = (event, element) => console.log('click', element);
-
 
     return(
         <>
@@ -286,6 +269,7 @@ const IVR = () => {
                     <Breadcrumb.Item>Admin</Breadcrumb.Item>
                     <Breadcrumb.Item>IVR</Breadcrumb.Item>
                 </Breadcrumb>
+
                 <Form name={"register"}  {...layout} initialValues={{remember: true,}} form={form}  >
 
                     <Form.Item
@@ -328,459 +312,35 @@ const IVR = () => {
 
                     </Form.Item>
 
-                    { (type === 'Get Data') && (type != '') &&
-                    <>
-                        <Form.Item
-                            label="Time Out"
-                            name="time_out"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your Timeout!',
-                                },
-                            ]}
-                            onChange={(e) => {
-                                setTimeOut(e.target.value)
-                            }}
-                        >
-                            <Input />
-                        </Form.Item>
-
-                        <Form.Item
-                            label="Max Digits"
-                            name="max_digits"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your Max Digits!',
-                                },
-                            ]}
-                            onChange={(e) => {
-                                setMaxDigits(e.target.value)
-                            }}
-                        >
-                            <Input />
-                        </Form.Item>
-                    </>
-                    }
-
-                    { (type === 'Say Date') && (type != '') &&
-                    <>
-                        <Form.Item
-                            label="Date"
-                            name="date"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your Date!',
-                                },
-                            ]}
-                            onChange={(e) => {
-                                setDate(e.target.value)
-                            }}
-                        >
-                            <DatePicker onChange={(date, dateString) =>setDate(date)}  />
-                        </Form.Item>
-
-                        <Form.Item
-                            label="Escape Digits"
-                            name="escape_digits"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your Escape Digits!',
-                                },
-                            ]}
-                            onChange={(e) => {
-                                setEscapeDigits(e.target.value)
-                            }}
-                        >
-                            <Input />
-                        </Form.Item>
-                    </>
-                    }
-
-                    { (type === 'Say Alpha') && (type != '') &&
-                    <>
-                        <Form.Item
-                            label="Number"
-                            name="number"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your Number!',
-                                },
-                            ]}
-                            onChange={(e) => {
-                                setNumber(e.target.value)
-                            }}
-                        >
-                            <Input />
-                        </Form.Item>
-
-                        <Form.Item
-                            label="Escape Digits"
-                            name="escape_digits"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your Escape Digits!',
-                                },
-                            ]}
-                            onChange={(e) => {
-                                setEscapeDigits(e.target.value)
-                            }}
-                        >
-                            <Input />
-                        </Form.Item>
-                    </>
-                    }
-                    { (type === 'Say DateTime') && (type != '') &&
-                    <>
-                        <Form.Item
-                            label="Time"
-                            name="time"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your TimeOut!',
-                                },
-                            ]}
-                            onChange={(e) => {
-                                setTime(e.target.value)
-                            }}
-                        >
-                            <TimePicker use12Hours onChange={(time, timeString) => setTime(time)} />
-
-                        </Form.Item>
-
-                        <Form.Item
-                            label="Escape Digits"
-                            name="escape_digits"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your Escape Digits!',
-                                },
-                            ]}
-                            onChange={(e) => {
-                                setEscapeDigits(e.target.value)
-                            }}
-                        >
-                            <Input />
-                        </Form.Item>
-                    </>
-                    }
-                    { (type === 'Get Option') && (type != '') &&
-                    <>
-                        <Form.Item
-                            label="TimeOut"
-                            name="timeout"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your TimeOut!',
-                                },
-                            ]}
-                            onChange={(e) => {
-                                setTimeOut(e.target.value)
-                            }}
-                        >
-                            <Input />
-                        </Form.Item>
-
-                        <Form.Item
-                            label="Escape Digits"
-                            name="escape_digits"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your Escape Digits!',
-                                },
-                            ]}
-                            onChange={(e) => {
-                                setEscapeDigits(e.target.value)
-                            }}
-                        >
-                            <Input />
-                        </Form.Item>
-                    </>
-                    }
-
-                    { (type === 'Say Digits') && (type != '') &&
-                    <>
-                        <Form.Item
-                            label="Number"
-                            name="number"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your Number!',
-                                },
-                            ]}
-                            onChange={(e) => {
-                                setNumber(e.target.value)
-                            }}
-                        >
-                            <Input />
-                        </Form.Item>
-
-                        <Form.Item
-                            label="Escape Digits"
-                            name="escape_digits"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your Escape Digits!',
-                                },
-                            ]}
-                            onChange={(e) => {
-                                setEscapeDigits(e.target.value)
-                            }}
-                        >
-                            <Input />
-                        </Form.Item>
-                    </>
-                    }
-
-                    { (type === 'Say Number') && (type != '') &&
-                    <>
-                        <Form.Item
-                            label="Number"
-                            name="number"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your Number!',
-                                },
-                            ]}
-                            onChange={(e) => {
-                                setNumber(e.target.value)
-                            }}
-                        >
-                            <Input />
-                        </Form.Item>
-
-                        <Form.Item
-                            label="Escape Digits"
-                            name="escape_digits"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your Escape Digits!',
-                                },
-                            ]}
-                            onChange={(e) => {
-                                setEscapeDigits(e.target.value)
-                            }}
-                        >
-                            <Input />
-                        </Form.Item>
-                    </>
-                    }
-
-                    { (type === 'Say Phonetic') && (type != '') &&
-                    <>
-                        <Form.Item
-                            label="Phonetics String"
-                            name="number"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your Phonetics!',
-                                },
-                            ]}
-                            onChange={(e) => {
-                                setPhonetics(e.target.value)
-                            }}
-                        >
-                            <Input />
-                        </Form.Item>
-
-                        <Form.Item
-                            label="Escape Digits"
-                            name="escape_digits"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your Escape Digits!',
-                                },
-                            ]}
-                            onChange={(e) => {
-                                setEscapeDigits(e.target.value)
-                            }}
-                        >
-                            <Input />
-                        </Form.Item>
-                    </>
-                    }
-
-                    { (type === 'Say Time') && (type != '') &&
-                    <>
-                        <Form.Item
-                            label="Phonetics Time"
-                            name="number"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your Phonetics!',
-                                },
-                            ]}
-                            onChange={(e) => {
-                                setTime(e.target.value)
-                            }}
-                        >
-                            <TimePicker onChange={(time, timeString) => setTime(time)} defaultOpenValue={moment('00:00:00', 'HH:mm:ss')} />,
-                        </Form.Item>
-
-                        <Form.Item
-                            label="Escape Digits"
-                            name="escape_digits"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your Escape Digits!',
-                                },
-                            ]}
-                            onChange={(e) => {
-                                setEscapeDigits(e.target.value)
-                            }}
-                        >
-                            <Input />
-                        </Form.Item>
-                    </>
-                    }
-
-                    { (type === 'Set Var') && (type != '') &&
-                    <>
-                        <Form.Item
-                            label="Variable Name"
-                            name="var_name"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your Var Name!',
-                                },
-                            ]}
-                            onChange={(e) => {
-                                setVarName(e.target.value)
-                            }}
-                        >
-                            <Input />
-                        </Form.Item>
-
-                        <Form.Item
-                            label="Variable Value"
-                            name="var_value"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your Variable Value!',
-                                },
-                            ]}
-                            onChange={(e) => {
-                                setVarValue(e.target.value)
-                            }}
-                        >
-                            <Input />
-                        </Form.Item>
-                    </>
-                    }
-
-
-                    { (type === 'Wait For Digit') && (type != '') &&
-                    <>
-                        <Form.Item
-                            label="Digit TimeOut"
-                            name="digit_timeout"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your Digit TimeOut!',
-                                },
-                            ]}
-                            onChange={(e) => {
-                                setTimeOut(e.target.value)
-                            }}
-                        >
-                            <Input />
-                        </Form.Item>
-                    </>
-                    }
-                    { (type === 'HangUp') && (type != '') &&
-                    <>
-                        <Form.Item
-                            label="Channel Name"
-                            name="channel_name"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your Channel Name!',
-                                },
-                            ]}
-                            onChange={(e) => {
-                                setChannelName(e.target.value)
-                            }}
-                        >
-                            <Input />
-                        </Form.Item>
-                    </>
-                    }
-
-
-                    <Form.Item
-                        name={"num_of_output"}
-                        label={"Number Of Output"}
-                        rules={[{
-                            required : true ,
-                            message : "Please Select Output Type"
-                        }]}
-                    >
-                        <Select
-                            showSearch
-                            placeholder="Select a Output"
-                            optionFilterProp="children"
-                            filterOption={(input, option) =>
-                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                            }
-                            onChange={(value) => {
-                                numOfOutput =value;
-                                numOfOutputNode()
-                            }}
-                        >
-                            <option>Select Output</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </Select>
-
-                    </Form.Item>
-
-                        {edgeLabelCounter}
-
-                    <Form.Item
-                        label={"Upload File"}
-                    >
-                        <Upload {...props}>
-                            <Button icon={<UploadOutlined />}>Click to Upload</Button>
-                        </Upload>
-                    </Form.Item>
                     <Form.Item {...tailLayout}>
-                        <Button type="primary" htmlType="submit" onClick={submit}>
-                            Submit
+                        <Button type="primary" htmlType="button" onClick={open}>
+                            Open
                         </Button>
                     </Form.Item>
 
                     <Form.Item {...tailLayout}>
-                        <Button type="primary" htmlType="submit" onClick={saveFlow}>
+                        <Button type="primary" htmlType="button" onClick={saveFlow}>
                             Save Flow
                         </Button>
                     </Form.Item>
 
+                    <Modals visible={visible} submit={submit} setFile={setFile} edgeLabel={edgeLabel} setEdgeLabel={setEdgeLabel} setTotalNumOfOutputs={setTotalNumOfOutputs} close={close} type={type} setValue1={setValue1} setValue2={setValue2} setValue3={setValue3}/>
+
                 </Form>
+                {IVRData && (IVRData.status=="1") && <Alert
+                    message={'Success'}
+                    description={"Inserted"}
+                    type={"success"}
+                    showIcon
+                    closable
+                />}
+                {(dataStatus)  && <Alert
+                    message={'Error'}
+                    description={"Node Not Inserted"}
+                    type={"error"}
+                    showIcon
+                    closable
+                />}
                 <div style={{ padding: 24, minHeight: 360 , background : '#fff' }}>
 
                     <div style={{ height: 500 }}>

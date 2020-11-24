@@ -41,6 +41,7 @@ import PauseReason from "../PauseReason/PauseReason";
 import {userLogout} from "../../actions/logout/logout";
 import Routes from "../../Routes";
 import PublicRoute from "../../Routes/PublicRoute";
+import IVRInbound from "../IVR/IVRInbound/IVRInbound";
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -157,9 +158,14 @@ const SideBar = () => {
                             </Menu.Item>
                         </SubMenu>
 
-                        <Menu.Item key="8" icon={<PieChartOutlined />} >
-                            <Link to={"/IVR"}>IVR</Link>
-                        </Menu.Item>
+                        <SubMenu key="sub3" icon={<PieChartOutlined />} title="IVR">
+                            <Menu.Item key="8"  >
+                                <Link to={"/IVR"}>IVR Nodes</Link>
+                            </Menu.Item>
+                            <Menu.Item key="91">
+                                <Link to={"/IVRInbound"}>Inbound</Link> {/*Outbound*/}
+                            </Menu.Item>
+                        </SubMenu>
 
                         <Menu.Item key="9" icon={<UsergroupAddOutlined />} >
                             <Link to={"/Queues"}>Queues</Link>
@@ -211,6 +217,7 @@ const SideBar = () => {
                     <PrivateRoute path="/changePassword" component={changePassword} />
                     <PrivateRoute path="/workcode" component={WorkCode} />
                     <PrivateRoute path="/pauseReason" component={PauseReason} />
+                    <PrivateRoute path="/IVRInbound" component={IVRInbound} />
                 </Switch>
               </Layout>
             </Layout>

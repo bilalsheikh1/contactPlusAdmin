@@ -14,6 +14,7 @@ import SystemSetting from '../reducers/SystemSetting'
 import WorkCode from '../reducers/WorkCode'
 import PauseReason from '../reducers/PauseReason'
 import logout from '../reducers/logout'
+import IVRInbound from "../components/IVR/IVRInbound/IVRInbound";
 
 const rootReducer = combineReducers({
     user: profile,
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
     WorkCode : WorkCode,
     PauseReason : PauseReason,
     logout : logout,
+    IVRInbound : IVRInbound
 });
 
 const configureStore = () => {

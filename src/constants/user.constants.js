@@ -11,5 +11,6 @@ export const Types = {
     DELETE : "DELETE",
     CREATE : "CREATE",
     ERROR : "ERROR",
-    SHOWDATA:"SHOWDATA"
+    SHOWDATA:"SHOWDATA",
+    UPLOAD : "UPLOAD",
 };

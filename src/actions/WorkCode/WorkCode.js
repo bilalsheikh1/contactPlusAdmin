@@ -10,7 +10,7 @@ export const UpdateData = (data) => (dispatch) => {
         if(response.status === 204 || response.status === 200)
         {
             apiClient.patch("/api/"+WORKCODE+"/"+data.id, {name: data.name }).then(response => {
-                console.log(response.data.status);
+                console.log(response.data.status)
                 dispatch(updateData(response.data))
             })
         }
