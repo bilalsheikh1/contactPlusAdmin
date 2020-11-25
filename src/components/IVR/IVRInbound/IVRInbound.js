@@ -142,10 +142,6 @@ const IVRInbound = () => {
         }
     }
 
-    const logout = () => {
-        dispatch(userLogout())
-    }
-
     return (
         <>
             <Layout className="site-layout">
