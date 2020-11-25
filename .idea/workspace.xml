@@ -15,7 +15,8 @@
   <component name="ChangeListManager">
     <list default="true" id="e3fd2a78-408d-48cf-8baa-22d3fc6890f5" name="Default Changelist" comment="/">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/helper/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helper/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/APIConstant.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/APIConstant.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +44,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../xampp/htdocs/Counpon" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -105,7 +106,8 @@
       <workItem from="1605506018280" duration="55630000" />
       <workItem from="1605688110185" duration="7865000" />
       <workItem from="1605764722445" duration="36578000" />
-      <workItem from="1606108035645" duration="41959000" />
+      <workItem from="1606108035645" duration="44463000" />
+      <workItem from="1606282322617" duration="305000" />
     </task>
     <task id="LOCAL-00001" summary="/">
       <created>1605076234484</created>
@@ -149,7 +151,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606223566424</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="/">
+      <created>1606223964457</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1606223964457</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -180,10 +189,10 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="254" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1600.860@0.0.1600.860" timestamp="1605788130216" />
-    <state x="580" y="185" key="FileChooserDialogImpl" timestamp="1606146086098">
+    <state x="580" y="185" key="FileChooserDialogImpl" timestamp="1606231291408">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="580" y="185" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1606146086098" />
+    <state x="580" y="185" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1606231291408" />
     <state x="634" y="353" key="NewPhpFileDialog" timestamp="1603948388321">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -192,10 +201,10 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="301" y="75" key="SettingsEditor/0.0.1600.860@0.0.1600.860" timestamp="1605178161570" />
-    <state x="392" y="163" key="Vcs.Push.Dialog.v2" timestamp="1606223568392">
+    <state x="392" y="163" key="Vcs.Push.Dialog.v2" timestamp="1606223966658">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="392" y="163" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1606223568392" />
+    <state x="392" y="163" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1606223966658" />
     <state x="406" y="40" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1605775307478">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -255,7 +264,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/actions/PauseReason/PauseReason.js</url>
           <line>31</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
