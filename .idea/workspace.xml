@@ -106,7 +106,7 @@
       <workItem from="1605688110185" duration="7865000" />
       <workItem from="1605764722445" duration="36578000" />
       <workItem from="1606108035645" duration="44463000" />
-      <workItem from="1606282322617" duration="1342000" />
+      <workItem from="1606282322617" duration="1731000" />
     </task>
     <task id="LOCAL-00001" summary="/">
       <created>1605076234484</created>
@@ -157,7 +157,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606223964457</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="/">
+      <created>1606283889838</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1606283889838</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -200,10 +207,10 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="301" y="75" key="SettingsEditor/0.0.1600.860@0.0.1600.860" timestamp="1605178161570" />
-    <state x="392" y="163" key="Vcs.Push.Dialog.v2" timestamp="1606282665560">
+    <state x="392" y="163" key="Vcs.Push.Dialog.v2" timestamp="1606284067004">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="392" y="163" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1606282665560" />
+    <state x="392" y="163" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1606284067004" />
     <state x="406" y="40" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1605775307478">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
