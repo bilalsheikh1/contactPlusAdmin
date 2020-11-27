@@ -14,8 +14,56 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e3fd2a78-408d-48cf-8baa-22d3fc6890f5" name="Default Changelist" comment="/">
+      <change afterPath="$PROJECT_DIR$/src/components/IVR/nodes/StreamFile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Routes/Inbound.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reducers/Inbound.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/IVR/IVRInbound/IVRInbound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/IVR/IVRInbound/IVRInbound.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/APIConstant.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/APIConstant.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/IVR/IVR.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/IVR/IVR.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/IVR/IVRInbound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/IVR/Inbound.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/Routes/Inbound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/Routes/Inbound.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/logout/logout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/logout/logout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/axios/axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/axios/axios.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Agent/Blended.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Agent/Blended.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Agent/Inbound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Agent/Inbound.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Agent/Outbound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Agent/Outbound.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/IVR/GetData.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/IVR/GetOptions.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/IVR/HangUp.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/IVR/IVR.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/IVR/IVR.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/IVR/IVRDetail.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/IVR/IVRInbound/IVRInbound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/IVR/IVRInbound/IVRList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/IVR/Modal.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/IVR/NoOperation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/IVR/Noop.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/IVR/SayAlpha.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/IVR/SayData.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/IVR/SayDate.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/IVR/SayDateTime.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/IVR/SayDigits.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/IVR/SayNumber.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/IVR/SayPhonetic.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/IVR/SayTime.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/IVR/SetVar.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/IVR/Timeout.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/IVR/WaitForDigit.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Main/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Main/Main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PauseReason/PauseReason.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PauseReason/PauseReason.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Queues/Queuse.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Queues/Queuse.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Register/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Register/Register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Routes/RoutesInbound.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Routes/RoutesOutbound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Routes/RoutesOutbound.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SideBar/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SideBar/SideBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SystemSetting/System.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SystemSetting/System.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/WorkCode/WorkCode.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/WorkCode/WorkCode.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/changePassword/changePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/changePassword/changePassword.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard/dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/dashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/extension/Extension.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/extension/Extension.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/user/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/helper/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helper/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducers/IVR.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/IVR.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +99,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.standard" value="" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2020.2.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -106,7 +154,12 @@
       <workItem from="1605688110185" duration="7865000" />
       <workItem from="1605764722445" duration="36578000" />
       <workItem from="1606108035645" duration="44463000" />
-      <workItem from="1606282322617" duration="1731000" />
+      <workItem from="1606282322617" duration="26576000" />
+      <workItem from="1606372242366" duration="5034000" />
+      <workItem from="1606377364337" duration="5291000" />
+      <workItem from="1606391968203" duration="14000" />
+      <workItem from="1606392023412" duration="7014000" />
+      <workItem from="1606456030296" duration="1409000" />
     </task>
     <task id="LOCAL-00001" summary="/">
       <created>1605076234484</created>
@@ -164,7 +217,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606283889838</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="/">
+      <created>1606284377489</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1606284377489</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -195,22 +255,22 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="254" y="85" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1600.860@0.0.1600.860" timestamp="1605788130216" />
-    <state x="580" y="185" key="FileChooserDialogImpl" timestamp="1606231291408">
+    <state x="580" y="185" key="FileChooserDialogImpl" timestamp="1606406247470">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="580" y="185" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1606231291408" />
+    <state x="580" y="185" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1606406247470" />
     <state x="634" y="353" key="NewPhpFileDialog" timestamp="1603948388321">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="634" y="353" key="NewPhpFileDialog/0.0.1600.860@0.0.1600.860" timestamp="1603948388321" />
-    <state x="301" y="75" key="SettingsEditor" timestamp="1605178161570">
+    <state x="301" y="75" key="SettingsEditor" timestamp="1606377328152">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="301" y="75" key="SettingsEditor/0.0.1600.860@0.0.1600.860" timestamp="1605178161570" />
-    <state x="392" y="163" key="Vcs.Push.Dialog.v2" timestamp="1606284067004">
+    <state x="301" y="75" key="SettingsEditor/0.0.1600.860@0.0.1600.860" timestamp="1606377328152" />
+    <state x="392" y="163" key="Vcs.Push.Dialog.v2" timestamp="1606284379037">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="392" y="163" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1606284067004" />
+    <state x="392" y="163" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1606284379037" />
     <state x="406" y="40" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1605775307478">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -231,18 +291,14 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="456" y="195" width="672" height="677" key="run.anything.popup/0.0.1600.860@0.0.1600.860" timestamp="1606219046124" />
-    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup" timestamp="1606282814407">
+    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup" timestamp="1606393362512">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup/0.0.1600.860@0.0.1600.860" timestamp="1606282814407" />
+    <state x="463" y="180" width="672" height="678" key="search.everywhere.popup/0.0.1600.860@0.0.1600.860" timestamp="1606393362512" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/helper/store.js</url>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/components/Main/Main.js</url>
           <line>7</line>
@@ -258,13 +314,8 @@
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/components/IVR/IVRDetail.js</url>
-          <line>3</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/components/IVR/IVR.js</url>
-          <line>358</line>
+          <line>575</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">

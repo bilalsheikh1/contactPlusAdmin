@@ -14,7 +14,7 @@ import Users from "./components/user/users";
 import Inbound from "./components/Agent/Inbound";
 import Outbound from "./components/Agent/Outbound";
 import Blended from "./components/Agent/Blended";
-import RoutesInbound from "./components/Routes/RoutesInbound";
+import RoutesInbound from "./components/Routes/Inbound";
 import RoutesOutbound from "./components/Routes/RoutesOutbound";
 import IVR from "./components/IVR/IVR";
 import Queues from "./components/Queues/Queuse";

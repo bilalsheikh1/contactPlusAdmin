@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Breadcrumb, Layout, Table, Form, Button, InputNumber, Input, Space, Alert, Menu} from "antd";
+import {Breadcrumb, Layout, Table, Form, Button, InputNumber, Input, Space, Alert, Menu, Spin} from "antd";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
 import {CreateData, DeleteData, GetDataByID, showData, UpdateData} from "../../actions/WorkCode/WorkCode";
@@ -39,12 +39,12 @@ const WorkCode = () => {
     const [obj , setObj ] = useState([])
     const [data , setData] = useState([]);
     const [form] = Form.useForm();
-
+    const[loading , setLoading] = useState(false)
     const dispatch = useDispatch();
     const workCode = useSelector(state => state.WorkCode);
 
     useEffect(() => {
-        console.log(workCode.WorkCode)
+        setLoading(false)
         if(workCode.type === "showData")
             setData(workCode.WorkCode)
 
@@ -82,6 +82,7 @@ const WorkCode = () => {
 
     useEffect(() => {
         dispatch(showData())
+        setLoading(true)
     },[])
 
     const onFinish = (values) => {
@@ -119,6 +120,7 @@ const WorkCode = () => {
             dispatch(UpdateData(obj))
 
         }
+        setLoading(true)
     }
     const logout = () => {
         dispatch(userLogout())
@@ -152,8 +154,8 @@ const WorkCode = () => {
                         showIcon
                         closable
                     />}
+                    <Spin tip="Loading..." spinning={loading}>
                     <div style={{ padding: 24, minHeight: 360 , background : '#fff' }}>
-
                         <Form {...layout} name="nest-messages" onFinish={onFinish} form={form} validateMessages={validateMessages}>
                             <Form.Item
                                 name='name'
@@ -189,10 +191,9 @@ const WorkCode = () => {
                                 )}
                             />
                         </Table>
-
                     </div>
+                    </Spin>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>Ant Design ©2020 Created By Bilal</Footer>
             </Layout>
         </>
     );

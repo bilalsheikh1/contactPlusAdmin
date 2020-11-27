@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Breadcrumb, Layout, Table, Form, Button, InputNumber, Input, Space, Alert, Menu} from "antd";
+import {Breadcrumb, Layout, Table, Form, Button, InputNumber, Input, Space, Alert, Menu, Spin} from "antd";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
 import {CreateData, DeleteData, showData, UpdateData} from "../../actions/PauseReason/PauseReason";
@@ -39,12 +39,12 @@ const PauseReason = () => {
     const [obj , setObj ] = useState([])
     const [data , setData] = useState([]);
     const [form] = Form.useForm();
-
+    const [loading , setLoading] = useState(false)
     const dispatch = useDispatch();
     const pauseReason = useSelector(state => state.PauseReason);
 
     useEffect(() => {
-        console.log(pauseReason)
+        setLoading(false)
         if(pauseReason.type === "showData")
             setData(pauseReason.PauseReason)
 
@@ -83,11 +83,8 @@ const PauseReason = () => {
 
     useEffect(() => {
         dispatch(showData())
+        setLoading(true)
     },[])
-
-    const logout = () => {
-        dispatch(userLogout())
-    }
 
     const onFinish = (values) => {
         console.log(values);
@@ -124,6 +121,7 @@ const PauseReason = () => {
             console.log(name)
             dispatch(UpdateData(obj))
         }
+        setLoading(true)
     }
 
     return (
@@ -163,6 +161,7 @@ const PauseReason = () => {
                         showIcon
                         closable
                     />}
+                    <Spin tip="Loading..." spinning={loading}>
                     <div style={{ padding: 24, minHeight: 360 , background : '#fff' }}>
 
                         <Form {...layout} name="nest-messages" onFinish={onFinish} form={form} validateMessages={validateMessages}>
@@ -202,8 +201,8 @@ const PauseReason = () => {
                         </Table>
 
                     </div>
+                    </Spin>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>Ant Design ©2020 Created By Bilal</Footer>
             </Layout>
         </>
     );

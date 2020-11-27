@@ -177,7 +177,6 @@ const Blended = () => {
 
                     </div>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>Ant Design ©2020 Created By Bilal</Footer>
             </Layout>
         </>
     )

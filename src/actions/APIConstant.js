@@ -8,4 +8,5 @@ export const EXTENSION = "extension";
 export const FileUpload = "upload/audio";
 export const UPDATEPASSWORD = "updatePassword";
 export const IVR = "api/ivr"
+export const INBOUND = "api/inbound"
 // export const IVR = "api/ivr"

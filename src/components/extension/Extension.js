@@ -1,6 +1,6 @@
 
 import React, {useEffect, useState} from "react";
-import {Breadcrumb, Button, Form, Input, Layout, Select, Space, Table, Alert, InputNumber, Menu} from "antd";
+import {Breadcrumb, Button, Form, Input, Layout, Select, Space, Table, Alert, InputNumber, Menu, Spin} from "antd";
 import {useDispatch, connect, useSelector} from "react-redux";
 import axios from "axios";
 import {CreateData, DeleteData, showData, UpdateData} from "../../actions/Extensoin/Extension";
@@ -53,11 +53,12 @@ const Extension = () => {
     const [obj , setObj ] = useState([])
     const [data , setData] = useState([]);
     const [form] = Form.useForm();
-
+    const [loading , setLoading] = useState(false)
     const dispatch = useDispatch();
     const extension = useSelector(state => state.Extension)
 
     useEffect(() => {
+        setLoading(false)
         if(extension.type === "showData")
             setData(extension.Extension)
 
@@ -101,12 +102,8 @@ const Extension = () => {
     }, [extension])
 
     useEffect(() => {
-        console.log(data)
-    },[data])
-
-
-    useEffect(() => {
         dispatch(showData())
+        setLoading(true)
     },[])
 
     const onFinish = (values) => {
@@ -153,6 +150,7 @@ const Extension = () => {
             dispatch(UpdateData(object))
             setBtnName("Submit")
         }
+        setLoading(true)
     }
 
     const logout = () => {
@@ -174,20 +172,21 @@ const Extension = () => {
                         showIcon
                         closable
                     />}
-                    {extension && (extension.type=="createData") && <Alert
+                    {extension && (extension.type==="createData") && <Alert
                         message={'Success'}
                         description={"Inserted"}
                         type={"success"}
                         showIcon
                         closable
                     />}
-                    {extension && (extension.type=="update") && <Alert
+                    {extension && (extension.type==="update") && <Alert
                         message={'Success'}
                         description={"Updated"}
                         type={"success"}
                         showIcon
                         closable
                     />}
+                    <Spin tip="Loading..." spinning={loading}>
                     <div style={{ padding: 24, minHeight: 360 , background : '#fff' }}>
                         <Form name={"register"}  {...layout} initialValues={{remember: true,}} form={form} >
                             <Form.Item
@@ -284,8 +283,8 @@ const Extension = () => {
                         </Table>
 
                     </div>
+                    </Spin>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>Ant Design ©2020 Created By Bilal</Footer>
             </Layout>
         </>
     )

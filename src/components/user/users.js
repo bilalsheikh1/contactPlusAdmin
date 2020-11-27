@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Breadcrumb, Button, Form, Input, Layout, Select, Space, Table, Alert, Menu} from "antd";
+import {Breadcrumb, Button, Form, Input, Layout, Select, Space, Table, Alert, Menu, Spin} from "antd";
 import {useDispatch,  useSelector} from "react-redux";
 import axios from "axios";
 import {CreateData, DeleteData, showData, UpdateData} from "../../actions/Users/Users";
@@ -58,7 +58,7 @@ const Users = () => {
     const [data , setData] = useState([]);
     const [form] = Form.useForm();
     const [validate , setValidate] = useState(true);
-
+    const [loading , setLoading] = useState(false)
     const dispatch = useDispatch();
     const users = useSelector(state => state.Users)
     const queuesData = useSelector(state => state.Queues.Queues)
@@ -70,7 +70,7 @@ const Users = () => {
     },[queuesData])
 
     useEffect(() => {
-        console.log(users.Users)
+        setLoading(false)
         if(users.type === "showData")
             setData(users.Users)
 
@@ -112,6 +112,7 @@ const Users = () => {
     }, [users])
 
     useEffect(() => {
+        setLoading(true)
         dispatch(showData())
     },[])
 
@@ -120,10 +121,7 @@ const Users = () => {
         handleSubmitAction()
     };
 
-
-
     const getDataByID = (record) => {
-        // let records = dispatch(GetDataByID(record))
         setBtnName("Update")
         setName(record.name)
         setUsername(record.username)
@@ -141,6 +139,7 @@ const Users = () => {
     }
 
     const deleteData = (record) => {
+        setLoading(true)
         setId(record.id)
         dispatch(DeleteData(record))
     }
@@ -161,6 +160,7 @@ const Users = () => {
             dispatch(UpdateData(object))
             setBtnName("Submit")
         }
+        setLoading(true)
     }
     const logout = () => {
         dispatch(userLogout())
@@ -176,8 +176,8 @@ const Users = () => {
 
     return (
         <>
+            <Spin tip="Loading..." spinning={loading}>
             <Layout className="site-layout">
-
                 <Content style={{ margin: '0 16px' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item>User</Breadcrumb.Item>
@@ -402,7 +402,7 @@ const Users = () => {
 
                         </Form>
 
-                        <Table dataSource={data} scroll={{ x: 1500, y: 300 }} >
+                        <Table dataSource={data} scroll={{ x: 1400 }} >
 
                             <Column title="UserName" dataIndex="name" key="name" />
                             <Column title="Email" dataIndex="email" key="email" />
@@ -425,8 +425,8 @@ const Users = () => {
 
                     </div>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>Ant Design ©2020 Created By Bilal</Footer>
             </Layout>
+            </Spin>
         </>
     )
 }

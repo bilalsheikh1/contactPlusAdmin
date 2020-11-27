@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import  { withRouter, Route, Link ,Switch} from "react-router-dom";
-import {Menu, Form, Input, Button, Layout, Row, Col, Image, Breadcrumb, Alert} from "antd";
+import {Menu, Form, Input, Button, Layout, Row, Col, Image, Breadcrumb, Alert, Spin} from "antd";
 import 'antd/dist/antd.css';
 import '../../App.css';
 import Register from "../Register/Register";
@@ -34,10 +34,11 @@ const Login = () =>
     const dispatch = useDispatch();
     const [username , setUsername] = useState("");
     const [password , setPassword] = useState("");
-
+    const [loading , setLoading] = useState(false)
     const user = useSelector(state => state.user);
 
     useEffect(() => {
+        setLoading(false)
         if (user.type === "LoginSuccess") {
             history.push('/dashboard')
             window.location.reload(false);
@@ -46,6 +47,7 @@ const Login = () =>
 
     const handleSubmit = () => {
         let temp = { type : "LOGIN" , user : {username: username, password: password}};
+        setLoading(true)
         dispatch(logins(temp));
     }
 
@@ -67,7 +69,7 @@ const Login = () =>
                         closable
                     />
                     }
-
+                    <Spin tip="Loading..." spinning={loading}>
                     <div className="site-layout-content">
                         <Form name={"login"}  {...layout} initialValues={{remember: true,}}>
                             <Form.Item
@@ -103,11 +105,9 @@ const Login = () =>
                             </Form.Item>
                         </Form>
                     </div>
+                    </Spin>
                 </Content>
-
-                <Footer style={{ textAlign: 'center' }}>
-                    Ant Design ©2020 Created by Abdullah
-                </Footer>
+                <Footer style={{ textAlign: 'center' }}>Created By Dev Team @ Telecard</Footer>
             </Layout>
         </>
     );

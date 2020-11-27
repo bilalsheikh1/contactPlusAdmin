@@ -21,3 +21,19 @@ export const SaveIVR = (name , element) =>  (dispatch) =>
         return {type : Types.CREATE , payload : data , status : true}
     }
 }
+
+export const GetIVR = () =>  (dispatch) =>
+{
+    apiClient.get('/sanctum/csrf-cookie').then(response => {
+        if(response.status === 204 || response.status === 200)
+        {
+            apiClient.get(IVR).then(response => {
+                dispatch(getData(response))
+                console.log(response.data)
+            })
+        }
+    })
+    function getData(data){
+        return {type : Types.SHOWDATA , payload : data , status : true}
+    }
+}

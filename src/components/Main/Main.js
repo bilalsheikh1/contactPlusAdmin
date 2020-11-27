@@ -17,7 +17,7 @@ import Users from "../user/users";
 import Inbound from "../Agent/Inbound";
 import Outbound from "../Agent/Outbound";
 import Blended from "../Agent/Blended";
-import RoutesInbound from "../Routes/RoutesInbound";
+import RoutesInbound from "../Routes/Inbound";
 import RoutesOutbound from "../Routes/RoutesOutbound";
 import IVR from "../IVR/IVR";
 import Queues from "../Queues/Queuse";
@@ -42,14 +42,14 @@ function Main() {
                                 <Image src="images/logo.png"/>
                             </div>
 
-                            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['100']}>
-                                <Menu.Item key="101">
-                                    <Link to="/login">Login</Link>
-                                </Menu.Item>
-                                <Menu.Item key="102">
-                                    <Link to="/register">Register</Link>
-                                </Menu.Item>
-                            </Menu>
+                            {/*<Menu theme="dark" mode="horizontal" defaultSelectedKeys={['100']}>*/}
+                            {/*    <Menu.Item key="101">*/}
+                            {/*        <Link to="/login">Login</Link>*/}
+                            {/*    </Menu.Item>*/}
+                            {/*    <Menu.Item key="102">*/}
+                            {/*        <Link to="/register">Register</Link>*/}
+                            {/*    </Menu.Item>*/}
+                            {/*</Menu>*/}
                         </Header>
 
                         <Switch>

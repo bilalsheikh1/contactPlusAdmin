@@ -1,15 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {Modal, Breadcrumb, Button, Form, Input, Layout, Select, Space, Table, Alert, Menu} from "antd";
+import {Modal, Breadcrumb, Button, Form, Input, Layout, Select, Space, Table, Alert, Menu, Spin} from "antd";
 import {useDispatch, useSelector} from "react-redux";
-import axios from "axios";
 import {CreateData, DeleteData, UpdateData} from "../../actions/Queues/Queuse";
 import {showData} from "../../actions/Queues/Queuse";
-import {UserOutlined} from "@ant-design/icons";
-import {userLogout} from "../../actions/logout/logout";
-import SubMenu from "antd/es/menu/SubMenu";
-import {Link} from "react-router-dom";
-
-
 
 const { Column, ColumnGroup } = Table;
 const { Header, Content, Footer, Sider } = Layout;
@@ -94,7 +87,7 @@ const Outbound = () => {
     const[btnName , setBtnName ] = useState("Submit");
     const [obj , setObj ] = useState([])
     const [data , setData] = useState([]);
-    // const [modelText , setModelText] = useState([]);
+    const [loading , setLoading] = useState(false);
     const [form] = Form.useForm();
     // const [visible , setVisible] = useState(false);
     const dispatch = useDispatch();
@@ -103,6 +96,7 @@ const Outbound = () => {
 
 
     useEffect(() => {
+        setLoading(false)
         if (queue.type === "showData")
             setData(queue.Queues)
         else if (queue.type === "update"){
@@ -123,10 +117,7 @@ const Outbound = () => {
         }
         else if (queue.type === "createData"){
             if(queue.Queues!=null && queue.Queues!="") {
-                // dispatch(showData())
                 setData([...data, {name}]);
-                // setData(data.push(queue.Queues.name))
-                // setData(data.push(users.Users.name , users.Users.email , users.Users.type , users.Users.id));
                 form.setFieldsValue({
                     name : setName(""),
                 })
@@ -135,40 +126,74 @@ const Outbound = () => {
     } ,[queue])
 
     useEffect(() => {
-        console.log(data)
-    },[data])
-
-    useEffect(() => {
         dispatch(showData())
+        setLoading(true)
     },[])
 
     const onFinish = (values) => {
-        console.log(values);
         handleSubmitAction()
     };
 
     const getDataByID = (record) => {
         setName(record.name)
         setOldName(record.name)
-        // let records = dispatch(GetDataByID(record))
-        // setFirstName(record.first_name)
-        // setLastName(record.last_name)
-        // setEmail(record.email)
         setBtnName("Update")
         form.setFieldsValue({
             name : record.name,
+            musiconhold : record.musiconhold,
+            announce : record.announce,
+            context : record.context,
+            timeout : record.timeout,
+            ringinuse : record.ringinuse,
+            setinterfacevar : record.setinterfacevar,
+            setqueuevar : record.setqueuevar,
+            setqueueentryvar : record.setqueueentryvar,
+            monitor_format : record.monitor_format,
+            membermacro : record.membermacro,
+            membergosub : record.membergosub,
+            queue_youarenext : record.queue_youarenext,
+            queue_thereare : record.queue_thereare,
+            queue_callswaiting : record.queue_callswaiting,
+            queue_quantity1 : record.queue_quantity1,
+            queue_quantity2 : record.queue_quantity2,
+            queue_holdtime : record.queue_holdtime,
+            queue_minutes : record.queue_minutes,
+            queue_seconds : record.queue_seconds,
+            queue_thankyou : record.queue_thankyou,
+            queue_callerannounce : record.queue_callerannounce,
+            queue_reporthold : record.queue_reporthold,
+            announce_to_first_user : record.announce_to_first_user,
+            announce_frequency : record.announce_frequency,
+            min_announce_frequency : record.min_announce_frequency,
+            announce_round_seconds : record.announce_round_seconds,
+            announce_holdtime : record.announce_holdtime,
+            announce_position : record.announce_position,
+            announce_position_limit : record.announce_position_limit,
+            periodic_announce : record.periodic_announce,
+            periodic_announce_frequency : record.periodic_announce_frequency,
+            relative_periodic_announce : record.relative_periodic_announce,
+            retry : record.retry,
+            wrapuptime :record.wrapuptime,
+            penaltymemberslimit : record.penaltymemberslimit,
+            autofill : record.autofill,
+            monitor_Type : record.monitor_Type,
+            autopause: record.autopause,
+            autopausedelay : record.autopausedelay,
+            autopausebusy : record.autopausebusy,
+            autopauseunavail : record.autopauseunavail,
+            maxlen : record.maxlen,
+            servicelevel : record.servicelevel,
+            strategy : record.strategy,
+            joinempty : record.joinempty,
+            leavewhenempty : record.leavewhenempty,
+            reportholdtime : record.reportholdtime,
+            memberdelay : record.memberdelay,
+            weight : record.weight,
+            timeoutrestart : record.timeoutrestart,
+            defaultrule : record.defaultrule,
+            timeoutpriority : record.timeoutpriority
         })
-        // setObj({firstName : record.first_name , lastName : record.last_name , email : record.email , id : record.id })
     }
-
-    // const handleOk = () => {
-    //     setVisible(false)
-    // };
-
-    // const detail = (record) => {
-    //     setVisible(true)
-    //     setModelText("name " + record.name);
-    // }
 
     const deleteData = (record) => {
         setName(record.name)
@@ -178,12 +203,11 @@ const Outbound = () => {
     const handleSubmitAction = () => {
         if(btnName =="Submit")
         {
-            // setObj({firstName : firstName , lastName : lastName , email : email  })
             let obj = {name : name , musiconhold : musicOnHold , announce : announce , context : context , timeout : timeout ,
                 ringinuse : ringInUse , setinterfacevar : setInterfaceVar , setqueuevar : setQueueVar , setqueueentryvar : setQueueentryVar ,
                 monitor_format : monitor_format , membermacro : memberMacro , membergosub : memberGoSub , queue_youarenext : queue_YouAreNext ,
                 queue_thereare : queue_ThereAre , queue_callswaiting : queue_CallsWaiting , queue_quantity1 : queue_Quantity1 , queue_quantity2 : queue_Quantity2 ,
-                queue_holdtime : queue_HoldTime , queue_minutes : queue_Minutes , queue_seconds : queue_Seconds , queue_Minute ,
+                queue_holdtime : queue_HoldTime , queue_minutes : queue_Minutes , queue_seconds : queue_Seconds ,
                 queue_thankyou : queue_Thankyou , queue_callerannounce : queue_CallerAnnounce , queue_reporthold : queue_ReportHold , announce_frequency : announce_Frequency ,
                 announce_to_first_user : announce_To_First_User , min_announce_frequency : min_Announce_Frequency , announce_round_seconds : announce_Round_Seconds ,
                 announce_holdtime : announce_HoldTime , announce_position : announce_Position , announce_position_limit : announce_Position_Limit , periodic_announce : periodic_Announce ,
@@ -193,14 +217,23 @@ const Outbound = () => {
                 leavewhenempty : leaveWhenEmpty , reportholdtime : reportHoldTime , memberdelay : memberDelay , weight : weight , timeoutrestart : timeOutRestart , defaultrule : defaultRule , timeoutpriority : timeOutPriority}
             dispatch(CreateData(obj))
         }
-        else
-        {
-            let obj = {name : name , oldName : oldName};
+        else {
+            let obj = {name : name , musiconhold : musicOnHold , announce : announce , context : context , timeout : timeout ,
+                ringinuse : ringInUse , setinterfacevar : setInterfaceVar , setqueuevar : setQueueVar , setqueueentryvar : setQueueentryVar ,
+                monitor_format : monitor_format , membermacro : memberMacro , membergosub : memberGoSub , queue_youarenext : queue_YouAreNext ,
+                queue_thereare : queue_ThereAre , queue_callswaiting : queue_CallsWaiting , queue_quantity1 : queue_Quantity1 , queue_quantity2 : queue_Quantity2 ,
+                queue_holdtime : queue_HoldTime , queue_minutes : queue_Minutes , queue_seconds : queue_Seconds ,oldName: oldName,
+                queue_thankyou : queue_Thankyou , queue_callerannounce : queue_CallerAnnounce , queue_reporthold : queue_ReportHold , announce_frequency : announce_Frequency ,
+                announce_to_first_user : announce_To_First_User , min_announce_frequency : min_Announce_Frequency , announce_round_seconds : announce_Round_Seconds ,
+                announce_holdtime : announce_HoldTime , announce_position : announce_Position , announce_position_limit : announce_Position_Limit , periodic_announce : periodic_Announce ,
+                periodic_announce_frequency : periodic_Announce_Frequency , relative_periodic_announce : relative_Periodic_Announce , retry : retry , wrapuptime : wrapUpTime ,
+                penaltymemberslimit : penaltyMembersLimit , autofill : autofill , monitor_type : monitor_Type , autopause : monitor_Type , autopausedelay : autoPauseDelay ,
+                autopausebusy : autoPauseBusy , autopauseunavail : autoPauseUnavail , maxlen : maxLen , servicelevel : serviceLevel , strategy : strategy , joinempty : joinEmpty ,
+                leavewhenempty : leaveWhenEmpty , reportholdtime : reportHoldTime , memberdelay : memberDelay , weight : weight , timeoutrestart : timeOutRestart , defaultrule : defaultRule , timeoutpriority : timeOutPriority}
+            // let obj = {name: name, oldName: oldName};
             dispatch(UpdateData(obj))
         }
-    }
-    const logout = () => {
-        dispatch(userLogout())
+        setLoading(true)
     }
 
     return (
@@ -239,11 +272,12 @@ const Outbound = () => {
                         showIcon
                         closable
                     />}
+                    <Spin tip="Loading..." spinning={loading}>
                     <div style={{ padding: 24, minHeight: 360 , background : '#fff' }}>
                         <Form {...layout} name="nest-messages" onFinish={onFinish} form={form} validateMessages={validateMessages}>
                             <Form.Item
                                 name='name'
-                                label="name"
+                                label="Name"
                                 rules={[
                                     {
                                         required: true,
@@ -292,7 +326,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'timeout'
-                                label="TimeOut"
+                                label="Time Out"
                                 rules={[
                                     {
                                         type : "number",
@@ -305,7 +339,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name={"ringinuse"}
-                                label={"RingInUse"}
+                                label={"Ring InUse"}
                                 rules={[{
                                     required : false ,
                                     message : "Please Select First"
@@ -313,7 +347,7 @@ const Outbound = () => {
                             >
                                 <Select
                                     showSearch
-                                    placeholder="Select a RingInUse"
+                                    placeholder="Select a Ring InUse"
                                     optionFilterProp="children"
                                     filterOption={(input, option) =>
                                         option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -332,7 +366,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name={"setinterfacevar"}
-                                label={"setInterFaceVar"}
+                                label={"Set Inter FaceVar"}
                                 rules={[{
                                     required : false ,
                                     message : "Please Select First"
@@ -340,7 +374,7 @@ const Outbound = () => {
                             >
                                 <Select
                                     showSearch
-                                    placeholder="Select a setInterFaceVar"
+                                    placeholder="Select a Set Inter FaceVar"
                                     optionFilterProp="children"
                                     filterOption={(input, option) =>
                                         option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -358,7 +392,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name={"setqueuevar"}
-                                label={"SetQueueVar"}
+                                label={"Set QueueVar"}
                                 rules={[{
                                     required : false ,
                                     message : "Please Select First"
@@ -366,7 +400,7 @@ const Outbound = () => {
                             >
                                 <Select
                                     showSearch
-                                    placeholder="Select a SetQueueVar"
+                                    placeholder="Select a Set QueueVar"
                                     optionFilterProp="children"
                                     filterOption={(input, option) =>
                                         option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -384,7 +418,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name={"setqueueentryvar"}
-                                label={"SetQueueenTryVar"}
+                                label={"Set Queueen TryVar"}
                                 rules={[{
                                     required : false ,
                                     message : "Please Select First"
@@ -392,7 +426,7 @@ const Outbound = () => {
                             >
                                 <Select
                                     showSearch
-                                    placeholder="Select a SetQueueenTryVar"
+                                    placeholder="Select a Set Queueen TryVar"
                                     optionFilterProp="children"
                                     filterOption={(input, option) =>
                                         option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -410,7 +444,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'monitor_format'
-                                label="MonitorFormat"
+                                label="Monitor Format"
                                 rules={[
                                     {
 
@@ -423,7 +457,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'membermacro'
-                                label="MemberMacro"
+                                label="Member Macro"
                                 rules={[
                                     {
 
@@ -436,7 +470,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'membergosub'
-                                label="MemberGoSub"
+                                label="Member Go Sub"
                                 rules={[
                                     {
 
@@ -449,7 +483,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'queue_youarenext'
-                                label="QueueYouAreNext"
+                                label="Queue You Are Next"
                                 rules={[
                                     {
 
@@ -462,7 +496,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'queue_thereare'
-                                label="QueueThereAre"
+                                label="Queue There Are"
                                 rules={[
                                     {
 
@@ -475,7 +509,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'queue_callswaiting'
-                                label="QueueCallsWaiting"
+                                label="Queue Calls Waiting"
                                 rules={[
                                     {
 
@@ -488,7 +522,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'queue_quantity1'
-                                label="QueueQuantity1"
+                                label="Queue Quantity1"
                                 rules={[
                                     {
 
@@ -501,7 +535,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'queue_quantity2'
-                                label="QueueQuantity2"
+                                label="Queue Quantity2"
                                 rules={[
                                     {
 
@@ -514,7 +548,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'queue_holdtime'
-                                label="QueueHoldTime"
+                                label="Queue HoldTime"
                                 rules={[
                                     {
 
@@ -527,7 +561,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'queue_minutes'
-                                label="QueueMinutes"
+                                label="Queue Minutes"
                                 rules={[
                                     {
 
@@ -540,7 +574,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'queue_minute'
-                                label="QueueMinute"
+                                label="Queue Minute"
                                 rules={[
                                     {
 
@@ -553,7 +587,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'queue_seconds'
-                                label="QueueSeconds"
+                                label="Queue Seconds"
                                 rules={[
                                     {
 
@@ -566,7 +600,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'queue_thankyou'
-                                label="QueueThankYou"
+                                label="Queue ThankYou"
                                 rules={[
                                     {
 
@@ -579,7 +613,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'queue_callerannounce'
-                                label="QueueCallerAnnounce"
+                                label="Queue Caller Announce"
                                 rules={[
                                     {
 
@@ -592,7 +626,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'queue_reporthold'
-                                label="QueueReportHold"
+                                label="Queue Report Hold"
                                 rules={[
                                     {
 
@@ -605,7 +639,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'announce_frequency'
-                                label="AnnounceFrequency"
+                                label="Announce Frequency"
                                 rules={[
                                     {
 
@@ -618,15 +652,15 @@ const Outbound = () => {
 
                             <Form.Item
                                 name={"announce_to_first_user"}
-                                label={"AnnounceToFirstUser"}
+                                label={"Announce To First User"}
                                 rules={[{
                                     required : false ,
-                                    message : "Please Select AnnounceToFirstUser"
+                                    message : "Please Select Announce To First User"
                                 }]}
                             >
                                 <Select
                                     showSearch
-                                    placeholder="Select a AnnounceToFirstUser"
+                                    placeholder="Select a Announce To First User"
                                     optionFilterProp="children"
                                     filterOption={(input, option) =>
                                         option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -644,7 +678,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'min_announce_frequency'
-                                label="MinAnnounceFrequency"
+                                label="Min Announce Frequency"
                                 rules={[
                                     {
 
@@ -657,7 +691,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'announce_round_seconds'
-                                label="AnnounceRoundSeconds"
+                                label="Announce Round Seconds"
                                 rules={[
                                     {
 
@@ -670,7 +704,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'announce_holdtime'
-                                label="AnnounceHoldTime"
+                                label="Announce HoldTime"
                                 rules={[
                                     {
 
@@ -683,7 +717,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'announce_position'
-                                label="AnnouncePosition"
+                                label="Announce Position"
                                 rules={[
                                     {
 
@@ -697,7 +731,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'announce_position_limit'
-                                label="AnnouncePositionLimit"
+                                label="Announce Position Limit"
                                 rules={[
                                     {
                                         type : "number",
@@ -710,7 +744,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'periodic_announce'
-                                label="PeriodicAnnounce"
+                                label="Periodic Announce"
                                 rules={[
                                     {
 
@@ -723,7 +757,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'periodic_announce_frequency'
-                                label="PeriodicAnnounceFrequency"
+                                label="Periodic Announce Frequency"
                                 rules={[
                                     {
 
@@ -736,7 +770,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name={"relative_periodic_announce"}
-                                label={"RelativePeriodicAnnounce"}
+                                label={"Relative Periodic Announce"}
                                 rules={[{
                                     required : false ,
                                     message : "Please Select RelativePeriodicAnnounce"
@@ -744,7 +778,7 @@ const Outbound = () => {
                             >
                                 <Select
                                     showSearch
-                                    placeholder="Select a RelativePeriodicAnnounce"
+                                    placeholder="Select a Relative Periodic Announce"
                                     optionFilterProp="children"
                                     filterOption={(input, option) =>
                                         option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -762,10 +796,10 @@ const Outbound = () => {
 
                             <Form.Item
                                 name={"random_periodic_announce"}
-                                label={"RandomPeriodicAnnounce"}
+                                label={"Random Periodic Announce"}
                                 rules={[{
                                     required : false ,
-                                    message : "Please Select RandomPeriodicAnnounce"
+                                    message : "Please Select Random Periodic Announce"
                                 }]}
                             >
                                 <Select
@@ -801,7 +835,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'wrapuptime'
-                                label="WrapupTime"
+                                label="Wrap up Time"
                                 rules={[
                                     {
                                         type : "number",
@@ -814,7 +848,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'penaltymemberslimit'
-                                label="PenaltyMembersLimit"
+                                label="Penalty Members Limit"
                                 rules={[
                                     {
                                         type : "number",
@@ -853,7 +887,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'monitor_type'
-                                label="MonitorType"
+                                label="Monitor Type"
                                 rules={[
                                     {
 
@@ -892,7 +926,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'autopausedelay'
-                                label="AutoPauseDelay"
+                                label="Auto Pause Delay"
                                 rules={[
                                     {
 
@@ -905,10 +939,10 @@ const Outbound = () => {
 
                             <Form.Item
                                 name={"autopausebusy"}
-                                label={"AutoPauseBusy"}
+                                label={"Auto Pause Busy"}
                                 rules={[{
                                     required : false ,
-                                    message : "Please Select AutoFill"
+                                    message : "Please Select Auto Pause Busy"
                                 }]}
                             >
                                 <Select
@@ -931,15 +965,15 @@ const Outbound = () => {
 
                             <Form.Item
                                 name={"autopauseunavail"}
-                                label={"AutoPauseUnavail"}
+                                label={"Auto Pause Unavail"}
                                 rules={[{
                                     required : false ,
-                                    message : "Please Select AutoPauseUnavail"
+                                    message : "Please Select Auto Pause Unavail"
                                 }]}
                             >
                                 <Select
                                     showSearch
-                                    placeholder="Select a AutoPauseUnavail"
+                                    placeholder="Select a Auto Pause Unavail"
                                     optionFilterProp="children"
                                     filterOption={(input, option) =>
                                         option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -970,7 +1004,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'servicelevel'
-                                label="ServiceLevel"
+                                label="Service Level"
                                 rules={[
                                     {
                                         type : "number",
@@ -984,19 +1018,38 @@ const Outbound = () => {
                             <Form.Item
                                 name = 'strategy'
                                 label="Strategy"
-                                rules={[
-                                    {
-
-                                        required: false,
-                                    },
-                                ]}
+                                rules={[{
+                                    required : false ,
+                                    message : "Please Select Strategy"
+                                }]}
                             >
-                                <Input size="large"  onChange = {(e) => {setStrategy(e.target.value)}} />
+                                <Select
+                                    showSearch
+                                    placeholder="Select a Strategy"
+                                    optionFilterProp="children"
+                                    filterOption={(input, option) =>
+                                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                    onChange={(value) => {
+                                        setStrategy(value);
+                                    }}
+                                >
+                                    <option>Select Strategy</option>
+                                    <option value="ringall">Ring All</option>
+                                    <option value="leastrecent">Least Recent</option>
+                                    <option value="fewestcalls">Fewest Calls</option>
+                                    <option value="random">Random</option>
+                                    <option value="rrmemory">RR Memory</option>
+                                    <option value="linear">Linear</option>
+                                    <option value="wrandom">W Random</option>
+                                    <option value="rrordered">RR Ordered</option>
+                                </Select>
+
                             </Form.Item>
 
                             <Form.Item
                                 name = 'joinempty'
-                                label="JoinEmpty"
+                                label="Join Empty"
                                 rules={[
                                     {
 
@@ -1009,7 +1062,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'leavewhenempty'
-                                label="LeaveWhenEmpty"
+                                label="Leave When Empty"
                                 rules={[
                                     {
 
@@ -1022,15 +1075,15 @@ const Outbound = () => {
 
                             <Form.Item
                                 name={"reportholdtime"}
-                                label={"reportholdtime"}
+                                label={"Report HoldTime"}
                                 rules={[{
                                     required : false ,
-                                    message : "Please Select reportholdtime"
+                                    message : "Please Select Report HoldTime"
                                 }]}
                             >
                                 <Select
                                     showSearch
-                                    placeholder="Select a reportholdtime"
+                                    placeholder="Select a Report HoldTime"
                                     optionFilterProp="children"
                                     filterOption={(input, option) =>
                                         option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -1048,7 +1101,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'memberdelay'
-                                label="MemberDelay"
+                                label="Member Delay"
                                 rules={[
                                     {
                                         type : "number",
@@ -1074,15 +1127,15 @@ const Outbound = () => {
 
                             <Form.Item
                                 name={"timeoutrestart"}
-                                label={"TimeOutRestart"}
+                                label={"TimeOut Restart"}
                                 rules={[{
                                     required : false ,
-                                    message : "Please Select TimeOutRestart"
+                                    message : "Please Select TimeOut Restart"
                                 }]}
                             >
                                 <Select
                                     showSearch
-                                    placeholder="Select a TimeOutRestart"
+                                    placeholder="Select a TimeOut Restart"
                                     optionFilterProp="children"
                                     filterOption={(input, option) =>
                                         option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -1113,7 +1166,7 @@ const Outbound = () => {
 
                             <Form.Item
                                 name = 'timeoutpriority'
-                                label="TimeOutPriority"
+                                label="TimeOut Priority"
                                 rules={[
                                     {
 
@@ -1124,7 +1177,7 @@ const Outbound = () => {
                                 <Input size="large"  onChange = {(e) => {setTimeOutPriority(e.target.value)}} />
                             </Form.Item>
 
-                            <Form.Item name={['user', 'password']} label="password" >
+                            <Form.Item name={['user', 'password']} label="Password" >
                                 <Input size="large" />
                             </Form.Item>
 
@@ -1152,17 +1205,9 @@ const Outbound = () => {
                         </Table>
 
                     </div>
+                    </Spin>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>Ant Design ©2020 Created By Bilal</Footer>
             </Layout>
-            {/*<Modal*/}
-            {/*    title="Detail Record"*/}
-            {/*    visible={visible}*/}
-            {/*    onOk={handleOk}*/}
-            {/*    onCancel={handleOk}*/}
-            {/*>*/}
-            {/*    <p>{modelText}</p>*/}
-            {/*</Modal>*/}
         </>
     )
 }

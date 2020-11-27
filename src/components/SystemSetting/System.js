@@ -95,29 +95,16 @@ const System = () =>
     const dispatch = useDispatch();
     const [data , setData] = useState({  previewVisible , previewImage , previewTitle , fileList })
     const system = useSelector(state => state.systemSetting)
-    const logoutUser = useSelector(state => state.logout.loggedIn)
-    // const userLogout = useSelector(state => state.logout.loggedIn)
-    // let { previewVisible, previewImage, fileList, previewTitle } = data;
+    const [loading , setLoading] = useState(false)
     const [form] = Form.useForm();
 
     useEffect(() => {
         dispatch(ShowData())
+        setLoading(true)
     },[])
 
-    // useEffect(() => {
-    //     console.log(tableData)
-    // },[tableData])
-
     useEffect(() => {
-        console.log("ok ok "+logoutUser)
-        // if(logoutUser){
-        //     const history = useHistory();
-        //     history.push("/logout", { from: "HomePage" })}
-        // }
-    },[logoutUser])
-
-    useEffect(() => {
-        console.log(system.systemSetting)
+        setLoading(false)
         if(system.type === "showSetting") {
             setTableData([system.systemSetting])
             setThemeID(system.systemSetting.id)
@@ -165,6 +152,7 @@ const System = () =>
             let object = {id : id , server_address : server_address , wss_port : wss_port , manager_port : manager_port , username : username , secret : secret ,connection_timeout : connection_timeout , read_timeout : read_timeout};
             dispatch(updateData(object))
             setBtnName("Submit")
+            setLoading(true)
         }
     }
     const handleCancel = () => this.setState({ previewVisible: false });
@@ -175,9 +163,6 @@ const System = () =>
             <div style={{ marginTop: 8 }}>Upload</div>
         </div>
     );
-    const logout = () => {
-        dispatch(userLogout())
-    }
 
     const getDataByID = (record) => {
         // let records = dispatch(GetDataByID(record))
@@ -199,22 +184,12 @@ const System = () =>
             manager_port : record.manager_port,
             server_address : record.server_address,
         })
-        // setObj({username : record.username , email : record.email , type : record.type , id : record.id })
-    }
-
-    const deleteData = (record) => {
-        setID(record.id)
-        // dispatch(DeleteData(record))
     }
 
     const changeTheme = async (value) => {
-        // setTheme(value ? 'dark' : 'light')
-        // theme =await themeUpdate(value ? 'dark' : 'light');
-        console.log(value ? 'dark' : 'light')
         let object = {id : themeID , theme : value ? 'dark' : 'light'}
-        console.log(object)
         dispatch(changeThemes(object))
-
+        setLoading(true)
     };
 
     return (
@@ -241,6 +216,7 @@ const System = () =>
                         showIcon
                         closable
                     />}
+                    <Spin tip="Loading..." spinning={loading}>
                     <div style={{ padding: 24, minHeight: 360 , background : '#fff' }}>
                         <Form name={"register"}  {...layout} initialValues={{remember: true,}} form={form} >
 
@@ -419,16 +395,13 @@ const System = () =>
                                 render={(text, record) => (
                                     <Space size="middle">
                                         <Button onClick={() => { getDataByID(record)}} >Update</Button>
-                                        {/*<Button onClick={() => {deleteData(record)}} >Delete</Button>*/}
                                     </Space>
                                 )}
                             />
                         </Table>
-            
-            
                     </div>
+                    </Spin>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>Ant Design ©2020 Created By Bilal</Footer>
             </Layout>
         </>
     )

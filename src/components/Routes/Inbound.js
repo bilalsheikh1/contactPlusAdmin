@@ -1,14 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Breadcrumb, Button, Form, Input, Layout, Select, Space, Table, Alert, Menu} from "antd";
 import {useDispatch,  useSelector} from "react-redux";
-// import {CreateData, DeleteData, showData, UpdateData} from "../../actions/Users/Users";
-import apiClient from "../../../axios/axios";
-import SubMenu from "antd/es/menu/SubMenu";
-import {UserOutlined} from "@ant-design/icons";
-import {Link} from "react-router-dom";
-import {userLogout} from "../../../actions/logout/logout";
-import {CreateInbound} from "../../../actions/IVR/IVRInbound";
-// import {showData as queueData} from '../../actions/Queues/Queuse'
+import {CreateInbound, UpdateInbound} from "../../actions/Routes/Inbound";
 
 const { Column, ColumnGroup } = Table;
 const { Header, Content, Footer, Sider } = Layout;
@@ -20,7 +13,8 @@ const layout = {
         offset : 2,
         span: 16,
     },
-};
+}
+
 const validateMessages = {
     required: '${label} is required!',
     types: {
@@ -30,7 +24,7 @@ const validateMessages = {
     number: {
         range: '${label} must be between ${min} and ${max}',
     },
-};
+}
 
 const tailLayout = {
     wrapperCol: {
@@ -40,7 +34,7 @@ const tailLayout = {
 };
 const rightStyle = {position: 'absolute', top: 0, right: 0}
 
-const IVRInbound = () => {
+const Inbound = () => {
 
     const [id , setId] = useState()
     const [number , setNumber] = useState()
@@ -53,31 +47,23 @@ const IVRInbound = () => {
     const [form] = Form.useForm()
 
     const dispatch = useDispatch()
-    const IVRInbound = useSelector(state => state.IVR)
-    // const queuesData = useSelector(state => state.Queues.Queues)
-
-    // useEffect(() => {
-    //     console.log(queuesData)
-    //     if(queuesData.type === "showData")
-    //         setQueue(queuesData.Queues)
-    // },[queuesData])
+    const IVRInbound = useSelector(state => state.Inbound)
 
     useEffect(() => {
         console.log(IVRInbound.Users)
         if(IVRInbound.type === "showData")
-            setData(IVRInbound.Users)
+            setData(IVRInbound.IVR)
 
-        else if (IVRInbound.type === "update"){
+        else if (IVRInbound.type === "updateData"){
             if(IVRInbound.status == 1){
-                // data.find( p => p.id == id && ( p.name = name, true ) && ( p.email = email, true ) && ( p.type = type, true ) ) ;
+                data.find( p => p.id == id && ( p.number = number, true ) && ( p.module = module, true )) ;
                 form.setFieldsValue({
-                    // name : setName(""),
                     module : setModule(""),
                     number : setNumber(""),
                 })
             }
         }
-        else if (IVRInbound.type === "delete"){
+        else if (IVRInbound.type === "deleteData"){
             if(IVRInbound.status == 1){
                 console.log("delete")
                 // let index = data.findIndex(x => x.id == id);
@@ -90,7 +76,7 @@ const IVRInbound = () => {
             console.log(IVRInbound.Users)
             if(IVRInbound.Users!=null && IVRInbound.Users!="") {
                 // dispatch(showData())
-                // setData([...data, {name , type , email , id }]);
+                setData([...data, {number , module }]);
                 // setData(data.push(users.Users.name , users.Users.email , users.Users.type , users.Users.id));
                 form.setFieldsValue({
                     // name : setName(""),
@@ -137,7 +123,8 @@ const IVRInbound = () => {
         else
         {
             setValidate(false)
-            // dispatch(UpdateData(object))
+            let object = {id : id , number : number , module : module }
+            dispatch(UpdateInbound(object))
             setBtnName("Submit")
         }
     }
@@ -149,7 +136,7 @@ const IVRInbound = () => {
                 <Content style={{ margin: '0 16px' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item>IVR</Breadcrumb.Item>
-                        <Breadcrumb.Item>IVRInbound</Breadcrumb.Item>
+                        <Breadcrumb.Item>Inbound</Breadcrumb.Item>
                     </Breadcrumb>
                     {/*{users && users.error && <Alert*/}
                     {/*    message={'Error'}*/}
@@ -180,7 +167,8 @@ const IVRInbound = () => {
                     {/*    closable*/}
                     {/*/>}*/}
                     <div style={{ padding: 24, minHeight: 700 , background : '#fff' }}>
-                        <Form name={"register"}  {...layout} initialValues={{remember: true,}} form={form} >
+                        <Form  {...layout} initialValues={{remember: true,}} form={form} >
+
                             <Form.Item
                                 name={"number"}
                                 label={"Number"}
@@ -246,10 +234,9 @@ const IVRInbound = () => {
 
                     </div>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>Ant Design ©2020 Created By Bilal</Footer>
             </Layout>
         </>
     )
 }
 
-export default IVRInbound
+export default Inbound

@@ -145,9 +145,6 @@ const Register = () => {
                             </Form>
                     </div>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>
-                    Ant Design ©2020 Created by Abdullah
-                </Footer>
             </Layout>
 
     )

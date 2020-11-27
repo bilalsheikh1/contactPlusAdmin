@@ -2,8 +2,8 @@ import {Types} from "../constants/user.constants";
 
 const initState = {
     IVR: {
-        name : "",
-        script : ""
+        number : "",
+        module : ""
     },
     formSubmitted : false,
     status : 0,

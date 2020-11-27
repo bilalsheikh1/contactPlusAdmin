@@ -1,4 +1,4 @@
-import {Layout, Menu, Breadcrumb, Image, Switch as CheckboBtn, Form} from 'antd';
+import {Layout, Menu, Breadcrumb, Image, Switch as CheckboBtn, Form, Spin} from 'antd';
 import {
     DesktopOutlined,
     PieChartOutlined,
@@ -16,33 +16,26 @@ import {
 import React, {useEffect, useState} from "react";
 import '../../App.css';
 import {Link, Route,Switch} from "react-router-dom";
-import Login from "../Login/Login";
 import Register from "../Register/Register";
 import PrivateRoute from "../../Routes/PrivateRoute";
-import Home from "../Home/Home";
 import Users from "../user/users";
 import Dashboard from "../dashboard/dashboard";
 import Inbound from "../Agent/Inbound";
 import Outbound from "../Agent/Outbound";
 import Blended from "../Agent/Blended";
-import RoutesInbound from "../Routes/RoutesInbound"
+import IVRInbound from "../Routes/Inbound"
 import RoutesOutbound from "../Routes/RoutesOutbound";
 import IVR from "../IVR/IVR"
 import Queues from '../Queues/Queuse'
 import Extension from "../extension/Extension";
-import {changeThemes, showTheme} from '../../actions/SystemSetting/SystemSetting'
-import {Theme,themeUpdate} from "../../helper/GlobalThemeColor";
 import {useDispatch, useSelector} from "react-redux";
-import SystemSetting from "../../reducers/SystemSetting";
 import System from "../SystemSetting/System";
 import changePassword from "../changePassword/changePassword";
 import WorkCode from "../WorkCode/WorkCode";
 import PauseReason from "../PauseReason/PauseReason";
 import {userLogout} from "../../actions/logout/logout";
-import Routes from "../../Routes";
-import PublicRoute from "../../Routes/PublicRoute";
-import IVRInbound from "../IVR/IVRInbound/IVRInbound";
-
+import IVRList from "../IVR/IVRInbound/IVRList";
+import { useHistory } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -55,62 +48,43 @@ const SideBar = () => {
     const [current , setCurrent] = useState(1);
     const [theme , setTheme] = useState()
     const [themeID , setThemeID] = useState()
-
+    const [loading , setLoading] = useState(false)
     const systemSetting = useSelector(state => state.systemSetting);
     const dispatch = useDispatch();
+    const history = useHistory();
+    const logoutResponse = useSelector(state => state.logout)
+
+    useEffect(() => {
+        setLoading(false)
+        if(logoutResponse.type === "update")
+        {
+            history.push('/login')
+        }
+    } ,[logoutResponse])
 
     const logout = () => {
+        setLoading(true)
         dispatch(userLogout())
     }
 
-    useEffect(() => {
-        console.log("first time")
-        if(systemSetting.type === 'showTheme') {
-            // setTheme(systemSetting.systemSetting.theme)
-            // setThemeID(systemSetting.systemSetting.id)
-        }
-        if(systemSetting.status ==1)
-        {
-            setTheme((theme === "dark") ? "light" : "dark")
-        }
-        // console.log(systemSetting.status)
-    },[systemSetting])
-
-    // useEffect(() => {
-    //     // dispatch(showTheme())
-    // },[])
-
     const onCollapsed= (collapseds ) => {
-        console.log(collapseds);
         setCollapsed(collapseds);
     };
 
     const handleClick = (e) => {
-        console.log('click ', e);
-            setCurrent(e.key)
-    };
-
-    const changeTheme = async (value) => {
-        // setTheme(value ? 'dark' : 'light')
-        // theme =await themeUpdate(value ? 'dark' : 'light');
-        console.log(value ? 'dark' : 'light')
-        let object = {id : themeID , theme : value ? 'dark' : 'light'}
-        dispatch(changeThemes(object))
-        // setTheme(await themeUpdate(value ? 'dark' : 'light'))
-        // console.log(theme)
-
-        // Theme(value ? 'dark' : 'light')
+        setCurrent(e.key)
     };
 
     return(
         <>
             <Layout>
+                <Spin tip="Loading..." spinning={loading}>
                 <Header theme="light" >
                     <div className="logo" >
                         <Image src="images/logo.png"  />
                     </div>
                     <Menu selectable={false} mode='horizontal' style={rightStyle} theme={"dark"}>
-                        <SubMenu key="sub2" icon={<UserOutlined />} title="User" >
+                        <SubMenu key="sub1" icon={<UserOutlined />} title="User" >
                             <Menu.Item key="20" style={{marginRight : "12px"}}>
                                 <Link to={"/changePassword"}>Change Password</Link>
                             </Menu.Item>
@@ -119,12 +93,12 @@ const SideBar = () => {
                     </Menu>
                 </Header>
                 <Layout>
-                <Sider collapsible collapsed={collapsed} onCollapse={onCollapsed} width={200} >
+                <Sider collapsible collapsed={collapsed} onCollapse={onCollapsed} width={200} style={{minHeight : 1000}}>
 
                     <Menu  defaultSelectedKeys={['0']}
                           theme={theme}
                           onClick={handleClick}
-                          defaultOpenKeys={['sub1']}
+                          defaultOpenKeys={['1']}
                           selectedKeys={[current]}
                           mode="inline"
                           style={{ height: '100%', borderRight: 0 }}
@@ -137,21 +111,9 @@ const SideBar = () => {
                             <Link to={"/users"} >Users</Link>
                         </Menu.Item>
 
-                        {/*<SubMenu key="sub1" icon={<UserOutlined />} title="Agents">*/}
-                        {/*    <Menu.Item key="3">*/}
-                        {/*        <Link to={"/actionInbound"}>Inbound</Link>*/}
-                        {/*    </Menu.Item>*/}
-                        {/*    <Menu.Item key="4">*/}
-                        {/*        <Link to={"/actionOutbound"}>Outbound</Link>*/}
-                        {/*    </Menu.Item>*/}
-                        {/*    <Menu.Item key="5">*/}
-                        {/*        <Link to={"/actionBlended"}>Blended</Link>*/}
-                        {/*    </Menu.Item>*/}
-                        {/*</SubMenu>*/}
-
                         <SubMenu key="sub2" icon={<UserOutlined />} title="Routes"> {/*Routes*/}
                             <Menu.Item key="6">
-                                <Link to={"/routesInbound"}>Comming Soon</Link> {/*Inbound*/}
+                                <Link to={"/Inbound"}>Inbound</Link> {/*Inbound*/}
                             </Menu.Item>
                             <Menu.Item key="7">
                                 <Link to={"/routesOutbound"}>Comming Soon</Link> {/*Outbound*/}
@@ -163,7 +125,7 @@ const SideBar = () => {
                                 <Link to={"/IVR"}>IVR Nodes</Link>
                             </Menu.Item>
                             <Menu.Item key="91">
-                                <Link to={"/IVRInbound"}>Inbound</Link> {/*Outbound*/}
+                                <Link to={"/IVRList"}>IVRList</Link> {/*Outbound*/}
                             </Menu.Item>
                         </SubMenu>
 
@@ -183,21 +145,16 @@ const SideBar = () => {
                             <Link to={"/pauseReason"}>Pause Reason</Link>
                         </Menu.Item>
 
-                        <SubMenu key="sub3" icon={<FileDoneOutlined />} title="Reports">
+                        <SubMenu key="sub4" icon={<FileDoneOutlined />} title="Reports">
                             <Menu.Item key="13">CDR</Menu.Item>
                             <Menu.Item key="14">Login Report</Menu.Item>
                         </SubMenu>
 
-                        <SubMenu key="sub4" icon={<SettingFilled />} title="System Setting">
-
+                        <SubMenu key="sub5" icon={<SettingFilled />} title="System Setting">
                             <Menu.Item key="16">
                                 <Link to={"setting"} >Settings</Link>
                             </Menu.Item>
                         </SubMenu>
-
-                        {/*<Menu.Item key=""  >*/}
-
-                        {/*</Menu.Item>*/}
                     </Menu>
                 </Sider>
 
@@ -207,7 +164,6 @@ const SideBar = () => {
                     <PrivateRoute path="/actionInbound" component={Inbound} />
                     <PrivateRoute path="/actionOutbound" component={Outbound} />
                     <PrivateRoute path="/actionBlended" component={Blended} />
-                    <PrivateRoute path="/routesInbound" component={RoutesInbound} />
                     <PrivateRoute path="/routesOutbound" component={RoutesOutbound} />
                     <PrivateRoute path="/IVR" component={IVR} />
                     <PrivateRoute path="/Queues" component={Queues} />
@@ -217,9 +173,12 @@ const SideBar = () => {
                     <PrivateRoute path="/changePassword" component={changePassword} />
                     <PrivateRoute path="/workcode" component={WorkCode} />
                     <PrivateRoute path="/pauseReason" component={PauseReason} />
-                    <PrivateRoute path="/IVRInbound" component={IVRInbound} />
+                    <PrivateRoute path="/IVRList" component={IVRList} />
+                    <PrivateRoute path="/Inbound" component={IVRInbound} />
                 </Switch>
               </Layout>
+                </Spin>
+                <Footer style={{ textAlign: 'center' }}>Created By Dev Team @ Telecard</Footer>
             </Layout>
         </>
     );
