@@ -43,7 +43,7 @@ function IVR(props) {
 
     let elementData = [{
           id: Date.now(),
-          type: 'input',
+          type: 'start',
           data: { label: 'Start' },
           position: { x: 300, y: 10 },
     }];
