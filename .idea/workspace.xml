@@ -13,58 +13,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e3fd2a78-408d-48cf-8baa-22d3fc6890f5" name="Default Changelist" comment="/">
-      <change afterPath="$PROJECT_DIR$/src/components/IVR/nodes/StreamFile.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Routes/Inbound.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/reducers/Inbound.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/APIConstant.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/APIConstant.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/IVR/IVR.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/IVR/IVR.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/IVR/IVRInbound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/IVR/Inbound.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/Routes/Inbound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/Routes/Inbound.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/logout/logout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/logout/logout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/axios/axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/axios/axios.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Agent/Blended.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Agent/Blended.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Agent/Inbound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Agent/Inbound.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Agent/Outbound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Agent/Outbound.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/IVR/GetData.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/IVR/GetOptions.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/IVR/HangUp.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/IVR/IVR.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/IVR/IVR.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/IVR/IVRDetail.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/IVR/IVRInbound/IVRInbound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/IVR/IVRInbound/IVRList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/IVR/Modal.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/IVR/NoOperation.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/IVR/Noop.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/IVR/SayAlpha.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/IVR/SayData.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/IVR/SayDate.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/IVR/SayDateTime.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/IVR/SayDigits.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/IVR/SayNumber.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/IVR/SayPhonetic.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/IVR/SayTime.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/IVR/SetVar.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/IVR/Timeout.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/IVR/WaitForDigit.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Main/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Main/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PauseReason/PauseReason.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PauseReason/PauseReason.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Queues/Queuse.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Queues/Queuse.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Register/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Register/Register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Routes/RoutesInbound.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Routes/RoutesOutbound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Routes/RoutesOutbound.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SideBar/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SideBar/SideBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SystemSetting/System.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SystemSetting/System.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/WorkCode/WorkCode.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/WorkCode/WorkCode.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/changePassword/changePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/changePassword/changePassword.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/extension/Extension.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/extension/Extension.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/user/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user/users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/helper/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helper/store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/IVR.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/IVR.js" afterDir="false" />
-    </list>
+    <list default="true" id="e3fd2a78-408d-48cf-8baa-22d3fc6890f5" name="Default Changelist" comment="/" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
